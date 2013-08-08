@@ -1,0 +1,345 @@
+html {
+	overflow-y: scroll;
+}
+body {
+	background: #E5E5E5;
+}
+iframe {
+	display: none;
+}
+#summary {
+	display: none;
+}
+form {
+	margin: 0;
+}
+#wrapper {
+	margin-bottom: 60px;
+}
+/* navbar override */
+.navbar .nav > li > a {
+	padding: 10px;
+}
+
+/* ordered list override */
+ol, ol li {
+	list-style: decimal-leading-zero;
+}
+ol li {
+	margin-left: 30px;
+}
+/* artist card */
+.media {
+	display: inline-block;
+}
+/* taken from google music (ninja style!)*/
+.card {
+	background: none repeat scroll 0 0 white;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    
+    font-weight: 300;
+    margin: 5px;
+    overflow: hidden;
+    position: relative;
+    vertical-align: top;
+    white-space: nowrap;
+    
+}
+.card .image-wrapper {
+    border-radius: 2px 2px 0 0;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background-repeat: no-repeat;
+	background-color: #EEE;
+	background-size: cover;
+}
+.card .image-inner-wrapper {
+    border-radius: 2px 2px 0 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.card .image {
+    border-radius: 2px 2px 0 0;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    vertical-align: top;
+    width: 100%;
+}
+.card .details {
+    margin: 7px 10px;
+    overflow: hidden;
+}
+.fade-out:after {
+    bottom: 0;
+    content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+}
+.card .title {
+    color: #333333;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 18px;
+    max-height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform:capitalize;
+}
+.fade-out {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+}
+
+/* artist view */
+#artistOverviewView {
+	-webkit-transition: translate3d(0,0,0);
+}
+#artistView {
+    display: none;
+    -webkit-transition: translate3d(0,0,0);
+}
+#albumView {
+	display: none;
+	-webkit-transition: translate3d(0,0,0);
+}
+.navbar .close {
+	margin-top: 10px;
+}
+.media > ul {
+	display: none;
+}
+
+/* album info */
+.albumInfo {
+	overflow: hidden;
+}
+.albumInfo img {
+	width: 250px;
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+	border-radius: 5px;
+	border: 1px solid : #333;
+	margin: 0 15px 15px 0;
+	float: left;
+}
+.albumInfo ol {
+	float: left;
+}
+
+/* artist info */
+#artistInfo {
+	display: none;
+}
+#artistArt {
+	float: left;
+	margin: 9px 15px 9px 0;
+}
+#albumView table tr td {
+	cursor: default;
+}
+#albumView table tr.playable td {
+	cursor: pointer;
+}
+#albumView table td {
+	height: 40px;
+	vertical-align: middle;
+}
+#albumView table td.trackno {
+	text-align: center;
+}
+#albumView table th.trackno {
+	width: 40px;
+	text-align: center;
+}
+#albumView table th.dur {
+	width: 100px;
+}
+#artistView .well {
+	padding: 5px;
+}
+#albumView .well {
+	position: relative;
+	overflow: hidden;
+}
+#albumView .tableBG {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	opacity: 0.15;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-color: #EEE;
+	background-size: cover;
+}
+#albumView table {
+	position: relative;
+	z-index: 1;
+}
+.table-striped tbody > tr:nth-child(2n) > td, .table-striped tbody > tr:nth-child(2n) > th {
+    background-color: rgba( 255,255,255,0.5);
+}
+.table-striped tbody > tr:nth-child(2n+1) > td, .table-striped tbody > tr:nth-child(2n+1) > th {
+    background-color: rgba( 255,255,255,0.25);
+}
+.table-striped tbody > tr:hover > td, .table-striped tbody > tr:hover th {
+	background-color: rgba( 255,255,255,0.75);
+}
+/* loader */
+#loader {
+	position: fixed;
+	box-shadow: 0 0 0 5000px rgba(0,0,0,0.75);
+	left: 45%;
+	top: 10%;
+	z-index: 1;
+}
+#loader img {
+	display: block;
+	margin: 0 auto;
+}
+
+/* player */
+#player {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background: #F5F5F5;
+	border-top: 1px solid #cccccc;
+	box-shadow: 1px -1px 0 rgba(0,0,0,0.25);	
+}
+#player .thumbnail {
+	width: 9%;
+	position: absolute;
+	left: 2px;
+	bottom: 2px;
+	background: #ffffff;
+}
+#player .info-Title {
+	margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#player .info {
+	white-space: nowrap;
+}
+#player .info-Artist {
+	margin: 0;
+	white-space: nowrap;
+	display: inline-block;
+}
+#player .info-Album {
+	white-space: nowrap;
+	display: inline-block;
+}
+#player .well {
+	margin: 0;
+	border: 0;
+}
+.progressBar {
+	position: relative;
+	cursor: pointer;
+}
+.progressBar .progress {
+	height: 3px;
+	margin-bottom: 0;
+}
+.progressBar .time {
+	position: absolute;
+	padding: 2px 3px;
+	border: 1px solid #cccccc;
+	top: -12px;
+	background: #ffffff;
+}
+
+.progressBar .start {
+	left: -10%;
+}
+.progressBar .stop {
+	right: -8%;
+}
+.lightbox-content .time {
+	background: transparent;
+	border: 0;
+	top: 16px;
+}
+.lightbox-content .progressBar .start {
+	left: 0;
+}
+.lightbox-content .progressBar .stop {
+	right: 0;
+}
+
+
+@media (max-width: 768px) {
+	.media {
+		width: 24%;
+	}
+}
+
+@media (max-width: 480px) {
+	.media {
+		width: 100%;
+		margin-top: -2px;
+	}
+	.card {
+		width: 98%;
+		margin: 1%;
+	}
+	.card .image-wrapper {
+		height: 120px;
+	}
+	#artistView .well2 {
+		padding: 0px;
+	}
+}
+@media (min-width: 480px) {
+	.card {
+		width: 94%;
+	}
+	.card .image-wrapper {
+		height: 120px;
+	}
+	#artistView .well2 {
+		padding: 0px;
+	}
+}
+@media (min-width: 768px) {
+	.card {
+		width: 166px;
+	}
+}
+@media (min-width: 980px) {
+	.card {
+		width: 220px;
+	}
+	.card .image-wrapper {
+		height: 140px;
+	}
+}
+@media (min-width: 1200px) {
+	.media-list {
+		margin-left: 1.5%;
+	}
+	#artistView .well2 {
+		padding: 5px;
+	}
+	.card {
+		width: 270px;
+	}
+	.card .image-wrapper {
+		height: 160px;
+	}
+}
+

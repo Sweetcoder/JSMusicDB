@@ -1,0 +1,313 @@
+<!doctype html>
+<!--[if !IE]>      <html class="no-js non-ie" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>    <html class="no-js ie9" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" dir="ltr" lang="en-US">
+    <!--<![endif]-->
+    <head>
+        <title>JSMusicDB</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="css/bootstrap-lightbox.min.css" rel="stylesheet">
+        
+        <link rel="stylesheet" href="css/musicdb.css" type="text/css" />
+        <script type='text/javascript' src='http://www.arielext.org/wordpress/wp-content/themes/responsive/js/responsive-modernizr.js?ver=2.6.1'></script>
+        <script>
+			(function(i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] ||
+				function() {
+					(i[r].q = i[r].q || []).push(arguments)
+				}, i[r].l = 1 * new Date();
+				a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+			ga('create', 'UA-41619288-1');
+			ga('send', 'pageview');
+
+        </script>
+    </head>
+
+    <body class="home blog front-page">
+        <div class="container">
+            <div class="row" id="loader">
+                <img src="css/img/ajax-loader.gif" alt="" />
+            </div>
+            <div id="content">
+                <div class="">
+                    <div class="btn-group pull-right">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        <!-- ko if: loggedin -->
+                        <span data-bind="text: username"></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: loggedin -->
+                        <span>Please log in</span>
+                        <!-- /ko -->
+                         <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- ko ifnot: loggedin -->
+                        <li><a href="#login" data-toggle="modal">Login to synology</a></li>
+                        <!-- /ko -->
+                        <!-- ko ifnot: lastfm -->
+                        <li><a href="http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=http://www.arielext.org/music/index.html">Login to last.fm</a></li>
+                        <!-- /ko -->
+                    </ul>
+                    </div>
+                    
+                    <h1> And it will be my last </h1>
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <ul class="nav" data-bind="foreach: letters">
+                                <li data-bind="attr: { 'class': (active()) ? 'active' : '' }">
+                                    <a data-bind="text: letter, click: showLetter, attr: { 'class': (active()) ? 'active' : '' }" href="#"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="wrapper" class="">
+                    <div id="artistOverviewView">
+                        <ul data-bind="foreach: Artiesten" class="media-list">
+                            <li class="media">
+                                <div class="card artistCard span3" data-bind="click: getArtist">
+                                    <div class="image-wrapper" data-bind="style: { backgroundImage: 'url(' + art() + ')' }">
+                                        <div class="image-inner-wrapper">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                    <div class="details">
+                                        <div class="title fade-out" data-bind="text: Naam, attr: { title: Naam }">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="artistView">
+                        <!-- ko with: ActiveArtist -->
+                        <div id="headerBar">
+                            <div class="navbar">
+                                <div class="navbar-inner">
+                                    <div id="breadcrumbs" class="breadcrumbs main-tab">
+                                        <button type="button" class="close">
+                                            ×
+                                        </button>
+                                        <span class="brand" data-bind="text: Naam">Name of the artist</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Bio</h2>
+                        <div class="well">
+                            <div data-bind="html: info.bio"></div>
+                        </div>
+                        <h2>Collection</h2>
+                        <div class="well well2">
+                            <ul data-bind="foreach: Albums" class="media-list">
+                                <li class="media">
+                                    <div class="card albumCard span3" data-bind="click: getAlbum">
+                                        <div class="image-wrapper" data-bind="style: { backgroundImage: 'url(' + art() + ')' }">
+                                            <div class="image-inner-wrapper">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                        <div class="details">
+                                            <div class="title fade-out" data-bind="text:Album, attr: { title: Album }"></div>
+                                            <div class="subtitle fade-out">
+                                                <span data-bind="text: Tracks().length"></span> tracks
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div id="albumView">
+                        <!-- ko with: ActiveAlbum -->
+                        <div id="headerBar">
+                            <div class="navbar">
+                                <div class="navbar-inner">
+                                    <div id="breadcrumbs" class="breadcrumbs main-tab">
+                                        <button type="button" class="close">
+                                            ×
+                                        </button>
+                                        <span class="brand" data-bind="text: Artiest">Name of the artist</span>
+                                        <span class="brand"> - </span>
+                                        <span class="brand" data-bind="text: Album">Name of the artist</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="well">
+                            <div class="tableBG" data-bind="style: { backgroundImage: 'url(' + art() + ')' }">&nbsp;</div>
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="trackno">#</th>
+                                        <th class="track">Track</th>
+                                        <th class="dur">Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: Tracks">
+                                    <tr data-bind="click: playFile, attr: { 'class' : (root.loggedin()) ? 'playable' : ''}">
+                                        <td class="trackno"><span data-bind="text: Nummer, visible: !isplaying()">Nummer</span><span data-bind="visible: isplaying"><img src="img/ani_equalizer_black.gif" alt=""></span></td>
+                                        <td><span data-bind="text: Titel">Titel</span></td>
+                                        <td><span data-bind="text: Tijd">Tijd</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="login" class="modal hide fade" tabindex="-1" role="dialog">
+            <form class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        X
+                    </button>
+                    <h3 class="myModalLabel">Log in to your Synology Diskstation</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="control-group">
+                        <label class="control-label" for="inputUsername">Username</label>
+                        <div class="controls">
+                            <input type="text" id="inputUsername" placeholder="Username" data-bind="value: username, valueUpdate: 'afterkeydown'" autocomplete="false">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPassword">Password</label>
+                        <div class="controls">
+                            <input type="password" id="inputPassword" data-bind="value: password, valueUpdate: 'afterkeydown'" autocomplete="false">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal">Close</a>
+                    <button type="submit" class="btn btn-primary" data-bind="click: doLogin">
+                        Log in
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div id="player" data-bind="visible: isplaying">
+            <button class="close slideLeft" type="button"><i class="icon-chevron-left"></i></button>
+            <div class="span11" data-bind="with: player">
+                <a data-toggle="lightbox" href="#albumart"><img class="thumbnail span2" src="images/nocover.png"></a>
+                <div class="span9 offset2">
+                    <div class="progressBar span9" style="margin-left: 0;">
+                        <span data-bind="text: ums(position)" class="time start"></span>
+                        <div class="progress progress-striped active" data-bind="click: updatePosition">
+                            <div class="bar" data-bind="style: { width: progress}"></div>
+                        </div>
+                        <span data-bind="text: ums(length)" class="time stop"></span>
+                    </div>
+                    <div class="span5" style="margin-left: 0;">
+                        <h3 class="info-Title">Title</h3>
+                        <div class="info">
+                            <span class="info-Artist">Artist</span> - <span class="info-Album">Album</span>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div class="btn-toolbar">
+                            <div class="btn-group">
+                                <button class="btn" data-bind="click: previous"><i class="icon-step-backward"></i></button>
+                                <button class="btn" data-bind="click: togglePlayPause, html: state"></button>
+                                <button class="btn" data-bind="click: next"><i class="icon-step-forward"></i></button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn" data-bind="click: toggleMute, html: muteState"><i class="icon-volume-up"></i></button>
+                                <!-- ko if: root.lastfm -->
+                                <button class="btn" data-bind="click: love"><i class="icon-heart"></i></button>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <audio controls style="display: none;">
+                            <p>Your browser does not support native audio playback</p>
+                        </audio>
+                     </div>    
+                </div>
+            </div>
+        </div>
+        <div id="albumart" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="lightbox-content">
+                <!-- ko with: ActiveAlbum -->
+                    <img data-bind="attr: { src: Hoes()}">
+                <!-- /ko -->
+                <div class="lightbox-caption">
+                    <!-- ko with: player -->
+                    <div class="progressBar">
+                        <span data-bind="text: ums(position)" class="time start"></span>
+                        <div class="progress progress-striped active" data-bind="click: updatePosition">
+                            <div class="bar" data-bind="style: { width: progress}"></div>
+                        </div>
+                        <span data-bind="text: ums(length)" class="time stop"></span>
+                    </div>
+                    <div class="btn-toolbar">
+                        <div class="btn-group">
+                            <button class="btn" data-bind="click: previous"><i class="icon-step-backward"></i></button>
+                            <button class="btn" data-bind="click: togglePlayPause, html: state"></button>
+                            <button class="btn" data-bind="click: next"><i class="icon-step-forward"></i></button>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn" data-bind="click: toggleMute, html: muteState"><i class="icon-volume-up"></i></button>
+                            <!-- ko if: root.lastfm -->
+                            <button class="btn" data-bind="click: love"><i class="icon-heart"></i></button>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+        <script src="js/md5.js"></script>
+        <script src="js/jquery-2.0.2.js"></script>
+        <script src="js/jquery.transit.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-lightbox.min.js"></script>
+        <script src="js/knockout.js"></script>
+        <script src="js/lastfm.js"></script>
+        <script src="js/model/data-model.js"></script>
+        <script src="js/model/player.js"></script>
+        <script src="js/musicdb.js"></script>
+        <script>
+            $(function() {
+                var token = document.location.search;
+                if (token) {
+                    token = token.split("=")[1];
+                    var api_key = lastfm.api_key
+                    var api_sig = lastfm.signtoken(api_key, 'auth.getSession', token);
+    
+                    var url = 'http://ws.audioscrobbler.com/2.0/', data = {
+                        method : 'auth.getSession',
+                        api_key : '956c1818ded606576d6941de5ff793a5',
+                        token : token,
+                        api_sig : api_sig
+                    };
+    
+                    $.get(url, data, function(xml) {
+                        key = $("key", xml).text();
+                        localStorage.setItem("key", key);
+                        // reload
+                        window.location.href = 'index.html';
+                    }, "xml");
+                }
+            });
+        </script>
+    </body>
+</html>
