@@ -33,42 +33,21 @@ var DataModel = function() {
 	this.player = ko.observable(new Player($("#player audio").get(0), root));
 	
 	this.doLogin = function() {
-		var host = "http://www.arielext.org:5000";
-		var loginurl = host + "/webman/modules/login.cgi?username=";
-		//var loginurl = host + "/webapi/auth.cgi?api=SYNO.API.Auth&version=2&method=login&account="
-		
+		var proxy = 'login.php';
 		
 		// workaround for knockout not having the stored credentials
 		$("#login input").change();
 		
-		loginurl += that.username() + "&passwd=";
-		loginurl += that.password();
-		//$.get(loginurl, function (resonse) {
-		//	that.loggedin(true);
-		//	$("#login").modal('hide');
-		//}).error(function () {
-		//	that.loggedin(true);
-		//	$("#login").modal('hide');
-		//});
-		
-		//root.keepalive = setInterval(function () {
-		//	$.get(loginurl, function (resonse) {});
-		//}, 60 * 5);
-		if ($("#loginframe").length === 0) {
-			$("body").append("<iframe style=\"width:0px;height:0px\" src='" + loginurl + "' id='loginframe'></iframe>");			
-		} else {
-			$("#loginframe").attr("src", loginurl);
-		}
-		setTimeout(function () {
-			that.loggedin(true);
-			$("#login").modal('hide');
-		}, 500);
-		return false;
-		
-		// keep alive by relogging in
-		root.keepalive = setInterval(function () {
-			$("#loginframe").attr("src", loginurl);
-		}, 60 * 5);
+		$.getJSON(proxy, { account: that.username(), passwd: that.password()}, function (json) {
+			if (json.success && json.success === true) {
+				// login successfull
+				that.loggedin(true);
+				$("#login").modal('hide');
+				window.sid = json.data.sid;
+			} else {
+				// TODO: error handling
+			}
+		});
 	};
 };
 var Letter = function(node) {

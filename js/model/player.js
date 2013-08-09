@@ -2,7 +2,7 @@ var Player = function (audiotag, model) {
 	"use strict";
 	// static
 	var that = this;
-	that.playerpath = 'http://www.arielext.org:5000/webman/3rdparty/AudioStation/webUI/audio_stream.cgi/0.mp3?action=streaming&songpath=';
+	that.playerpath = 'stream.php?path=';
 	// that.playerpath = '';
 	// observables
 	that.length = ko.observable();
@@ -62,14 +62,14 @@ var Player = function (audiotag, model) {
 				track.isplaying(true);
 				if (that.activeTrack()) {
 					//if (that.currentTrack() != that.activeTrack().Nummer()) {
-						audiotag.src = that.playerpath + track.path();
+						audiotag.src = that.playerpath + track.path() + '&sid='+window.sid;
 						track.isplaying(true);
 						$("#player .info-Title").html(track.Titel());
 						audiotag.load();
 						that.activeTrack(track);						
 					//}
 				} else {
-					audiotag.src = that.playerpath + track.path();
+					audiotag.src = that.playerpath + track.path() + '&sid='+window.sid;
 					track.isplaying(true);
 					$("#player .info-Title").html(track.Titel());
 					audiotag.load();
