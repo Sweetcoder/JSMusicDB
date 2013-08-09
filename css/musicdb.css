@@ -286,6 +286,22 @@ ol li {
 	.media {
 		width: 24%;
 	}
+	.progressBar .start {
+		left: 2px;
+		top: 3px;
+	}
+	.progressBar .stop {
+		right: 2px;
+		top: 3px;
+	}
+	#player .span9 > .span5 {
+		margin-top: 25px;
+	}
+	#player .thumbnail {
+		left: auto;
+		right: 2px;
+		width: 13.5%;
+	}
 }
 
 @media (max-width: 480px) {
@@ -302,6 +318,9 @@ ol li {
 	}
 	#artistView .well2 {
 		padding: 0px;
+	}
+	#player .thumbnail {
+		width: 27.5%;
 	}
 }
 @media (min-width: 480px) {
