@@ -197,11 +197,14 @@ ol li {
 }
 /* loader */
 #loader {
-	position: fixed;
+	position: absolute;
 	box-shadow: 0 0 0 5000px rgba(0,0,0,0.75);
-	left: 45%;
-	top: 10%;
+	width: 210px;
+	height: 19px;
+	top: 0; left: 0; bottom: 0; right: 0;
 	z-index: 1;
+	margin: auto;
+	display: block;
 }
 #loader img {
 	display: block;

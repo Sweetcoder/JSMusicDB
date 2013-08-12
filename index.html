@@ -63,8 +63,8 @@
                     </ul>
                     </div>
                     
-                    <h1> And it will be my last </h1>
-                    <div class="navbar">
+                    <h1>JSMusicDB</h1>
+                    <div class="navbar" data-bind="visible: letters().length > 0">
                         <div class="navbar-inner">
                             <ul class="nav" data-bind="foreach: letters">
                                 <li data-bind="attr: { 'class': (active()) ? 'active' : '' }">
@@ -93,6 +93,9 @@
                                 </div>
                             </li>
                         </ul>
+                        <div data-bind="visible: Artiesten().length === 0" class="alert alert-error">
+                             <strong>Warning!</strong> No artists found, have you run the scanner module yet?
+                        </div>
                     </div>
                     <div id="artistView">
                         <!-- ko with: ActiveArtist -->

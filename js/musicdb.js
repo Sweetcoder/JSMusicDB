@@ -133,7 +133,9 @@
 			}
 		});
 		_cleanup();
-		settings.model.letters()[0].showLetter();
+		if (settings.model.letters().length > 0) {
+			settings.model.letters()[0].showLetter();
+		}
 		var stop = new Date();
 		settings.model.debugtext("JSON parsed in " + (stop - start) + " ms");
 	};

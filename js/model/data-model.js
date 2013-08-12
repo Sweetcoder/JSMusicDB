@@ -126,16 +126,6 @@ var Artist = function(node) {
 	};
 
 	// behaviour
-	that.getInfo = function() {
-		doCall(function(json) {
-			that.info.bio(json.artist.bio.content);
-			that.info.art(json.artist.image[2]["#text"]);
-			$("#artistName").html(that.Naam());
-			$("#artistArt").attr("src", that.info.art());
-			$("#artistBio").html(that.info.bio());
-			$('#artistInfo').modal();
-		});
-	};
 	that.art = function() {
 		doCall(function(json) {
 			that.info.bio(json.artist.bio.content);
@@ -201,7 +191,12 @@ var Album = function(node) {
 				var artlist = json.album.image;
 				$.each(artlist, function() {
 					if (this.size === 'extralarge') {
-						that.Hoes(this["#text"]);
+						var url = this["#text"];
+						if (url) {
+							that.Hoes(this["#text"]);
+						} else {
+							that.Hoes("images/nocover.png");
+						}
 					}
 				});
 				if (that.Hoes() === "") {
@@ -214,16 +209,24 @@ var Album = function(node) {
 	that.art = function() {
 		if (!that.polled()) {
 			doCall(function(json) {
-				var artlist = json.album.image;
-				$.each(artlist, function() {
-					if (this.size === 'extralarge') {
-						var url = this["#text"];
-						url = url.split("/");
-						url = "http://userserve-ak.last.fm/serve/500/" + url[5];
-						that.Hoes(url);
-					}
-				});
-				if (that.Hoes() === "") {
+				if (json.album) {
+					var artlist = json.album.image;
+					$.each(artlist, function() {
+						if (this.size === 'extralarge') {
+							var url = this["#text"];
+							if (url !== "") {
+								url = url.split("/");
+								url = "http://userserve-ak.last.fm/serve/500/" + url[5];
+								that.Hoes(url);
+							} else {
+								that.Hoes("");
+							}
+						}
+					});
+					if (that.Hoes() === "") {
+						that.Hoes("images/nocover.png");
+					}	
+				} else {
 					that.Hoes("images/nocover.png");
 				}
 			});

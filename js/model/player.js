@@ -62,7 +62,7 @@ var Player = function (audiotag, model) {
 				track.isplaying(true);
 				if (that.activeTrack()) {
 					//if (that.currentTrack() != that.activeTrack().Nummer()) {
-						audiotag.src = that.playerpath + track.path() + '&sid='+window.sid;
+						audiotag.src = that.playerpath + track.path().replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid;
 						track.isplaying(true);
 						$("#player .info-Title").html(track.Titel());
 						audiotag.load();
