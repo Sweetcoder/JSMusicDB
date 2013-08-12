@@ -239,6 +239,7 @@ var Album = function(node) {
 var Track = function(node) {
 	var that = this;
 	that.File = ko.observable(node.Naam);
+	that.Artiest = ko.observable(node.Artiest)
 	that.Omvang = ko.observable(node.MB);
 	that.Tijd = ko.observable(node["U:M:S"]);
 	that.Kwaliteit = ko.observable(node["Kbit/s"]);

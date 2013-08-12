@@ -47,21 +47,32 @@
 		}
 	};
 	var addAlbumToArtist = function(album, artistName) {
-		settings.model.Albums.push(album);
-		settings.albumCache[album.Album()] = album;
 		artistName = artistName.toLowerCase();
 		if (artistName.indexOf("the ") === 0) {
 			artistName = artistName.substring(4);
 		}
+		settings.model.Albums.push(album);
 		var artist = settings.artistCache[artistName];
 		if (artist) {
+			settings.albumCache[artistName + "-"+ album.Album()] = album;
 			artist.Albums.push(album);
+			artist.Albums(artist.Albums.sort(function (a,b) {
+				if (a.Album() < b.Album()) {
+					return -1;
+				} else {
+					return 1;
+				}
+			}));
 		}
 	};
 
 	var addTrackToAlbum = function(track, albumName) {
-		var album = settings.albumCache[albumName];
-		if (album) {
+		var artistName = track.Artiest().toLowerCase();
+		if (artistName.indexOf("the ") === 0) {
+			artistName = artistName.substring(4);
+		}
+		var album = settings.albumCache[artistName + "-"+ albumName];
+		if (album && album.Artiest() == track.Artiest()) {
 			album.Tracks.push(track);
 			album.Tracks(album.Tracks.sort(function (a,b) {
 				if (!isNaN(a.Disc())) {
