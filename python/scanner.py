@@ -80,7 +80,7 @@ def find_files(directory, pattern):
                 filename = os.path.join(root, basename)
                 yield filename
 
-def ums(i):
+def ums(i, ignoreZero=True):
     i = int(i)
     hours = i / 3600
     rest = i % 3600
@@ -92,10 +92,13 @@ def ums(i):
         minutes = "0" + str(minutes)
     if (seconds < 10):
         seconds = "0" + str(seconds)
-    if (hours == "00"):
-        hours = ""
-    else:
-        hours = hours + ":"
+	if (ignoreZero):
+		if (hours == "00"):
+			hours = ""
+		else:
+			hours = hours + ":"
+	else :
+		hours = hours + ":"
     return hours + str(minutes) + ":" + str(seconds)
 
 def _force_unicode(bstr, encoding, fallback_encodings=None):
@@ -167,11 +170,11 @@ for filename in find_files(rootpath, '*.mp3'):
                 if (perc > 0):
                     tot = (diff / perc) * 100
                     eta = tot - diff
-                    sys.stdout.write("" + str(perc) + "% done, ETA: " +  ums(eta) + "\r")
+                    sys.stdout.write("" + str(perc) + "% done, ETA: " +  ums(eta, False) + "\r")
                     sys.stdout.flush()
             jsonFile.append(track.toString())
     
 f.write("[" + ",\n".join(jsonFile) + "]")
 f.close()
 inc = time.time()
-print "Done scanning, time taken:", ums(inc-start)
+print "Done scanning, time taken:", ums(inc-start, False)
