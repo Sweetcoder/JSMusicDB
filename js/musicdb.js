@@ -148,7 +148,7 @@
 		$(this).parent().slideUp();
 	})
 	
-	$("#wrapper").on("click", ".artistCard", function () {
+	$(".wrapper").on("click", ".artistCard", function () {
 	    $("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
 	    	$(this).hide();
 	    	$("#artistView").show().css({ transform: 'scale(0)' });
@@ -163,7 +163,7 @@
 	    });
 	});
 	
-	$("#wrapper").on("click", ".albumCard", function () {
+	$(".wrapper").on("click", ".albumCard", function () {
 	    $("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
 	    	$(this).hide();
 	    	$("#albumView").show().css({ transform: 'scale(0)' });
@@ -179,7 +179,7 @@
 	});
 	
 	$("#player").on("click", ".slideLeft", function () {
-		$("#player").transition({left: '-99%'}, function () {
+		$("#player").transition({left: '-96%'}, function () {
 			$("#player .slideLeft").removeClass("slideLeft").addClass("slideRight").find("i").addClass("icon-chevron-right");	
 		});
 	});
@@ -207,4 +207,28 @@
 			}
 		}
 	}
+	
+	// add sidebar functionality
+	var snapper = new Snap({
+  		element: document.getElementById('main')
+	});
+	snapper.settings({
+		disable: 'right'
+		, touchToDrag: false
+	});
+	
+	$("#main .toggle").on("click", function () {
+		if (snapper.state().state == "left") {
+			snapper.close();
+		} else {
+			snapper.open('left');
+		}
+	});
+	$(".snap-drawers").on("click", "a", function (e) {
+		e.preventDefault();
+		$("#main .container > div").hide();
+		$($(this).attr("href")).show();
+		_gaq.push(['_trackPageview', $(this).attr("href")]);
+		snapper.close();
+	});
 })();

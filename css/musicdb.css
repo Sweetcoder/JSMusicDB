@@ -1,8 +1,5 @@
-html {
-	overflow-y: scroll;
-}
 body {
-	background: #E5E5E5;
+	background: #ffffff;
 }
 iframe {
 	display: none;
@@ -13,8 +10,30 @@ iframe {
 form {
 	margin: 0;
 }
-#wrapper {
+.wrapper {
 	margin-bottom: 60px;
+}
+#main {
+	position: absolute;
+	background: #E5E5E5;
+}
+.drawers {
+	position: absolute;
+}
+.drawers .left-drawer {
+	position: absolute;
+}
+.container {
+	padding: 0 4%;
+}
+.snap-content {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+h1 .toggle {
+	margin: 13px 8px 0 0;
+	display: inline-block;
+	cursor: pointer;
 }
 /* navbar override */
 .navbar .nav > li > a {
@@ -220,6 +239,7 @@ ol li {
 	background: #F5F5F5;
 	border-top: 1px solid #cccccc;
 	box-shadow: 1px -1px 0 rgba(0,0,0,0.25);	
+	z-index: 3;
 }
 #player .thumbnail {
 	width: 9%;
@@ -302,8 +322,13 @@ ol li {
 	}
 	#player .thumbnail {
 		left: auto;
-		right: 2px;
+		right: 16px;
 		width: 13.5%;
+	}
+	#player > .close {
+		position: absolute;
+		right: 2px;
+		bottom: 2px;
 	}
 }
 
