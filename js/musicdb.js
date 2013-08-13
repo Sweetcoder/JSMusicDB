@@ -23,7 +23,6 @@
 			if (!settings.letterCache[firstLetter]) {
 				letter = new Letter(artist);
 				letter.letter = firstLetter;
-				settings.letterCache[firstLetter] = letter;
 				settings.model.letters.push(letter);
 				settings.model.letters(settings.model.letters.sort(function(a,b) {
 					if (a.letter < b.letter) {
@@ -32,6 +31,7 @@
 						return 1;
 					}
 				}));
+				settings.letterCache[firstLetter] = letter;
 			} else {
 				letter = settings.letterCache[firstLetter];
 			}
