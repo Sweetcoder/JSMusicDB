@@ -203,7 +203,7 @@
 			}
 			letter.artists.removeAll(removeEmptyArtistsInLetter);
 			if (letter.artists().length === 0) {
-				// settings.model.letters().remove(letter);
+				settings.model.letters.remove(letter);
 			}
 		}
 	}
