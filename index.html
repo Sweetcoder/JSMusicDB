@@ -190,6 +190,17 @@
                     <div class="wrapper">
                         <div class="well">
                             <form id="setLogin" class="form-horizontal">
+                                <legend>Animations</legend>
+                                <div class="control-group">
+                                    <label for="animation">Changing Over-/Artist/Album view</label>
+                                    <div class="control">
+                                        <select data-bind="value: animation">
+                                            <option value="1">Scale</option>
+                                            <option value="2">Zoom</option>
+                                            <option value="3">Slide</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <legend>Server settings</legend>
                                 <!-- ko ifnot: loggedin -->
                                     <div class="control-group">

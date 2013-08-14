@@ -36,11 +36,22 @@ var DataModel = function() {
 	this.player = ko.observable(new Player($("#player audio").get(0), root));
 	
 	
-	// computed
+	// totals
 	this.totalArtists = ko.observable(0);
 	this.totalAlbums = ko.observable(0);
 	this.totalTracks = ko.observable(0);
 	this.totalPlaying = ko.observable(0);
+	
+	
+	// animations
+	this.animation = ko.observable(1);
+	this.animation.subscribe(function (value) {
+		localStorage.removeItem("animation");
+		localStorage.setItem("animation", value);
+	});
+	if (localStorage.getItem("animation")) {
+		that.animation(localStorage.getItem("animation"));
+	}
 	
 	this.doLogin = function() {
 		if (that.server() != '0' || that.server() != 0) {
@@ -129,7 +140,7 @@ var DataModel = function() {
 		// total = total in seconds
 		var days = parseInt(total / (3600 * 24)),
 			rest = parseInt(total % (3600 * 24)),
-			hours = parseInt(total / 3600),
+			hours = parseInt(rest / 3600),
 			rest = parseInt(total % 3600),
 			minutes = parseInt(rest / 60),
 			seconds = parseInt(rest % 60);
@@ -169,21 +180,55 @@ var Letter = function(node) {
 		});
 		that.active(true);
 		if ($("#artistView").is(":visible") || $("#albumView").is(":visible")) {
-			$("#artistView, #albumView").css({
-				transformOrigin : '50% 50px'
-			}).transition({
-				scale : 0
-			}, function() {
-				$(this).hide();
-				$("#artistOverviewView").show().css({
-					transform : 'scale(0)'
-				});
-				$("#artistOverviewView").css({
+			if (root.animation() === "1") {
+				$("#artistView, #albumView").css({
 					transformOrigin : '50% 50px'
 				}).transition({
-					scale : 1
+					scale : 0
+				}, function() {
+					$(this).hide();
+					$("#artistOverviewView").show().css({
+						transform : 'scale(0)'
+					});
+					$("#artistOverviewView").css({
+						transformOrigin : '50% 50px'
+					}).transition({
+						scale : 1
+					});
 				});
-			});
+			} else if (root.animation() === "2") {
+				$("#artistView, #albumView").css({
+					transformOrigin : '50% 50px'
+				}).transition({
+					scale : 0,
+					opacity: 0
+				}, function() {
+					$(this).hide();
+					$("#artistOverviewView").show().css({
+						transform : 'scale(5)'
+					});
+					$("#artistOverviewView").css({
+						transformOrigin : '50% 50px'
+					}).transition({
+						scale : 1,
+						opacity: 1
+					});
+				});
+			} else if (root.animation() === "3") {
+				$("#artistView, #albumView").transition({
+					left : '-100%',
+					opacity: 0
+				}, function() {
+					$(this).hide();
+				});
+				$("#artistOverviewView").show().css({
+					left: '100%'
+				});
+				$("#artistOverviewView").transition({
+					left : 0,
+					opacity: 1
+				});
+			}
 		}
 	};
 };

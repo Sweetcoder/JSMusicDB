@@ -41,7 +41,7 @@ class Album:
         else:
             self.Jaar = "null"
     def toString (self):
-        return u"{\"Naam\":\"" + self.Artiest + " - " + self.Album + "\",\"Titel\":\"\",\"Artiest\":\""+self.Artiest+"\",\"Album\":\""+self.Album+"\",\"Track\":null,\"Jaar\":\""+self.Jaar+"\"}"
+        return u"{\"Naam\":\"" + self.Artiest + " - " + self.Album + "\",\"Titel\":\"\",\"Artiest\":\"" + self.Artiest + "\",\"Album\":\"" + self.Album + "\",\"Track\":null,\"Jaar\":\"" + self.Jaar + "\"}"
     
 class Track:
     def __init__ (self, file, path):
@@ -76,7 +76,7 @@ class Track:
         
         
     def toString (self):
-        return u"{\"Pad\":\"" + self.Pad + "\",\"Titel\":\"" + self.Titel + "\",\"Artiest\":\""+self.Artiest+"\",\"Album\":\""+self.Album+"\",\"Track\":\""+self.Track+"\",\"Jaar\":\""+self.Jaar+"\",\"U:M:S\":\""+self.Duur+"\",\"Disk\":\""+self.Disk+"\"}"
+        return u"{\"Pad\":\"" + self.Pad + "\",\"Titel\":\"" + self.Titel + "\",\"Artiest\":\"" + self.Artiest + "\",\"Album\":\"" + self.Album + "\",\"Track\":\"" + self.Track + "\",\"Jaar\":\"" + self.Jaar + "\",\"U:M:S\":\"" + self.Duur + "\",\"Disk\":\"" + self.Disk + "\"}"
     def time(self):
         return self.seconds
 
@@ -99,14 +99,14 @@ def ums(i, ignoreZero=True):
         minutes = "0" + str(minutes)
     if (seconds < 10):
         seconds = "0" + str(seconds)
-	if (ignoreZero):
-		if (hours == "00"):
-			hours = ""
-		else:
-			hours = hours + ":"
-	else :
-		hours = str(hours) + ":"
-    return hours + str(minutes) + ":" + str(seconds)
+    if (ignoreZero == True):
+    	if (hours == "00" or hours == "0"):
+		hours = ""
+	else:
+	        hours = hours + ":"
+    else:
+	hours = str(hours) + ":"
+    return str(hours) + str(minutes) + ":" + str(seconds)
 def totals():
     return "{ \"totals\" : { \"artists\":" + str(totalArtist) + ", \"albums\":" + str(totalAlbums) + ", \"tracks\":" + str(nrScanned) + ", \"playingTime\":" + str(totalTime) + "}}" 
 def _force_unicode(bstr, encoding, fallback_encodings=None):
@@ -154,7 +154,7 @@ def _force_unicode(bstr, encoding, fallback_encodings=None):
 
 allfiles = find_files(rootpath, '*.mp3')
 countfiles = sum(1 for e in allfiles)
-print "Starting scan for",countfiles,"mp3 files in '" + rootpath + "'"
+print "Starting scan for", countfiles, "mp3 files in '" + rootpath + "'"
 for filename in find_files(rootpath, '*.mp3'):
     
     song = eyed3.load(filename)
@@ -174,18 +174,17 @@ for filename in find_files(rootpath, '*.mp3'):
             totalTime = totalTime + track.seconds
             nrScanned = nrScanned + 1
             perc = int((float(float(nrScanned) / float(countfiles))) * 100)
-            if (nrScanned % int(countfiles/100) == 0):
+            if (nrScanned > 100 and nrScanned % int(countfiles / 100) == 0):
                 inc = time.time()
-                #print "Scanner has scanned" , str(nrScanned) , "files, time elapsed =", ums(inc-start)
-                diff = inc-start
+                diff = inc - start
                 if (perc > 0):
                     tot = (diff / perc) * 100
                     eta = tot - diff
-                    sys.stdout.write("" + str(perc) + "% done, ETA: " +  ums(eta, False) + "\r")
+                    sys.stdout.write("" + str(perc) + "% done, ETA: " + ums(eta, False) + "\r")
                     sys.stdout.flush()
             jsonFile.append(track.toString())
 jsonFile.append(totals())   
 f.write("[" + ",\n".join(jsonFile) + "]")
 f.close()
 inc = time.time()
-print "Done scanning, time taken:", ums(inc-start, False), "Artists:", totalArtist, ", Albums:", totalAlbums, ", Tracks:", nrScanned, " Playing time:", ums(totalTime, False), " (H:M:S)"
+print "Done scanning, time taken:", ums(inc - start, False), "Artists:", totalArtist, ", Albums:", totalAlbums, ", Tracks:", nrScanned, "Playing time:", ums(totalTime, False), "(H:M:S)"

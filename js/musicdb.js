@@ -117,6 +117,7 @@
 		}).error(function(e) {
 			settings.model.debugtext("error occured during load", e)
 			$("#loader").hide();
+			$("#content").fadeIn();
 		});
 	};
 	var parseJSON = function() {
@@ -160,33 +161,97 @@
 	})
 	
 	$(".wrapper").on("click", ".artistCard", function () {
-	    $("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
-	    	$(this).hide();
-	    	$("#artistView").show().css({ transform: 'scale(0)' });
-	    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1 });
-	    });
+		if (settings.model.animation() === "1") {
+		    $("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
+		    	$(this).hide();
+		    	$("#artistView").show().css({ transform: 'scale(0)', opacity: 0, left: 0 });
+		    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		    });
+		}
+		if (settings.model.animation() === "2") {
+			$("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 5, opacity: 0}, function () {
+				$(this).hide();
+			});
+			$("#artistView").show().css({ transform: 'scale(0)', opacity: 0, left: 0 });
+	    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		}
+		if (settings.model.animation() === "3") {
+			$("#artistOverviewView").css({ left: 0}).transition({ left: '100%', opacity: 0}, function () {
+				$(this).hide();
+			});
+			$("#artistView").show().css({ left: '-100%', opacity: 0,transform: 'scale(1)' });
+	    	$("#artistView").transition({ left: 0, opacity: 1 });
+		}
 	});
 	$("#artistView").on("click", ".close", function () {
-	    $("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
-	    	$(this).hide();
-	    	$("#artistOverviewView").show().css({ transform: 'scale(0)' });
-	    	$("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1 });
-	    });
+		if (settings.model.animation() === "1") {
+		    $("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
+		    	$(this).hide();
+		    	$("#artistOverviewView").show().css({ transform: 'scale(0)', opacity: 0, left: 0 });
+		    	$("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		    });
+		}
+		if (settings.model.animation() === "2") {
+			$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0, opacity: 0 }, function () {
+		    	$(this).hide();
+		    });
+		    $("#artistOverviewView").show().css({ transform: 'scale(5)', opacity: 0, left: 0 });
+	    	$("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		}
+		if (settings.model.animation() === "3") {
+			$("#artistView").css({ left: 0 }).transition({ left: '-100%', opacity: 0 }, function () {
+		    	$(this).hide();
+		    });
+		    $("#artistOverviewView").show().css({ left: '100%',transform: 'scale(1)' });
+	    	$("#artistOverviewView").transition({ left: 0, opacity: 1 });
+		}
 	});
 	
 	$(".wrapper").on("click", ".albumCard", function () {
-	    $("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
-	    	$(this).hide();
-	    	$("#albumView").show().css({ transform: 'scale(0)' });
-	    	$("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1 });
-	    });
+		if (settings.model.animation() === "1") {
+		    $("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
+		    	$(this).hide();
+		    	$("#albumView").show().css({ transform: 'scale(0)', opacity: 0, left: 0 });
+		    	$("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		    });
+		}
+		if (settings.model.animation() === "2") {
+			$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 5, opacity: 0 }, function () {
+		    	$(this).hide();
+		    });
+		    $("#albumView").show().css({ transform: 'scale(0)', opacity: 0, left: 0 });
+	    	$("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		}
+		if (settings.model.animation() === "3") {
+			$("#artistView").transition({ left: '100%', opacity: 0}, function () {
+		    	$(this).hide();
+		    });
+		    $("#albumView").show().css({ left: '-100%', opacity: 0, transform: 'scale(1)' });
+	    	$("#albumView").transition({ left: 0, opacity: 1 });
+		}
 	});
 	$("#albumView").on("click", ".close", function () {
-	    $("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
-	    	$(this).hide();
-	    	$("#artistView").show().css({ transform: 'scale(0)' });
-	    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1 });
-	    });
+		if (settings.model.animation() === "1") {
+		    $("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
+		    	$(this).hide();
+		    	$("#artistView").show().css({ transform: 'scale(0)', opacity: 0, left: 0 });
+		    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		    });
+		}
+		if (settings.model.animation() === "2") {
+			$("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0, opacity: 0 }, function () {
+		    	$(this).hide();
+		    });
+		    $("#artistView").show().css({ transform: 'scale(5)', opacity: 0, left: 0 });
+	    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
+		}
+		if (settings.model.animation() === "3") {
+			$("#albumView").css({ left: 0 }).transition({ left: '-100%', opacity: 0 }, function () {
+		    	$(this).hide();
+		    });
+		    $("#artistView").show().css({ left: '100%', opacity: 0, transform: 'scale(1)' });
+	    	$("#artistView").transition({ left: 0, opacity: 1 });
+		}
 	});
 	
 	$("#player").on("click", ".slideLeft", function () {

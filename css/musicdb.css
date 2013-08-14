@@ -12,6 +12,7 @@ form {
 }
 .wrapper {
 	margin-bottom: 60px;
+	position: relative;
 }
 #main {
 	position: absolute;
@@ -122,14 +123,23 @@ ol li {
 /* artist view */
 #artistOverviewView {
 	-webkit-transition: translate3d(0,0,0);
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 #artistView {
     display: none;
     -webkit-transition: translate3d(0,0,0);
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 #albumView {
 	display: none;
 	-webkit-transition: translate3d(0,0,0);
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 .navbar .close {
 	margin-top: 10px;
