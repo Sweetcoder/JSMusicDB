@@ -35,6 +35,13 @@ var DataModel = function() {
 	// audio player
 	this.player = ko.observable(new Player($("#player audio").get(0), root));
 	
+	
+	// computed
+	this.totalArtists = ko.observable(0);
+	this.totalAlbums = ko.observable(0);
+	this.totalTracks = ko.observable(0);
+	this.totalPlaying = ko.observable(0);
+	
 	this.doLogin = function() {
 		if (that.server() != '0' || that.server() != 0) {
 			var proxy = 'proxy/'+that.server()+'/login.php';
@@ -115,6 +122,32 @@ var DataModel = function() {
 	// show tooltip to hint the user to login
 	if (!that.store()) {
 		$(".toggle").tooltip("show");
+	}
+	
+	// helper functions
+	this.ums = function (total) {
+		// total = total in seconds
+		var days = parseInt(total / (3600 * 24)),
+			rest = parseInt(total % (3600 * 24)),
+			hours = parseInt(total / 3600),
+			rest = parseInt(total % 3600),
+			minutes = parseInt(rest / 60),
+			seconds = parseInt(rest % 60);
+		if (days === 0) {
+			days = "";
+		} else {
+			days = days + " days, "
+		}
+		if (hours < 10) {
+			hours = "0" + hours;
+		}
+		if (minutes < 10) {
+			minutes = "0" + minutes;
+		}
+		if (seconds < 10) {
+			seconds = "0" + seconds;
+		}
+		return days + hours + ":" + minutes + ":" + seconds;
 	}
 };
 var Letter = function(node) {

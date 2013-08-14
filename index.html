@@ -259,6 +259,26 @@
                     </div>
                     <div class="wrapper">
                         <div class="well">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>Total amount of artists:</td>
+                                    <td><span data-bind="text: totalArtists"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Total amount of albums:</td>
+                                    <td><span data-bind="text: totalAlbums"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Total amount of tracks:</td>
+                                    <td><span data-bind="text: totalTracks"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Total playing time:</td>
+                                    <td><span data-bind="text: ums(totalPlaying())"></span> (U:M:S)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="well">
                             <p>
                                 JSMusicDB is a webstandards based music library/music player to be used in conjuction to the scanner.py script that can run on a NAS, like any synology NAS.
                             </p>
@@ -274,17 +294,6 @@
                                     <li>
                                         Upcoming releases
                                     </li>
-                                    <li>
-                                        Settings view with:
-                                    </li>
-                                    <ul>
-                                        <li>
-                                            Login credentials for the NAS
-                                        </li>
-                                        <li>
-                                            Overall stats, like total amount of artists, albums and tracks
-                                        </li>
-                                    </ul>
                                     <li>
                                         URL based navigation
                                     </li>

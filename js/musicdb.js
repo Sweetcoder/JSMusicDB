@@ -98,6 +98,13 @@
 			}));
 		}
 	};
+	
+	var addTotals = function (node) {
+		settings.model.totalArtists(node.artists);
+		settings.model.totalAlbums(node.albums);
+		settings.model.totalTracks(node.tracks);
+		settings.model.totalPlaying(node.playingTime);
+	}
 
 	var loadJSON = function() {
 		$("#loader").show();
@@ -115,21 +122,25 @@
 	var parseJSON = function() {
 		var start = new Date();
 		$.each(settings.json, function() {
-			if (this.Album === "") {
-				// this is an artist node
-				var artist = new Artist(this);
-				//console.log("Artist", artist.Naam());
-				addAristToModel(artist);
-			} else if (this.Titel === "") {
-				// this is an album node
-				var album = new Album(this);
-				//console.log("Album", album.Album());
-				addAlbumToArtist(album, this.Artiest);
+			if (!this.totals) {
+				if (this.Album === "") {
+					// this is an artist node
+					var artist = new Artist(this);
+					//console.log("Artist", artist.Naam());
+					addAristToModel(artist);
+				} else if (this.Titel === "") {
+					// this is an album node
+					var album = new Album(this);
+					//console.log("Album", album.Album());
+					addAlbumToArtist(album, this.Artiest);
+				} else {
+					// this node is a track
+					var track = new Track(this);
+					//console.log("Track", track.File());
+					addTrackToAlbum(track, this.Album);
+				}
 			} else {
-				// this node is a track
-				var track = new Track(this);
-				//console.log("Track", track.File());
-				addTrackToAlbum(track, this.Album);
+				addTotals(this.totals);
 			}
 		});
 		_cleanup();
