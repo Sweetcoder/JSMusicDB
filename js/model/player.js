@@ -2,7 +2,7 @@ var Player = function (audiotag, model) {
 	"use strict";
 	// static
 	var that = this;
-	that.playerpath = 'stream.php?path=';
+	that.playerpath = 'proxy/$s/stream.php?path=';
 	// that.playerpath = '';
 	// observables
 	that.length = ko.observable();
@@ -59,17 +59,23 @@ var Player = function (audiotag, model) {
 			var track = this;
 			track.isplaying(false);
 			if (track.Nummer() == that.currentTrack() && track.Disc() == that.currentDisc()) {
+				var src = "";
+				if (model.server() != "0") {
+					src = that.playerpath.replace('$s', model.server()) + track.path().replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid + '&server=' + model.url();
+				} else {
+					src = 'file:///' + track.path();
+				}
 				track.isplaying(true);
 				if (that.activeTrack()) {
 					//if (that.currentTrack() != that.activeTrack().Nummer()) {
-						audiotag.src = that.playerpath + track.path().replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid;
+						audiotag.src = src; 
 						track.isplaying(true);
 						$("#player .info-Title").html(track.Titel());
 						audiotag.load();
 						that.activeTrack(track);						
 					//}
 				} else {
-					audiotag.src = that.playerpath + track.path() + '&sid='+window.sid;
+					audiotag.src = src;
 					track.isplaying(true);
 					$("#player .info-Title").html(track.Titel());
 					audiotag.load();

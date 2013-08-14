@@ -52,8 +52,8 @@
                     <li class="disabled">
                         <a href="#">Radio</a>
                     </li>
-                    <li class="disabled">
-                        <a href="#">Settings</a>
+                    <li>
+                        <a href="#settings">Settings</a>
                     </li>
                     <li>
                         <a href="#about">About</a>
@@ -68,23 +68,7 @@
                 </div>
                 <div id="content">
                     <div class="">
-                        <div class="btn-group pull-right">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <!-- ko if: loggedin --> <span data-bind="text: username"></span> <!-- /ko --> <!-- ko ifnot: loggedin --> <span>Please log in</span> <!-- /ko --> <span class="caret"></span> </a>
-                            <ul class="dropdown-menu">
-                                <!-- ko ifnot: loggedin -->
-                                <li>
-                                    <a href="#login" data-toggle="modal">Login to synology</a>
-                                </li>
-                                <!-- /ko -->
-                                <!-- ko ifnot: lastfm -->
-                                <li>
-                                    <a href="http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=http://www.arielext.org/music/index.html">Login to last.fm</a>
-                                </li>
-                                <!-- /ko -->
-                            </ul>
-                        </div>
-
-                        <h1><i class="icon-align-justify toggle"></i>JSMusicDB</h1>
+                        <h1><i class="icon-align-justify toggle" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
                         <div class="navbar" data-bind="visible: letters().length > 0">
                             <div class="navbar-inner">
                                 <ul class="nav" data-bind="foreach: letters">
@@ -199,29 +183,82 @@
                         </div>
                     </div>
                 </div>
-                <div id="about" style="display: none;">
+                <div id="settings" style="display: none;">
                     <div class="">
-                        <div class="btn-group pull-right">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <!-- ko if: loggedin --> <span data-bind="text: username"></span> <!-- /ko --> <!-- ko ifnot: loggedin --> <span>Please log in</span> <!-- /ko --> <span class="caret"></span> </a>
-                            <ul class="dropdown-menu">
-                                <!-- ko ifnot: loggedin -->
-                                <li>
-                                    <a href="#login" data-toggle="modal">Login to synology</a>
-                                </li>
-                                <!-- /ko -->
-                                <!-- ko ifnot: lastfm -->
-                                <li>
-                                    <a href="http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=http://www.arielext.org/music/index.html">Login to last.fm</a>
-                                </li>
-                                <!-- /ko -->
-                            </ul>
-                        </div>
-
-                        <h1><i class="icon-align-justify toggle"></i>JSMusicDB</h1>
+                        <h1><i class="icon-align-justify toggle"></i>Settings</h1>
                     </div>
                     <div class="wrapper">
                         <div class="well">
-                            <h2>About JSMusicDB</h2>
+                            <form id="setLogin" class="form-horizontal">
+                                <legend>Server settings</legend>
+                                <!-- ko ifnot: loggedin -->
+                                    <div class="control-group">
+                                        <label class="control-label" for="nas">Server type</label>
+                                        <div class="controls">
+                                            <select data-bind="value: server">
+                                                <option value="0">No server, play locally</option>
+                                                <option value="1">Synology</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ko if: server() != 0 -->
+                                        <div class="control-group">
+                                            <label class="control-label" for="nasUrl">Server URL</label>
+                                            <div class="controls">
+                                                <input type="text" id="nasUrl" placeholder="http://www.example.com:5000" data-bind="value: url, valueUpdate: 'afterkeydown'">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="nasUser">Username</label>
+                                            <div class="controls">
+                                                <input type="text" id="nasUser" placeholder="Username" data-bind="value: username, valueUpdate: 'afterkeydown'">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="nasPassword">Password</label>
+                                            <div class="controls">
+                                                <input type="password" id="nasPassword" data-bind="value: password, valueUpdate: 'afterkeydown'">
+                                            </div>
+                                        </div>
+                                    <!-- /ko -->
+                                    <div class="control-group">
+                                        <label class="control-label" for="nasKeep">Store credentials</label>
+                                        <div class="controls">
+                                            <input type="checkbox" id="nasKeep" value="true" data-bind="checked: store">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary" data-bind="click: doLogin">Log in</button>
+                                    </div>
+                                <!-- /ko -->
+                                <!-- ko if: loggedin -->
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            Logged in as user <span data-bind="text: username">&nbsp;</span> <a href="#" data-bind="click: doLogout">Logout</a>
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+                                <legend>Last.FM settings</legend>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <!-- ko ifnot: lastfm -->
+                                            <a href="http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=http://www.arielext.org/music/index.html">Connect to last.fm</a>
+                                        <!-- /ko -->
+                                        <!-- ko if: lastfm -->
+                                            Connected to last.fm <a href="#" data-bind="click: doRemoveLastFM">disconnect</a>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="about" style="display: none;">
+                    <div class="">
+                        <h1><i class="icon-align-justify toggle"></i>About</h1>
+                    </div>
+                    <div class="wrapper">
+                        <div class="well">
                             <p>
                                 JSMusicDB is a webstandards based music library/music player to be used in conjuction to the scanner.py script that can run on a NAS, like any synology NAS.
                             </p>
@@ -276,37 +313,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="login" class="modal hide fade" tabindex="-1" role="dialog">
-            <form class="form-horizontal">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        X
-                    </button>
-                    <h3 class="myModalLabel">Log in to your Synology Diskstation</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="control-group">
-                        <label class="control-label" for="inputUsername">Username</label>
-                        <div class="controls">
-                            <input type="text" id="inputUsername" placeholder="Username" data-bind="value: username, valueUpdate: 'afterkeydown'" autocomplete="false">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="inputPassword">Password</label>
-                        <div class="controls">
-                            <input type="password" id="inputPassword" data-bind="value: password, valueUpdate: 'afterkeydown'" autocomplete="false">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn" data-dismiss="modal">Close</a>
-                    <button type="submit" class="btn btn-primary" data-bind="click: doLogin">
-                        Log in
-                    </button>
-                </div>
-            </form>
         </div>
         <div id="player" data-bind="visible: isplaying">
             <button class="close slideLeft" type="button">

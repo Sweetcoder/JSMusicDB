@@ -23,6 +23,9 @@ var DataModel = function() {
 	this.loggedin = ko.observable(false);
 	this.username = ko.observable();
 	this.password = ko.observable();
+	this.store = ko.observable();
+	this.server = ko.observable("0");
+	this.url = ko.observable();
 	this.isplaying = ko.observable(false);
 	this.ActiveTrack = ko.observable();
 	this.lastfm = ko.observable(localStorage.getItem("key"));
@@ -33,22 +36,86 @@ var DataModel = function() {
 	this.player = ko.observable(new Player($("#player audio").get(0), root));
 	
 	this.doLogin = function() {
-		var proxy = 'login.php';
-		
-		// workaround for knockout not having the stored credentials
-		$("#login input").change();
-		
-		$.getJSON(proxy, { account: that.username(), passwd: that.password()}, function (json) {
-			if (json.success && json.success === true) {
-				// login successfull
-				that.loggedin(true);
-				$("#login").modal('hide');
-				window.sid = json.data.sid;
-			} else {
-				// TODO: error handling
+		if (that.server() != '0' || that.server() != 0) {
+			var proxy = 'proxy/'+that.server()+'/login.php';
+			
+			// workaround for knockout not having the stored credentials
+			$("#setLogin input").change();
+			
+			$.getJSON(proxy, { account: that.username(), passwd: that.password(), server: that.url()}, function (json) {
+				if (json.success && json.success === true) {
+					// login successfull
+					that.loggedin(true);
+					window.sid = json.data.sid;
+					if (that.store()) {
+						var stored = {
+							username: that.username(),
+							password: that.password(),
+							url: that.url(),
+							server: that.server()
+						}
+						localStorage.removeItem("store");
+						localStorage.setItem("store", JSON.stringify(stored));
+					}
+				} else {
+					// TODO: error handling
+					localStorage.removeItem("store");
+				}
+			});
+		} else {
+			if (that.store()) {
+				var stored = {
+					server: that.server()
+				};
+				localStorage.removeItem("store");
+				localStorage.setItem("store", JSON.stringify(stored));
 			}
-		});
+			that.loggedin(true);
+		}
 	};
+	
+	this.doLogout = function () {
+		if (that.server() != '0') {
+			var proxy = 'proxy/'+that.server()+'/logout.php';
+			$.get(proxy, { account: that.username(), passwd: that.password(), server: that.url()}, function (json) {
+				if (json.success && json.success === true) {
+					// login successfull
+					that.loggedin(false);
+					window.sid = null;
+					localStorage.removeItem("store");
+				} else {
+					// TODO: error handling
+					localStorage.removeItem("store");
+				}
+			});
+		} else {
+			if (that.store()) {
+				localStorage.removeItem("store");
+				that.loggedin(false);
+			}
+		}
+	}
+	
+	this.doRemoveLastFM = function () {
+		localStorage.removeItem("key");
+		that.lastfm(null);
+	}
+	
+	// auto login
+	if (localStorage.getItem("store")) {
+		var stored = JSON.parse(localStorage.getItem("store"));
+		that.username(stored.username);
+		that.password(stored.password);
+		that.url(stored.url);
+		that.server(stored.server);
+		that.doLogin();
+		that.store(true);
+		$(".toggle").tooltip("destroy"); // no need for hints anymore!
+	}
+	// show tooltip to hint the user to login
+	if (!that.store()) {
+		$(".toggle").tooltip("show");
+	}
 };
 var Letter = function(node) {
 	var that = this, specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], firstLetter = node.Naam().charAt(0).toUpperCase();
