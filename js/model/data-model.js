@@ -44,13 +44,33 @@ var DataModel = function() {
 	
 	
 	// animations
-	this.animation = ko.observable(1);
+	this.animation = ko.observable(3);
 	this.animation.subscribe(function (value) {
 		localStorage.removeItem("animation");
 		localStorage.setItem("animation", value);
 	});
 	if (localStorage.getItem("animation")) {
 		that.animation(localStorage.getItem("animation"));
+	}
+	
+	// sorting
+	this.sortArtists = ko.observable(1);
+	this.sortAlbums = ko.observable(2);
+	
+	this.sortArtists.subscribe(function (value) {
+		localStorage.removeItem("sortArtists");
+		localStorage.setItem("sortArtists", value);
+	});
+	if (localStorage.getItem("sortArtists")) {
+		that.sortArtists(localStorage.getItem("sortArtists"));
+	}
+	
+	this.sortAlbums.subscribe(function (value) {
+		localStorage.removeItem("sortAlbums");
+		localStorage.setItem("sortAlbums", value);
+	});
+	if (localStorage.getItem("sortAlbums")) {
+		that.sortAlbums(localStorage.getItem("sortAlbums"));
 	}
 	
 	this.doLogin = function() {
@@ -383,11 +403,17 @@ var Album = function(node) {
 	that.getAlbum = function() {
 		root.ActiveAlbum(that);
 	}
+	that.addToPlaylist = function () {
+		$.each(that.Tracks(), function () {
+			root.player().playlist.push(this);
+		});
+	}
 };
 var Track = function(node) {
 	var that = this;
 	that.File = ko.observable(node.Naam);
-	that.Artiest = ko.observable(node.Artiest)
+	that.Artiest = ko.observable(node.Artiest);
+	that.Album = ko.observable();
 	that.Omvang = ko.observable(node.MB);
 	that.Tijd = ko.observable(node["U:M:S"]);
 	that.Kwaliteit = ko.observable(node["Kbit/s"]);
@@ -398,14 +424,31 @@ var Track = function(node) {
 	that.Disc = ko.observable(node.Disk);
 	
 	that.playFile = function () {
+		// create a new playlist and play this track
 		if (root.loggedin()) {
-			root.player().playlist(root.ActiveAlbum().Tracks());
-			root.player().currentTrack(that.Nummer());
-			root.player().currentDisc(that.Disc());
-			$("#player .thumbnail").attr("src", root.ActiveAlbum().Hoes());
-			$("#player .info-Artist").html(root.ActiveAlbum().Album());
-			$("#player .info-Album").html(root.ActiveAlbum().Artiest());
-			$("#player .info-Year").html(root.ActiveAlbum().Jaar());
+			var initalPlaylist = [];
+			$.each(root.ActiveAlbum().Tracks(), function (i) {
+				initalPlaylist.push(this);
+				if (this == that) {
+					root.player().currentIndex(i);
+					return false;
+				}
+			});
+    		root.player().playlist(initalPlaylist);
+			root.player().play();
+			root.isplaying(true);
+		}
+	};
+	that.playTrack = function () {
+		// skip to this track in the current playlist
+		if (root.loggedin()) {
+			var index = 0;
+			$.each(root.player().playlist(), function (i) {
+				if (this == that) {
+					root.player().currentIndex(i);
+					return false;
+				}
+			});
 			root.player().play();
 			root.isplaying(true);
 		}

@@ -37,10 +37,18 @@
 			}
 			letter.artists.push(artist);
 			letter.artists(letter.artists.sort(function (a,b) {
-				if (a.Naam() < b.Naam()) {
-					return -1;
-				} else {
-					return 1;
+				if (settings.model.sortArtists() == 1) {
+					if (a.Naam() < b.Naam()) {
+						return -1;
+					} else {
+						return 1;
+					}	
+				} else if (settings.model.sortArtists() == 2) {
+					if (a.Albums().length < b.Albums().length) {
+						return 1;
+					} else {
+						return -1;
+					}
 				}
 			}));
 			settings.artistCache[artistName] = artist;
@@ -57,10 +65,18 @@
 			settings.albumCache[artistName + "-"+ album.Album()] = album;
 			artist.Albums.push(album);
 			artist.Albums(artist.Albums.sort(function (a,b) {
-				if (a.Album() < b.Album()) {
-					return -1;
-				} else {
-					return 1;
+				if (settings.model.sortAlbums() == 1) {
+					if (a.Album() < b.Album()) {
+						return -1;
+					} else {
+						return 1;
+					}
+				} else if (settings.model.sortAlbums() == 2) {
+					if (a.Jaar() < b.Jaar()) {
+						return -1;
+					} else {
+						return 1;
+					}
 				}
 			}));
 		}
@@ -96,6 +112,7 @@
 					}	
 				}
 			}));
+			track.Album(album);
 		}
 	};
 	
@@ -127,17 +144,14 @@
 				if (this.Album === "") {
 					// this is an artist node
 					var artist = new Artist(this);
-					//console.log("Artist", artist.Naam());
 					addAristToModel(artist);
 				} else if (this.Titel === "") {
 					// this is an album node
 					var album = new Album(this);
-					//console.log("Album", album.Album());
 					addAlbumToArtist(album, this.Artiest);
 				} else {
 					// this node is a track
 					var track = new Track(this);
-					//console.log("Track", track.File());
 					addTrackToAlbum(track, this.Album);
 				}
 			} else {
@@ -176,10 +190,10 @@
 	    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
 		}
 		if (settings.model.animation() === "3") {
-			$("#artistOverviewView").css({ left: 0}).transition({ left: '100%', opacity: 0}, function () {
+			$("#artistOverviewView").css({ left: 0}).transition({ left: '-100%', opacity: 0}, function () {
 				$(this).hide();
 			});
-			$("#artistView").show().css({ left: '-100%', opacity: 0,transform: 'scale(1)' });
+			$("#artistView").show().css({ left: '100%', opacity: 0,transform: 'scale(1)' });
 	    	$("#artistView").transition({ left: 0, opacity: 1 });
 		}
 	});
@@ -199,10 +213,10 @@
 	    	$("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
 		}
 		if (settings.model.animation() === "3") {
-			$("#artistView").css({ left: 0 }).transition({ left: '-100%', opacity: 0 }, function () {
+			$("#artistView").css({ left: 0 }).transition({ left: '100%', opacity: 0 }, function () {
 		    	$(this).hide();
 		    });
-		    $("#artistOverviewView").show().css({ left: '100%',transform: 'scale(1)' });
+		    $("#artistOverviewView").show().css({ left: '-100%',transform: 'scale(1)' });
 	    	$("#artistOverviewView").transition({ left: 0, opacity: 1 });
 		}
 	});
@@ -223,10 +237,10 @@
 	    	$("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
 		}
 		if (settings.model.animation() === "3") {
-			$("#artistView").transition({ left: '100%', opacity: 0}, function () {
+			$("#artistView").transition({ left: '-100%', opacity: 0}, function () {
 		    	$(this).hide();
 		    });
-		    $("#albumView").show().css({ left: '-100%', opacity: 0, transform: 'scale(1)' });
+		    $("#albumView").show().css({ left: '100%', opacity: 0, transform: 'scale(1)' });
 	    	$("#albumView").transition({ left: 0, opacity: 1 });
 		}
 	});
@@ -246,10 +260,10 @@
 	    	$("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 1, opacity: 1 });
 		}
 		if (settings.model.animation() === "3") {
-			$("#albumView").css({ left: 0 }).transition({ left: '-100%', opacity: 0 }, function () {
+			$("#albumView").css({ left: 0 }).transition({ left: '100%', opacity: 0 }, function () {
 		    	$(this).hide();
 		    });
-		    $("#artistView").show().css({ left: '100%', opacity: 0, transform: 'scale(1)' });
+		    $("#artistView").show().css({ left: '-100%', opacity: 0, transform: 'scale(1)' });
 	    	$("#artistView").transition({ left: 0, opacity: 1 });
 		}
 	});

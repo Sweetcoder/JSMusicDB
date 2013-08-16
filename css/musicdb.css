@@ -1,3 +1,6 @@
+html,body  {
+	font-family: 'Lato', sans-serif;
+}
 body {
 	background: #ffffff;
 }
@@ -51,6 +54,7 @@ ol li {
 /* artist card */
 .media {
 	display: inline-block;
+	position: relative;
 }
 /* taken from google music (ninja style!)*/
 .card {
@@ -66,6 +70,15 @@ ol li {
     vertical-align: top;
     white-space: nowrap;
     
+}
+.media .actions {
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
+.media:hover .actions {
+	display: block;
 }
 .card .image-wrapper {
     border-radius: 2px 2px 0 0;
@@ -113,6 +126,10 @@ ol li {
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform:capitalize;
+}
+.card .subtitle {
+	color: #888;
+	font-size: 14px;	
 }
 .fade-out {
     overflow: hidden;
@@ -172,24 +189,24 @@ ol li {
 	float: left;
 	margin: 9px 15px 9px 0;
 }
-#albumView table tr td {
+table tr td {
 	cursor: default;
 }
-#albumView table tr.playable td {
+table tr.playable td {
 	cursor: pointer;
 }
-#albumView table td {
+table td {
 	height: 40px;
 	vertical-align: middle;
 }
-#albumView table td.trackno {
+table td.trackno {
 	text-align: center;
 }
-#albumView table th.trackno {
+table th.trackno {
 	width: 40px;
 	text-align: center;
 }
-#albumView table th.dur {
+table th.dur {
 	width: 100px;
 }
 #artistView .well {
@@ -226,18 +243,25 @@ ol li {
 }
 /* loader */
 #loader {
-	position: absolute;
-	box-shadow: 0 0 0 5000px rgba(0,0,0,0.75);
-	width: 210px;
-	height: 19px;
-	top: 0; left: 0; bottom: 0; right: 0;
-	z-index: 1;
-	margin: auto;
-	display: block;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 3px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 0 5000px rgba(0,0,0,0.75);
+    bottom: 0;
+    display: block;
+    height: 88px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 374px;
+    z-index: 1;
 }
 #loader img {
 	display: block;
-	margin: 0 auto;
+	margin: 5px auto 0;
 }
 
 /* player */

@@ -12,9 +12,6 @@ jsonFile = list()
 f = codecs.open('../music.json', 'w', "utf-8")
 nrScanned = 0
 total_files = 0
-totalArtist = 0
-totalAlbums = 0
-totalTime = 0
 start = time.time()
 
 class Artist:
@@ -41,7 +38,7 @@ class Album:
         else:
             self.Jaar = "null"
     def toString (self):
-        return u"{\"Naam\":\"" + self.Artiest + " - " + self.Album + "\",\"Titel\":\"\",\"Artiest\":\"" + self.Artiest + "\",\"Album\":\"" + self.Album + "\",\"Track\":null,\"Jaar\":\"" + self.Jaar + "\"}"
+        return u"{\"Naam\":\"" + self.Artiest + " - " + self.Album + "\",\"Titel\":\"\",\"Artiest\":\""+self.Artiest+"\",\"Album\":\""+self.Album+"\",\"Track\":null,\"Jaar\":\""+self.Jaar+"\"}"
     
 class Track:
     def __init__ (self, file, path):
@@ -64,10 +61,8 @@ class Track:
             self.Titel = ""
         if file.info.time_secs:
             self.Duur = ums(file.info.time_secs)
-            self.seconds = file.info.time_secs
         else:
             self.Duur = ""
-            self.seconds = 0
         self.Pad = _force_unicode(path, "utf-8").replace("\\", "\\\\")
         if file.tag.disc_num:
             self.Disk = str(file.tag.disc_num[0])
@@ -76,9 +71,7 @@ class Track:
         
         
     def toString (self):
-        return u"{\"Pad\":\"" + self.Pad + "\",\"Titel\":\"" + self.Titel + "\",\"Artiest\":\"" + self.Artiest + "\",\"Album\":\"" + self.Album + "\",\"Track\":\"" + self.Track + "\",\"Jaar\":\"" + self.Jaar + "\",\"U:M:S\":\"" + self.Duur + "\",\"Disk\":\"" + self.Disk + "\"}"
-    def time(self):
-        return self.seconds
+        return u"{\"Pad\":\"" + self.Pad + "\",\"Titel\":\"" + self.Titel + "\",\"Artiest\":\""+self.Artiest+"\",\"Album\":\""+self.Album+"\",\"Track\":\""+self.Track+"\",\"Jaar\":\""+self.Jaar+"\",\"U:M:S\":\""+self.Duur+"\",\"Disk\":\""+self.Disk+"\"}"
 
 def find_files(directory, pattern):
     for root, dirs, files in os.walk(directory):
@@ -99,16 +92,15 @@ def ums(i, ignoreZero=True):
         minutes = "0" + str(minutes)
     if (seconds < 10):
         seconds = "0" + str(seconds)
-    if (ignoreZero == True):
-    	if (hours == "00" or hours == "0"):
-		hours = ""
+    if (ignoreZero):
+	if (hours == "00"):
+	    hours = ""
 	else:
-	        hours = hours + ":"
+	    hours = hours + ":"
     else:
-	hours = str(hours) + ":"
-    return str(hours) + str(minutes) + ":" + str(seconds)
-def totals():
-    return "{ \"totals\" : { \"artists\":" + str(totalArtist) + ", \"albums\":" + str(totalAlbums) + ", \"tracks\":" + str(nrScanned) + ", \"playingTime\":" + str(totalTime) + "}}" 
+	hours = hours + ":"
+    return hours + str(minutes) + ":" + str(seconds)
+
 def _force_unicode(bstr, encoding, fallback_encodings=None):
     """Force unicode, ignore unknown.
     
@@ -154,7 +146,7 @@ def _force_unicode(bstr, encoding, fallback_encodings=None):
 
 allfiles = find_files(rootpath, '*.mp3')
 countfiles = sum(1 for e in allfiles)
-print "Starting scan for", countfiles, "mp3 files in '" + rootpath + "'"
+print "Starting scan for",countfiles,"mp3 files in '" + rootpath + "'"
 for filename in find_files(rootpath, '*.mp3'):
     
     song = eyed3.load(filename)
@@ -164,27 +156,25 @@ for filename in find_files(rootpath, '*.mp3'):
                 artist = Artist(song)
                 jsonFile.append(artist.toString())
                 artists[song.tag.artist] = True
-                totalArtist = totalArtist + 1
             if song.tag.album not in albums:
                 album = Album(song)
                 jsonFile.append(album.toString())
                 albums[song.tag.album] = True
-                totalAlbums = totalAlbums + 1
             track = Track(song, filename)
-            totalTime = totalTime + track.seconds
             nrScanned = nrScanned + 1
             perc = int((float(float(nrScanned) / float(countfiles))) * 100)
-            if (nrScanned > 100 and nrScanned % int(countfiles / 100) == 0):
+            if (nrScanned % int(countfiles/100) == 0):
                 inc = time.time()
-                diff = inc - start
+                #print "Scanner has scanned" , str(nrScanned) , "files, time elapsed =", ums(inc-start)
+                diff = inc-start
                 if (perc > 0):
                     tot = (diff / perc) * 100
                     eta = tot - diff
-                    sys.stdout.write("" + str(perc) + "% done, ETA: " + ums(eta, False) + "\r")
+                    sys.stdout.write("" + str(perc) + "% done, ETA: " +  ums(eta, False) + "\r")
                     sys.stdout.flush()
             jsonFile.append(track.toString())
-jsonFile.append(totals())   
+    
 f.write("[" + ",\n".join(jsonFile) + "]")
 f.close()
 inc = time.time()
-print "Done scanning, time taken:", ums(inc - start, False), "Artists:", totalArtist, ", Albums:", totalAlbums, ", Tracks:", nrScanned, "Playing time:", ums(totalTime, False), "(H:M:S)"
+print "Done scanning, time taken:", ums(inc-start, False)

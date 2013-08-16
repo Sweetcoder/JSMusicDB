@@ -3,12 +3,11 @@ var Player = function (audiotag, model) {
 	// static
 	var that = this;
 	that.playerpath = 'proxy/$s/stream.php?path=';
-	// that.playerpath = '';
 	// observables
 	that.length = ko.observable();
 	that.position = ko.observable();
 	that.playlist = ko.observableArray();
-	that.currentTrack = ko.observable();
+	that.currentIndex = ko.observable();
 	that.currentDisc = ko.observable();
 	that.activeTrack = ko.observable();
 	that.isPlaying = ko.observable(false);
@@ -55,60 +54,61 @@ var Player = function (audiotag, model) {
 	}
 	that.play = function () {
 		that.isPlaying(true);
-		$.each(that.playlist(), function () {
-			var track = this;
-			track.isplaying(false);
-			if (track.Nummer() == that.currentTrack() && track.Disc() == that.currentDisc()) {
-				var src = "";
-				if (model.server() != "0") {
-					src = that.playerpath.replace('$s', model.server()) + track.path().replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid + '&server=' + model.url();
-				} else {
-					src = 'file:///' + track.path();
-				}
-				track.isplaying(true);
-				if (that.activeTrack()) {
-					//if (that.currentTrack() != that.activeTrack().Nummer()) {
-						audiotag.src = src; 
-						track.isplaying(true);
-						$("#player .info-Title").html(track.Titel());
-						audiotag.load();
-						that.activeTrack(track);						
-					//}
-				} else {
-					audiotag.src = src;
-					track.isplaying(true);
-					$("#player .info-Title").html(track.Titel());
-					audiotag.load();
-					that.activeTrack(track);
-				}
-			}
-		});
-		// scrobble
-		if (localStorage.getItem("key")) {
-			var now = new Date();
-			var ts = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + now.getTimezoneOffset(), now.getSeconds()) / 1000;
-			var url = 'http://ws.audioscrobbler.com/2.0/', data = {
-				method : 'track.scrobble',
-				api_key : '956c1818ded606576d6941de5ff793a5',
-				artist : model.ActiveAlbum().Artiest(),
-				track : that.activeTrack().Titel(),
-				timestamp : ts,
-				sk : localStorage.getItem("key"),
-				api_sig: lastfm.signscrobble(model.ActiveAlbum().Artiest(), that.activeTrack().Titel(), ts)
-			};
-			$.post(url, data, function(json) {});
-			
-			var url = 'http://ws.audioscrobbler.com/2.0/', data = {
-				method : 'track.updateNowPlaying',
-				api_key : '956c1818ded606576d6941de5ff793a5',
-				artist : model.ActiveAlbum().Artiest(),
-				track : that.activeTrack().Titel(),
-				sk : localStorage.getItem("key"),
-				api_sig: lastfm.signplayinglove(model.ActiveAlbum().Artiest(), that.activeTrack().Titel(), 'track.updateNowPlaying')
-			};
-			$.post(url, data, function(json) {});
+		// reset playing state of previous active track
+		if (that.activeTrack()) {
+			that.activeTrack().isplaying(false);
 		}
-		audiotag.play();
+		// play this song
+		var track = that.playlist()[that.currentIndex()];
+		if (track) {
+			track.isplaying(true);
+			that.activeTrack(track);
+			// set the audiotag source
+			var src = "";
+			if (model.server() != "0") {
+				src = that.playerpath.replace('$s', model.server()) + track.path().replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid + '&server=' + model.url();
+			} else {
+				src = 'file:///' + track.path();
+			}
+			audiotag.src = src;
+			audiotag.load();
+			
+			// set metainfo
+			$("#player .info-Title").html(track.Titel());
+			$("#player .thumbnail").attr("src", track.Album().Hoes());
+			$("#player .info-Artist").html(track.Album().Album());
+			$("#player .info-Album").html(track.Album().Artiest());
+			$("#player .info-Year").html(track.Album().Jaar());
+			
+			// scrobble
+			if (localStorage.getItem("key")) {
+				var now = new Date();
+				var ts = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + now.getTimezoneOffset(), now.getSeconds()) / 1000;
+				var url = 'http://ws.audioscrobbler.com/2.0/', data = {
+					method : 'track.scrobble',
+					api_key : '956c1818ded606576d6941de5ff793a5',
+					artist : model.ActiveAlbum().Artiest(),
+					track : that.activeTrack().Titel(),
+					timestamp : ts,
+					sk : localStorage.getItem("key"),
+					api_sig: lastfm.signscrobble(model.ActiveAlbum().Artiest(), that.activeTrack().Titel(), ts)
+				};
+				$.post(url, data, function(json) {});
+				
+				var url = 'http://ws.audioscrobbler.com/2.0/', data = {
+					method : 'track.updateNowPlaying',
+					api_key : '956c1818ded606576d6941de5ff793a5',
+					artist : model.ActiveAlbum().Artiest(),
+					track : that.activeTrack().Titel(),
+					sk : localStorage.getItem("key"),
+					api_sig: lastfm.signplayinglove(model.ActiveAlbum().Artiest(), that.activeTrack().Titel(), 'track.updateNowPlaying')
+				};
+				$.post(url, data, function(json) {});
+			}
+			
+			// and play the track!
+			audiotag.play();
+		}
 	};
 	that.love = function () {
 		if (localStorage.getItem("key")) {
@@ -129,20 +129,28 @@ var Player = function (audiotag, model) {
 		audiotag.pause();
 	};
 	that.previous = function () {
-		var nr = Number(that.currentTrack()) - 1;
-		if (nr < 1) {
+		var index = 0;
+		var playingTrack = that.activeTrack();
+		if (playingTrack) {
+			index = that.playlist.indexOf(playingTrack) - 1;
+		}
+		if (index < 0) {
 			that.ended();
 		} else {
-			that.currentTrack(nr);
+			that.currentIndex(index);
 			that.play();
 		}
 	};
 	that.next = function () {
-		var nr = Number(that.currentTrack()) + 1;
-		if (nr > that.playlist().length) {
+		var index = 0;
+		var playingTrack = that.activeTrack();
+		if (playingTrack) {
+			index = that.playlist.indexOf(playingTrack) + 1;
+		}
+		if (index >= that.playlist().length) {
 			that.ended();
 		} else {
-			that.currentTrack(nr);
+			that.currentIndex(index);
 			that.play();
 		}
 	};
@@ -167,10 +175,8 @@ var Player = function (audiotag, model) {
 	that.ended = function () {
 		audiotag.pause();
 		that.isPlaying(false);
-		$.each(that.playlist(), function () {
-			var track = this;
-			track.isplaying(false);
-		});
+		that.activeTrack().isplaying(false);
+		that.activeTrack(null); // reset the activeTrack field.
 		model.isplaying(false);
 		$("#albumart").lightbox('hide');
 	};
