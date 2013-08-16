@@ -220,8 +220,7 @@
                                             </tr>
                                         </thead>
                                         <tbody data-bind="foreach: Tracks()">
-                                            
-                                            <tr data-bind="click: playTrack, attr: { 'id': $parent.ID() + '-' + Disc() + '-' + Nummer()}">
+                                            <tr data-bind="click: playTrack, attr: { 'id': $parent.ID() + '-' + Disc() + '-' + Nummer(), 'class' : (root.loggedin()) ? 'playable' : ''}">
                                                 <td class="trackno eq"><span data-bind="visible: isplaying"><img src="img/ani_equalizer_black.gif" alt="" class="equalizer"></span></td>
                                                 <td class="trackno"><span data-bind="text: Nummer">#</span></td>
                                                 <td><span data-bind="text: Titel">Titel</span></td>
