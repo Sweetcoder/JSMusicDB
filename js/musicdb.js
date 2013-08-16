@@ -164,6 +164,7 @@
 		}
 		var stop = new Date();
 		settings.model.debugtext("JSON parsed in " + (stop - start) + " ms");
+		
 	};
 	ko.applyBindings(settings.model);
 	loadJSON();
@@ -175,6 +176,7 @@
 	})
 	
 	$(".wrapper").on("click", ".artistCard", function () {
+		window.scrollTo(0,0);
 		if (settings.model.animation() === "1") {
 		    $("#artistOverviewView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
 		    	$(this).hide();
@@ -198,6 +200,7 @@
 		}
 	});
 	$("#artistView").on("click", ".close", function () {
+		window.scrollTo(0,0);
 		if (settings.model.animation() === "1") {
 		    $("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
 		    	$(this).hide();
@@ -222,6 +225,7 @@
 	});
 	
 	$(".wrapper").on("click", ".albumCard", function () {
+		window.scrollTo(0,0);
 		if (settings.model.animation() === "1") {
 		    $("#artistView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
 		    	$(this).hide();
@@ -245,6 +249,7 @@
 		}
 	});
 	$("#albumView").on("click", ".close", function () {
+		window.scrollTo(0,0);
 		if (settings.model.animation() === "1") {
 		    $("#albumView").css({ transformOrigin: '50% 50px' }).transition({ scale: 0 }, function () {
 		    	$(this).hide();
@@ -320,5 +325,10 @@
 		$($(this).attr("href")).show();
 		_gaq.push(['_trackPageview', $(this).attr("href")]);
 		snapper.close();
+		if ($(this).attr("href") === "#playlist") {
+			settings.model.player().playlistView(true);
+		} else {
+			settings.model.player().playlistView(false);
+		}
 	});
 })();

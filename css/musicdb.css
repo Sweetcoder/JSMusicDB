@@ -209,6 +209,12 @@ table th.trackno {
 table th.dur {
 	width: 100px;
 }
+table th, table td {
+	vertical-align: middle;
+}
+table td.eq {
+	vertical-align: top;
+}
 #artistView .well {
 	padding: 5px;
 }
@@ -216,21 +222,17 @@ table th.dur {
 	position: relative;
 	overflow: hidden;
 }
-#albumView .tableBG {
-	position: absolute;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	opacity: 0.15;
-	height: 100%;
-	background-repeat: no-repeat;
-	background-color: #EEE;
-	background-size: cover;
+#albumView .art {
+	border-radius: 5px;
+    box-shadow: 0 0 2px;
+    float: left;
+    margin: 0 1% 0 0;
+    width: 19%;
 }
 #albumView table {
 	position: relative;
 	z-index: 1;
+	width: 80%;
 }
 .table-striped tbody > tr:nth-child(2n) > td, .table-striped tbody > tr:nth-child(2n) > th {
     background-color: rgba( 255,255,255,0.5);
@@ -339,8 +341,24 @@ table th.dur {
 	right: 0;
 }
 
-
-@media (max-width: 768px) {
+/* playlist */
+.playlist .group {
+	clear: left;
+}
+.playlist .group .art {
+	border-radius: 5px;
+    box-shadow: 0 0 2px;
+    float: left;
+    margin: 0 1% 0 0;
+    width: 19%;
+}
+.playlist .group table {
+	width: 80%;
+}
+.playlist .group h3 {
+	padding-top: 2%;
+}
+@media (max-width: 767px) {
 	.media {
 		width: 24%;
 	}
@@ -397,7 +415,7 @@ table th.dur {
 		padding: 0px;
 	}
 }
-@media (min-width: 768px) {
+@media (min-width: 767px) {
 	.card {
 		width: 166px;
 	}

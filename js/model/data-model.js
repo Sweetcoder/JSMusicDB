@@ -30,11 +30,8 @@ var DataModel = function() {
 	this.ActiveTrack = ko.observable();
 	this.lastfm = ko.observable(localStorage.getItem("key"));
 	
-	this.keepalive = 0; // index of the keepalive thread
-	
 	// audio player
 	this.player = ko.observable(new Player($("#player audio").get(0), root));
-	
 	
 	// totals
 	this.totalArtists = ko.observable(0);
@@ -200,6 +197,7 @@ var Letter = function(node) {
 		});
 		that.active(true);
 		if ($("#artistView").is(":visible") || $("#albumView").is(":visible")) {
+			window.scrollTo(0,0);
 			if (root.animation() === "1") {
 				$("#artistView, #albumView").css({
 					transformOrigin : '50% 50px'
@@ -335,6 +333,7 @@ var Album = function(node) {
 	that.Tracks = ko.observableArray();
 	that.Artiest = ko.observable(node.Artiest);
 	that.polled = ko.observable(false);
+	that.ID = ko.observable(getUID());
 	// behaviour
 	that.showAlbum = ko.observable(false);
 	// by default hide tracks
@@ -407,6 +406,7 @@ var Album = function(node) {
 		$.each(that.Tracks(), function () {
 			root.player().playlist.push(this);
 		});
+		root.player().addAlbumToPlaylist(that);
 	}
 };
 var Track = function(node) {
@@ -433,6 +433,7 @@ var Track = function(node) {
 					root.player().currentIndex(i);
 				}
 			});
+			root.player().setAlbumAsPlaylist(root.ActiveAlbum());
     		root.player().playlist(initalPlaylist);
 			root.player().play();
 			root.isplaying(true);
@@ -453,3 +454,14 @@ var Track = function(node) {
 		}
 	};
 };
+
+var getUID = function(){
+	var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    	out = '';
+	for(var i=0, clen=chars.length; i<6; i++){
+   		out += chars.substr(0|Math.random() * clen, 1);
+	}
+	// ensure that the uid is unique for this page
+	return getUID.uids[out] ? getUID() : (getUID.uids[out] = out);
+}
+getUID.uids = {};

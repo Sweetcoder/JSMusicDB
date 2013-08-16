@@ -6,12 +6,14 @@ var Player = function (audiotag, model) {
 	// observables
 	that.length = ko.observable();
 	that.position = ko.observable();
-	that.playlist = ko.observableArray();
+	that.playlist = ko.observableArray(); // flat playlist
+	that.playlistGrouped = ko.observableArray(); // grouped playlist
 	that.currentIndex = ko.observable();
 	that.currentDisc = ko.observable();
 	that.activeTrack = ko.observable();
 	that.isPlaying = ko.observable(false);
 	that.isMuted = ko.observable(false);
+	that.playlistView = ko.observable(false); // playlistview or normal view?
 	
 	
 	
@@ -33,9 +35,43 @@ var Player = function (audiotag, model) {
 		} else {
 			return '<i class="icon-volume-up"></i>'
 		}
-	})
+	});
+	that.viewState = ko.computed(function () {
+		if (that.playlistView()) {
+			return '<i class="icon-th"></i>';
+		} else {
+			return '<i class="icon-list"></i>'
+		}
+	});
 
 	// functions
+	that.addAlbumToPlaylist = function (album) {
+		var group = new Group();
+		group.Artist(album.Artiest());
+		group.Artist(album.Artiest());
+		group.Album(album.Album());
+		group.Year(album.Jaar());
+		group.Art(album.Hoes());
+		$.each(album.Tracks(), function () {
+			group.Tracks().push(this);
+		});
+		group.ID(album.ID());
+		that.playlistGrouped.push(group);
+	}
+	that.setAlbumAsPlaylist = function (album) {
+		var group = new Group();
+		group.Artist(album.Artiest());
+		group.Artist(album.Artiest());
+		group.Album(album.Album());
+		group.Year(album.Jaar());
+		group.Art(album.Hoes());
+		$.each(album.Tracks(), function () {
+			group.Tracks().push(this);
+		});
+		group.ID(album.ID());
+		that.playlistGrouped([]); // reset playlist
+		that.playlistGrouped.push(group);
+	} 
 	that.togglePlayPause = function () {
 		that.isPlaying(!that.isPlaying());
 		if (that.isPlaying()) {
@@ -52,6 +88,15 @@ var Player = function (audiotag, model) {
 			that.unmute();
 		}
 	}
+	that.toggleView = function () {
+		$("#main .container > div").hide();
+		that.playlistView(!that.playlistView());
+		if (that.playlistView()) {
+			$("#playlist").show();
+		} else {
+			$("#content").show();
+		}
+	}
 	that.play = function () {
 		that.isPlaying(true);
 		// reset playing state of previous active track
@@ -63,6 +108,15 @@ var Player = function (audiotag, model) {
 		if (track) {
 			track.isplaying(true);
 			that.activeTrack(track);
+			// scrol into view
+			if ($(".playlist").is(":visible")) {
+				var id = track.Album().ID() + "-" + track.Disc() + "-" + track.Nummer();
+				if ($("#" + id).length === 1) {
+					var offset = $("#" + id).position().top;
+					$("#main").scrollTop(offset);
+				}
+			}
+			
 			// set the audiotag source
 			var src = "";
 			if (model.server() != "0") {
@@ -87,21 +141,21 @@ var Player = function (audiotag, model) {
 				var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 					method : 'track.scrobble',
 					api_key : '956c1818ded606576d6941de5ff793a5',
-					artist : model.ActiveAlbum().Artiest(),
-					track : that.activeTrack().Titel(),
+					artist : track.Album().Artiest(),
+					track : track.Titel(),
 					timestamp : ts,
 					sk : localStorage.getItem("key"),
-					api_sig: lastfm.signscrobble(model.ActiveAlbum().Artiest(), that.activeTrack().Titel(), ts)
+					api_sig: lastfm.signscrobble(track.Album().Artiest(), track.Titel(), ts)
 				};
 				$.post(url, data, function(json) {});
 				
 				var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 					method : 'track.updateNowPlaying',
 					api_key : '956c1818ded606576d6941de5ff793a5',
-					artist : model.ActiveAlbum().Artiest(),
-					track : that.activeTrack().Titel(),
+					artist : track.Album().Artiest(),
+					track : track.Titel(),
 					sk : localStorage.getItem("key"),
-					api_sig: lastfm.signplayinglove(model.ActiveAlbum().Artiest(), that.activeTrack().Titel(), 'track.updateNowPlaying')
+					api_sig: lastfm.signplayinglove(track.Album().Artiest(), track.Titel(), 'track.updateNowPlaying')
 				};
 				$.post(url, data, function(json) {});
 			}
@@ -115,10 +169,10 @@ var Player = function (audiotag, model) {
 			var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 				method : 'track.love',
 				api_key : '956c1818ded606576d6941de5ff793a5',
-				artist : model.ActiveAlbum().Artiest(),
+				artist : that.activeTrack().Album().Artiest(),
 				track : that.activeTrack().Titel(),
 				sk : localStorage.getItem("key"),
-				api_sig: lastfm.signplayinglove(model.ActiveAlbum().Artiest(), that.activeTrack().Titel(), 'track.love')
+				api_sig: lastfm.signplayinglove(that.activeTrack().Album().Artiest(), that.activeTrack().Titel(), 'track.love')
 			};
 			$.post(url, data, function(json) {});
 		}
@@ -197,4 +251,15 @@ var Player = function (audiotag, model) {
 	audiotag.addEventListener('ended', function () {
 		that.next();
 	});
+}
+
+var Group = function () {
+	var that = this;
+	
+	that.Artist = ko.observable();
+	that.Album = ko.observable();
+	that.Year = ko.observable();
+	that.Art = ko.observable();
+	that.Tracks = ko.observableArray();
+	that.ID = ko.observable();
 }
