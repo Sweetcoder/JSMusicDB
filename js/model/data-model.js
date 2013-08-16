@@ -431,7 +431,6 @@ var Track = function(node) {
 				initalPlaylist.push(this);
 				if (this == that) {
 					root.player().currentIndex(i);
-					return false;
 				}
 			});
     		root.player().playlist(initalPlaylist);
