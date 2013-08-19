@@ -6,15 +6,16 @@
 		albumCache : [],
 		letterCache : []
 	};
+	var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+		debug = [];
 
 	var addAristToModel = function(artist) {
-		// settings.model.Artiesten.push(artist);
-		var artistName = (artist.Naam()) ? artist.Naam().toLowerCase() : '';
+		var artistName = (artist.Naam) ? artist.Naam.toLowerCase() : '';
+		// only add unique artist names
 		if (artistName && !settings.artistCache[artistName]) {
 			if (artistName.indexOf("the ") === 0) {
 				artistName = artistName.substring(4);
 			}
-			var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 			var firstLetter = artistName.charAt(0).toUpperCase();
 			if ($.inArray(firstLetter, specialChars) > -1) {
 				firstLetter = "#";
@@ -23,34 +24,11 @@
 			if (!settings.letterCache[firstLetter]) {
 				letter = new Letter(artist);
 				letter.letter = firstLetter;
-				settings.model.letters().push(letter);
-				settings.model.letters(settings.model.letters().sort(function(a,b) {
-					if (a.letter < b.letter) {
-						return -1;
-					} else {
-						return 1;
-					}
-				}));
 				settings.letterCache[firstLetter] = letter;
 			} else {
 				letter = settings.letterCache[firstLetter];
 			}
 			letter.artists().push(artist);
-			letter.artists(letter.artists().sort(function (a,b) {
-				if (settings.model.sortArtists() == 1) {
-					if (a.Naam() < b.Naam()) {
-						return -1;
-					} else {
-						return 1;
-					}	
-				} else if (settings.model.sortArtists() == 2) {
-					if (a.Albums().length < b.Albums().length) {
-						return 1;
-					} else {
-						return -1;
-					}
-				}
-			}));
 			settings.artistCache[artistName] = artist;
 		}
 	};
@@ -59,59 +37,21 @@
 		if (artistName.indexOf("the ") === 0) {
 			artistName = artistName.substring(4);
 		}
-		settings.model.Albums().push(album);
 		var artist = settings.artistCache[artistName];
 		if (artist) {
-			settings.albumCache[artistName + "-"+ album.Album()] = album;
+			settings.albumCache[artistName + "-"+ album.Album] = album;
 			artist.Albums().push(album);
-			artist.Albums(artist.Albums().sort(function (a,b) {
-				if (settings.model.sortAlbums() == 1) {
-					if (a.Album() < b.Album()) {
-						return -1;
-					} else {
-						return 1;
-					}
-				} else if (settings.model.sortAlbums() == 2) {
-					if (a.Jaar() < b.Jaar()) {
-						return -1;
-					} else {
-						return 1;
-					}
-				}
-			}));
 		}
 	};
 
 	var addTrackToAlbum = function(track, albumName) {
-		var artistName = track.Artiest().toLowerCase();
+		var artistName = track.Artiest.toLowerCase();
 		if (artistName.indexOf("the ") === 0) {
 			artistName = artistName.substring(4);
 		}
 		var album = settings.albumCache[artistName + "-"+ albumName];
-		if (album && album.Artiest() == track.Artiest()) {
+		if (album && album.Artiest == track.Artiest) {
 			album.Tracks().push(track);
-			album.Tracks(album.Tracks().sort(function (a,b) {
-				if (!isNaN(a.Disc())) {
-					// sort by discnumber (or by number, secondary)
-					if (Number(a.Disc()) < Number(b.Disc())) {
-						return -1;
-					} else if (Number(a.Disc()) == Number(b.Disc())) {
-						if (Number(a.Nummer()) < Number(b.Nummer())) {
-							return -1;
-						} else {
-							return 1;
-						}	
-					} else {
-						return 1;
-					}
-				} else {
-					if (Number(a.Nummer()) < Number(b.Nummer())) {
-						return -1;
-					} else {
-						return 1;
-					}	
-				}
-			}));
 			track.Album(album);
 		}
 	};
@@ -124,6 +64,7 @@
 	}
 
 	var loadJSON = function() {
+		var start = new Date();
 		$("#loader").show();
 		$("#content").hide();
 		$.getJSON(settings.db, function(json) {
@@ -131,6 +72,9 @@
 			$(document).trigger("musicdb-json-loaded");
 			$("#loader").hide();
 			$("#content").fadeIn();
+			var stop = new Date();
+			debug.push("JSON loaded in " + (stop - start) + " ms");
+			settings.model.debugtext(debug.join('<br />'));
 		}).error(function(e) {
 			settings.model.debugtext("error occured during load", e)
 			$("#loader").hide();
@@ -158,13 +102,14 @@
 				addTotals(this.totals);
 			}
 		});
+		_fillModels();
 		_cleanup();
 		if (settings.model.letters().length > 0) {
 			settings.model.letters()[0].showLetter();
 		}
 		var stop = new Date();
-		settings.model.debugtext("JSON parsed in " + (stop - start) + " ms");
-		
+		debug.push("JSON parsed in " + (stop - start) + " ms");
+		settings.model.debugtext(debug.join('<br />'));
 	};
 	ko.applyBindings(settings.model);
 	loadJSON();
@@ -284,6 +229,87 @@
 			$("#player .slideRight").removeClass("slideRight").addClass("slideLeft").find("i").removeClass("icon-chevron-right");
 		});
 	});
+	
+	var _fillModels = function () {
+		var start = new Date();
+		// add letters to the model
+		var plain = [];
+		for (var letter in settings.letterCache) {
+			letter = settings.letterCache[letter];
+			plain.push(letter);
+			
+			// sort artists in letter
+			letter.artists(letter.artists().sort(function (a,b) {
+				if (settings.model.sortArtists() == 1) {
+					if (a.Naam < b.Naam) {
+						return -1;
+					} else {
+						return 1;
+					}	
+				} else if (settings.model.sortArtists() == 2) {
+					if (a.Albums().length < b.Albums().length) {
+						return 1;
+					} else {
+						return -1;
+					}
+				}
+			}));
+			ko.utils.arrayForEach(letter.artists(), function (artist) {
+				// sort albums in artist
+				artist.Albums(artist.Albums().sort(function (a,b) {
+					if (settings.model.sortAlbums() == 1) {
+						if (a.Album < b.Album) {
+							return -1;
+						} else {
+							return 1;
+						}
+					} else if (settings.model.sortAlbums() == 2) {
+						if (a.Jaar < b.Jaar) {
+							return -1;
+						} else {
+							return 1;
+						}
+					}
+				}));
+				ko.utils.arrayForEach(artist.Albums(), function(album) {
+					// sort tracks in album
+					album.Tracks(album.Tracks().sort(function (a,b) {
+						if (!isNaN(a.Disc)) {
+							// sort by discnumber (or by number, secondary)
+							if (Number(a.Disc) < Number(b.Disc)) {
+								return -1;
+							} else if (Number(a.Disc) == Number(b.Disc)) {
+								if (Number(a.Nummer) < Number(b.Nummer)) {
+									return -1;
+								} else {
+									return 1;
+								}	
+							} else {
+								return 1;
+							}
+						} else {
+							if (Number(a.Nummer) < Number(b.Nummer)) {
+								return -1;
+							} else {
+								return 1;
+							}	
+						}
+					}));
+				});
+			});
+		};
+		plain = plain.sort(function (a,b) {
+			if (a.letter < b.letter) {
+				return -1;
+			} else {
+				return 1;
+			}
+		});
+		settings.model.letters(plain);
+		var stop = new Date();
+		debug.push("Model filled in " + (stop - start) + " ms");
+		settings.model.debugtext(debug.join('<br />'));
+	};
 	
 	var _cleanup = function() {
 		// remove empty artists from the list (artists without any albums)

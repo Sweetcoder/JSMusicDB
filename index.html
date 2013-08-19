@@ -45,16 +45,10 @@
                         JSMusicDB
                     </li>
                     <li>
-                        <a href="#content">Home</a>
+                        <a href="#content">Overview</a>
                     </li>
                     <li>
                         <a href="#playlist">Playlist</a>
-                    </li>
-                    <li class="disabled">
-                        <a href="#">Upcoming releases</a>
-                    </li>
-                    <li class="disabled">
-                        <a href="#">Radio</a>
                     </li>
                     <li>
                         <a href="#settings">Settings</a>
@@ -177,7 +171,7 @@
                                 </div>
                             </div>
                             <div class="well">
-                                <img data-bind="attr: { src: art(), alt: Artiest() + ' - ' + Album()}" class='art'>
+                                <img data-bind="attr: { src: art(), alt: Artiest + ' - ' + Album}" class='art'>
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -188,7 +182,7 @@
                                     </thead>
                                     <tbody data-bind="foreach: Tracks">
                                         <tr data-bind="click: playFile, attr: { 'class' : (root.loggedin()) ? 'playable' : ''}">
-                                            <td data-bind="attr: { 'class': (isplaying()) ? 'trackno eq' : 'trackno'}"><span data-bind="text: Nummer, visible: !isplaying()">Nummer</span><span data-bind="visible: isplaying"><img src="img/ani_equalizer_black.gif" alt=""></span></td>
+                                            <td data-bind="attr: { 'class': (isplaying()) ? 'trackno eq' : 'trackno'}"><span data-bind="text: (Nummer != 'None') ? Nummer : ' ', visible: !isplaying()">Nummer</span><span data-bind="visible: isplaying"><img src="img/ani_equalizer_black.gif" alt=""></span></td>
                                             <td><span data-bind="text: Titel">Titel</span></td>
                                             <td><span data-bind="text: Tijd">Tijd</span></td>
                                         </tr>
@@ -220,9 +214,9 @@
                                             </tr>
                                         </thead>
                                         <tbody data-bind="foreach: Tracks()">
-                                            <tr data-bind="click: playTrack, attr: { 'id': $parent.ID() + '-' + Disc() + '-' + Nummer(), 'class' : (root.loggedin()) ? 'playable' : ''}">
+                                            <tr data-bind="click: playTrack, attr: { 'id': $parent.ID() + '-' + Disc + '-' + Nummer, 'class' : (root.loggedin()) ? 'playable' : ''}">
                                                 <td class="trackno eq"><span data-bind="visible: isplaying"><img src="img/ani_equalizer_black.gif" alt="" class="equalizer"></span></td>
-                                                <td class="trackno"><span data-bind="text: Nummer">#</span></td>
+                                                <td class="trackno"><span data-bind="text: (Nummer != 'None') ? Nummer : ' '">#</span></td>
                                                 <td><span data-bind="text: Titel">Titel</span></td>
                                                 <td><span data-bind="text: Tijd">Tijd</span></td>
                                             </tr>
@@ -360,6 +354,10 @@
                                 <tr>
                                     <td>Total playing time:</td>
                                     <td><span data-bind="text: ums(totalPlaying())"></span> (U:M:S)</td>
+                                </tr>
+                                <tr>
+                                    <td>Debug</td>
+                                    <td><span data-bind="html: debugtext"></span></td>
                                 </tr>
                             </table>
                         </div>

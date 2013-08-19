@@ -12,11 +12,11 @@ var DataModel = function() {
 	var that = this;
 	root = that;
 	// simple model
-	this.Artiesten = ko.observableArray().extend({ throttle: 400 });
-	this.Albums = ko.observableArray().extend({ throttle: 400 });
+	this.Artiesten = ko.observableArray().extend({ throttle: 100 });
 	this.debugtext = ko.observable();
 	// paging by letter
 	this.letters = ko.observableArray();
+	this.ActiveLetter = ko.observable();
 	this.ActiveArtist = ko.observable();
 	this.ActiveAlbum = ko.observable();
 	// loggedin state
@@ -179,24 +179,25 @@ var DataModel = function() {
 	}
 };
 var Letter = function(node) {
-	var that = this, specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], firstLetter = node.Naam().charAt(0).toUpperCase();
+	var that = this, specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], firstLetter = node.Naam.charAt(0).toUpperCase();
 	if ($.inArray(firstLetter, specialChars) > -1) {
 		firstLetter = "#";
 	}
+	// static
 	that.letter = firstLetter;
+	
+	// dynamic
 	that.artists = ko.observableArray();
 	that.active = ko.observable(false);
 
-	// behaviour
+	// functions
 	that.showLetter = function() {
 		root.Artiesten(that.artists());
-		// console.log(root.Artiesten().length);
-		// TODO: skip loop
-		$.each(root.letters(), function() {
-			var letter = this;
-			letter.active(false);
-		});
+		if (root.ActiveLetter()) {
+			root.ActiveLetter().active(false);	
+		}
 		that.active(true);
+		root.ActiveLetter(that);
 		if ($("#artistView").is(":visible") || $("#albumView").is(":visible")) {
 			window.scrollTo(0,0);
 			if (root.animation() === "1") {
@@ -253,13 +254,12 @@ var Letter = function(node) {
 };
 var Artist = function(node) {
 	var that = this;
-
 	// internal function to get info from last.fm
 	var doCall = function(callback) {
 		var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 			method : 'artist.getinfo',
 			api_key : '956c1818ded606576d6941de5ff793a5',
-			artist : that.Naam(),
+			artist : that.Naam,
 			format : 'json',
 			autoCorrect : true
 		};
@@ -276,20 +276,21 @@ var Artist = function(node) {
 			}
 		}
 	}
-
-	that.Naam = ko.observable(node.Naam);
-	that.Omvang = ko.observable(node.MB);
-	that.Tijd = ko.observable(node["U:M:S"]);
-	that.Kwaliteit = ko.observable(node["Kbit/s"]);
-	that.Albums = ko.observableArray().extend({ throttle: 400 });
+	
+	// static
+	that.Naam = node.Naam;
+	that.Omvang = node.MB;
+	that.Tijd = node["U:M:S"];
+	that.Kwaliteit = node["Kbit/s"];
+	// dynamic
+	that.ID = ko.observable(getUID());
+	that.Albums = ko.observableArray().extend({ throttle: 100 });
 	that.json = null;
-
 	that.info = {
 		bio : ko.observable(),
 		art : ko.observable()
 	};
-
-	// behaviour
+	// functions
 	that.art = function() {
 		doCall(function(json) {
 			that.info.bio(json.artist.bio.content);
@@ -302,12 +303,13 @@ var Artist = function(node) {
 	}
 };
 var Album = function(node) {
+	// inner functions
 	var doCall = function(callback) {
 		var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 			method : 'album.getinfo',
 			api_key : '956c1818ded606576d6941de5ff793a5',
-			artist : that.Artiest(),
-			album : that.Album(),
+			artist : that.Artiest,
+			album : that.Album,
 			format : 'json',
 			autoCorrect : true
 		};
@@ -325,52 +327,26 @@ var Album = function(node) {
 		}
 	}
 	var that = this;
-	that.Omvang = ko.observable(node.MB);
-	that.Tijd = ko.observable(node["U:M:S"]);
-	that.Kwaliteit = ko.observable(node["Kbit/s"]);
-	that.Album = ko.observable(node.Album);
-	that.Jaar = ko.observable(node.Jaar);
+	// static
+	that.Omvang = node.MB;
+	that.Tijd = node["U:M:S"];
+	that.Kwaliteit = node["Kbit/s"];
+	that.Album = node.Album;
+	that.Jaar = node.Jaar;
+	that.Artiest = node.Artiest;
+	that.ID = getUID();
+	
+	// dynamic
 	that.Hoes = ko.observable();
-	that.Tracks = ko.observableArray().extend({ throttle: 400 });
-	that.Artiest = ko.observable(node.Artiest);
+	that.Tracks = ko.observableArray().extend({ throttle: 100 });
 	that.polled = ko.observable(false);
-	that.ID = ko.observable(getUID());
-	// behaviour
 	that.showAlbum = ko.observable(false);
-	// by default hide tracks
+	
+	// functions
 	that.toggleAlbum = function() {
 		var atm = that.showAlbum();
 		that.showAlbum(!atm);
 	};
-	that.showAlbum.subscribe(function(value) {
-		if (value && !that.Hoes()) {
-			var url = 'http://ws.audioscrobbler.com/2.0/', data = {
-				method : 'album.getinfo',
-				api_key : '956c1818ded606576d6941de5ff793a5',
-				artist : that.Artiest(),
-				album : that.Album(),
-				format : 'json',
-				autoCorrect : true
-			};
-			$.getJSON(url, data, function(json) {
-				var artlist = json.album.image;
-				$.each(artlist, function() {
-					if (this.size === 'extralarge') {
-						var url = this["#text"];
-						if (url) {
-							that.Hoes(this["#text"]);
-						} else {
-							that.Hoes("images/nocover.png");
-						}
-					}
-				});
-				if (that.Hoes() === "") {
-					that.Hoes("images/nocover.png");
-				}
-			})
-		}
-	})
-
 	that.art = function() {
 		if (!that.polled()) {
 			doCall(function(json) {
@@ -412,18 +388,22 @@ var Album = function(node) {
 };
 var Track = function(node) {
 	var that = this;
-	that.File = ko.observable(node.Naam);
-	that.Artiest = ko.observable(node.Artiest);
-	that.Album = ko.observable();
-	that.Omvang = ko.observable(node.MB);
-	that.Tijd = ko.observable(node["U:M:S"]);
-	that.Kwaliteit = ko.observable(node["Kbit/s"]);
-	that.Titel = ko.observable(node.Titel);
-	that.Nummer = ko.observable(node.Track);
-	that.isplaying = ko.observable(false);
-	that.path = ko.observable(node.Pad);
-	that.Disc = ko.observable(node.Disk);
+	// static
+	that.File = node.Naam;
+	that.Artiest = node.Artiest;
+	that.Omvang = node.MB;
+	that.Tijd = node["U:M:S"];
+	that.Kwaliteit = node["Kbit/s"];
+	that.Titel = node.Titel;
+	that.Nummer = node.Track;
+	that.path = node.Pad;
+	that.Disc = node.Disk;
 	
+	// dynamic
+	that.Album = ko.observable();
+	that.isplaying = ko.observable(false);
+	
+	// functions
 	that.playFile = function () {
 		// create a new playlist and play this track
 		if (root.loggedin()) {

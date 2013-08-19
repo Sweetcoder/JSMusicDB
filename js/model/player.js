@@ -15,8 +15,6 @@ var Player = function (audiotag, model) {
 	that.isMuted = ko.observable(false);
 	that.playlistView = ko.observable(false); // playlistview or normal view?
 	
-	
-	
 	// computed
 	that.progress = ko.computed(function () {
 		var percentage = (that.position() / that.length()) * 100;
@@ -47,28 +45,35 @@ var Player = function (audiotag, model) {
 	// functions
 	that.addAlbumToPlaylist = function (album) {
 		var group = new Group();
-		group.Artist(album.Artiest());
-		group.Artist(album.Artiest());
-		group.Album(album.Album());
-		group.Year(album.Jaar());
+		group.Artist(album.Artiest);
+		group.Artist(album.Artiest);
+		group.Album(album.Album);
+		group.Year(album.Jaar);
 		group.Art(album.Hoes());
+		// no loop
+		/*
 		$.each(album.Tracks(), function () {
 			group.Tracks().push(this);
 		});
-		group.ID(album.ID());
+		*/
+		group.Tracks(album.Tracks());
+		group.ID(album.ID);
 		that.playlistGrouped.push(group);
 	}
 	that.setAlbumAsPlaylist = function (album) {
 		var group = new Group();
-		group.Artist(album.Artiest());
-		group.Artist(album.Artiest());
-		group.Album(album.Album());
-		group.Year(album.Jaar());
+		group.Artist(album.Artiest);
+		group.Album(album.Album);
+		group.Year(album.Jaar);
 		group.Art(album.Hoes());
+		// no loop!
+		/*
 		$.each(album.Tracks(), function () {
 			group.Tracks().push(this);
 		});
-		group.ID(album.ID());
+		*/
+		group.Tracks(album.Tracks())
+		group.ID(album.ID);
 		that.playlistGrouped([]); // reset playlist
 		that.playlistGrouped.push(group);
 	} 
@@ -110,7 +115,7 @@ var Player = function (audiotag, model) {
 			that.activeTrack(track);
 			// scrol into view
 			if ($(".playlist").is(":visible")) {
-				var id = track.Album().ID() + "-" + track.Disc() + "-" + track.Nummer();
+				var id = track.Album().ID + "-" + track.Disc + "-" + track.Nummer;
 				if ($("#" + id).length === 1) {
 					var offset = $("#" + id).position().top;
 					$("#main").scrollTop(offset);
@@ -120,19 +125,19 @@ var Player = function (audiotag, model) {
 			// set the audiotag source
 			var src = "";
 			if (model.server() != "0") {
-				src = that.playerpath.replace('$s', model.server()) + track.path().replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid + '&server=' + model.url();
+				src = that.playerpath.replace('$s', model.server()) + track.path.replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid + '&server=' + model.url();
 			} else {
-				src = 'file:///' + track.path();
+				src = 'file:///' + track.path;
 			}
 			audiotag.src = src;
 			audiotag.load();
 			
 			// set metainfo
-			$("#player .info-Title").html(track.Titel());
+			$("#player .info-Title").html(track.Titel);
 			$("#player .thumbnail").attr("src", track.Album().Hoes());
-			$("#player .info-Artist").html(track.Album().Album());
-			$("#player .info-Album").html(track.Album().Artiest());
-			$("#player .info-Year").html(track.Album().Jaar());
+			$("#player .info-Artist").html(track.Album().Album);
+			$("#player .info-Album").html(track.Album().Artiest);
+			$("#player .info-Year").html(track.Album().Jaar);
 			
 			// scrobble
 			if (localStorage.getItem("key")) {
@@ -141,21 +146,21 @@ var Player = function (audiotag, model) {
 				var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 					method : 'track.scrobble',
 					api_key : '956c1818ded606576d6941de5ff793a5',
-					artist : track.Album().Artiest(),
-					track : track.Titel(),
+					artist : track.Album().Artiest,
+					track : track.Titel,
 					timestamp : ts,
 					sk : localStorage.getItem("key"),
-					api_sig: lastfm.signscrobble(track.Album().Artiest(), track.Titel(), ts)
+					api_sig: lastfm.signscrobble(track.Album().Artiest, track.Titel, ts)
 				};
 				$.post(url, data, function(json) {});
 				
 				var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 					method : 'track.updateNowPlaying',
 					api_key : '956c1818ded606576d6941de5ff793a5',
-					artist : track.Album().Artiest(),
-					track : track.Titel(),
+					artist : track.Album().Artiest,
+					track : track.Titel,
 					sk : localStorage.getItem("key"),
-					api_sig: lastfm.signplayinglove(track.Album().Artiest(), track.Titel(), 'track.updateNowPlaying')
+					api_sig: lastfm.signplayinglove(track.Album().Artiest, track.Titel, 'track.updateNowPlaying')
 				};
 				$.post(url, data, function(json) {});
 			}
@@ -169,10 +174,10 @@ var Player = function (audiotag, model) {
 			var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 				method : 'track.love',
 				api_key : '956c1818ded606576d6941de5ff793a5',
-				artist : that.activeTrack().Album().Artiest(),
-				track : that.activeTrack().Titel(),
+				artist : that.activeTrack().Album().Artiest,
+				track : that.activeTrack().Titel,
 				sk : localStorage.getItem("key"),
-				api_sig: lastfm.signplayinglove(that.activeTrack().Album().Artiest(), that.activeTrack().Titel(), 'track.love')
+				api_sig: lastfm.signplayinglove(that.activeTrack().Album().Artiest, that.activeTrack().Titel, 'track.love')
 			};
 			$.post(url, data, function(json) {});
 		}

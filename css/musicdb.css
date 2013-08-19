@@ -139,21 +139,33 @@ ol li {
 
 /* artist view */
 #artistOverviewView {
-	-webkit-transition: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
 	position: absolute;
 	top: 0;
 	width: 100%;
 }
 #artistView {
     display: none;
-    -webkit-transition: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
     position: absolute;
     top: 0;
     width: 100%;
 }
 #albumView {
 	display: none;
-	-webkit-transition: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -309,6 +321,12 @@ table th.dur {
 .progressBar .progress {
 	height: 3px;
 	margin-bottom: 0;
+}
+.progressBar .progress:hover {
+	height: 15px;
+	margin: 1px 0;
+	border: 1px solid #ddd;
+	cursor: pointer;
 }
 .progressBar .time {
 	position: absolute;
