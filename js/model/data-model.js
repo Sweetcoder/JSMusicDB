@@ -12,8 +12,8 @@ var DataModel = function() {
 	var that = this;
 	root = that;
 	// simple model
-	this.Artiesten = ko.observableArray();
-	this.Albums = ko.observableArray();
+	this.Artiesten = ko.observableArray().extend({ throttle: 400 });
+	this.Albums = ko.observableArray().extend({ throttle: 400 });
 	this.debugtext = ko.observable();
 	// paging by letter
 	this.letters = ko.observableArray();
@@ -191,6 +191,7 @@ var Letter = function(node) {
 	that.showLetter = function() {
 		root.Artiesten(that.artists());
 		// console.log(root.Artiesten().length);
+		// TODO: skip loop
 		$.each(root.letters(), function() {
 			var letter = this;
 			letter.active(false);
@@ -280,7 +281,7 @@ var Artist = function(node) {
 	that.Omvang = ko.observable(node.MB);
 	that.Tijd = ko.observable(node["U:M:S"]);
 	that.Kwaliteit = ko.observable(node["Kbit/s"]);
-	that.Albums = ko.observableArray();
+	that.Albums = ko.observableArray().extend({ throttle: 400 });
 	that.json = null;
 
 	that.info = {
@@ -330,7 +331,7 @@ var Album = function(node) {
 	that.Album = ko.observable(node.Album);
 	that.Jaar = ko.observable(node.Jaar);
 	that.Hoes = ko.observable();
-	that.Tracks = ko.observableArray();
+	that.Tracks = ko.observableArray().extend({ throttle: 400 });
 	that.Artiest = ko.observable(node.Artiest);
 	that.polled = ko.observable(false);
 	that.ID = ko.observable(getUID());

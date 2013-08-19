@@ -23,8 +23,8 @@
 			if (!settings.letterCache[firstLetter]) {
 				letter = new Letter(artist);
 				letter.letter = firstLetter;
-				settings.model.letters.push(letter);
-				settings.model.letters(settings.model.letters.sort(function(a,b) {
+				settings.model.letters().push(letter);
+				settings.model.letters(settings.model.letters().sort(function(a,b) {
 					if (a.letter < b.letter) {
 						return -1;
 					} else {
@@ -35,8 +35,8 @@
 			} else {
 				letter = settings.letterCache[firstLetter];
 			}
-			letter.artists.push(artist);
-			letter.artists(letter.artists.sort(function (a,b) {
+			letter.artists().push(artist);
+			letter.artists(letter.artists().sort(function (a,b) {
 				if (settings.model.sortArtists() == 1) {
 					if (a.Naam() < b.Naam()) {
 						return -1;
@@ -59,12 +59,12 @@
 		if (artistName.indexOf("the ") === 0) {
 			artistName = artistName.substring(4);
 		}
-		settings.model.Albums.push(album);
+		settings.model.Albums().push(album);
 		var artist = settings.artistCache[artistName];
 		if (artist) {
 			settings.albumCache[artistName + "-"+ album.Album()] = album;
-			artist.Albums.push(album);
-			artist.Albums(artist.Albums.sort(function (a,b) {
+			artist.Albums().push(album);
+			artist.Albums(artist.Albums().sort(function (a,b) {
 				if (settings.model.sortAlbums() == 1) {
 					if (a.Album() < b.Album()) {
 						return -1;
@@ -89,8 +89,8 @@
 		}
 		var album = settings.albumCache[artistName + "-"+ albumName];
 		if (album && album.Artiest() == track.Artiest()) {
-			album.Tracks.push(track);
-			album.Tracks(album.Tracks.sort(function (a,b) {
+			album.Tracks().push(track);
+			album.Tracks(album.Tracks().sort(function (a,b) {
 				if (!isNaN(a.Disc())) {
 					// sort by discnumber (or by number, secondary)
 					if (Number(a.Disc()) < Number(b.Disc())) {
