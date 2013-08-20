@@ -37,7 +37,7 @@
         </script>
     </head>
 
-    <body class="home blog front-page">
+    <body class="home blog front-page" ng-app>
         <div class="snap-drawers">
             <div class="snap-drawer snap-drawer-left">
                 <ul class="nav nav-list nav-stacked">
@@ -59,20 +59,20 @@
                 </ul>
             </div>
         </div>
-        <div class="snap-content" id="main">
+        <div class="snap-content" id="main" ng-controller="AppController">
             <div class="container">
                 <div class="row" id="loader">
                     <h2>Please wait, loading data</h2>
                     <img src="css/img/ajax-loader.gif" alt="" />
                 </div>
                 <div id="content">
-                    <div class="">
+                    <div class="" ng-controller="LetterController">
                         <h1><i class="icon-align-justify toggle" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
-                        <div class="navbar" data-bind="visible: letters().length > 0">
+                        <div class="navbar">
                             <div class="navbar-inner">
-                                <ul class="nav" data-bind="foreach: letters">
-                                    <li data-bind="attr: { 'class': (active()) ? 'active' : '' }">
-                                        <a data-bind="text: letter, click: showLetter, attr: { 'class': (active()) ? 'active' : '' }" href="#"></a>
+                                <ul class="nav">
+                                    <li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
+                                        <a href="#" ng-class="{true: 'active', false: ''}[letter.active]">{{firstletter}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -505,37 +505,10 @@
         <script src="js/jquery.transit.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-lightbox.min.js"></script>
-        <script src="js/knockout.js"></script>
-        <script src="js/ko.mapping.min.js"></script>
+        <script src="js/angular-1.0.7.min.js"></script>
         <script src="js/snap.min.js"></script>
         <script src="js/lastfm.js"></script>
-        <script src="js/model/data-model.js"></script>
-        <script src="js/model/player.js"></script>
-        <script src="js/musicdb.js"></script>
-
-        <script>
-			$(function() {
-				var token = document.location.search;
-				if (token) {
-					token = token.split("=")[1];
-					var api_key = lastfm.api_key
-					var api_sig = lastfm.signtoken(api_key, 'auth.getSession', token);
-
-					var url = 'http://ws.audioscrobbler.com/2.0/', data = {
-						method : 'auth.getSession',
-						api_key : '956c1818ded606576d6941de5ff793a5',
-						token : token,
-						api_sig : api_sig
-					};
-
-					$.get(url, data, function(xml) {
-						key = $("key", xml).text();
-						localStorage.setItem("key", key);
-						// reload
-						window.location.href = 'index.html';
-					}, "xml");
-				}
-			});
-        </script>
+        
+        <script src="js/controllers/jsmusicdb.js"></script>
     </body>
 </html>

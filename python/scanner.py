@@ -4,8 +4,8 @@
 
 import os, fnmatch, json, sys, codecs, time, eyed3
 
-rootpath = r"/volume1/music/"
-#rootpath = r"C:\\Users\\lucien.immink\\Dropbox\\addasoft\\Workspace\\testmusic"
+#rootpath = r"/volume1/music/"
+rootpath = r"C:\\Users\\lucien.immink\\Dropbox\\addasoft\\Workspace\\testmusic"
 artists = dict()
 albums = dict()
 jsonFile = list()
@@ -163,7 +163,7 @@ for filename in find_files(rootpath, '*.mp3'):
             track = Track(song, filename)
             nrScanned = nrScanned + 1
             perc = int((float(float(nrScanned) / float(countfiles))) * 100)
-            if (nrScanned % int(countfiles/100) == 0):
+            if (countfiles > 100 and nrScanned % int(countfiles/100) == 0):
                 inc = time.time()
                 #print "Scanner has scanned" , str(nrScanned) , "files, time elapsed =", ums(inc-start)
                 diff = inc-start

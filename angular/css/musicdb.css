@@ -42,6 +42,7 @@ h1 .toggle {
 /* navbar override */
 .navbar .nav > li > a {
 	padding: 10px;
+	text-transform: uppercase;
 }
 
 /* ordered list override */
