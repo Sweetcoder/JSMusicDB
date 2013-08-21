@@ -111,9 +111,9 @@ function AppController($scope, $http, switchView) {
 					var letter = new Letter(value);
 					letterCache[getFirstLetter(value.Naam)] = letter;
 				}
-				if (!artistCache[value.Naam]) {
+				if (!artistCache[stripThe(value.Naam)]) {
 					var artist = new Artist(value);
-					artistCache[value.Naam] = artist;
+					artistCache[stripThe(value.Naam)] = artist;
 					letterCache[getFirstLetter(value.Naam)].artists.push(artist);
 				}
 			} else if (value.Naam && value.Artiest) {
@@ -121,7 +121,7 @@ function AppController($scope, $http, switchView) {
 				if (!albumCache[value.Naam]) {
 					var album = new Album(value);
 					albumCache[value.Naam] = album;
-					artistCache[album.Artiest].albums.push(album);
+					artistCache[stripThe(album.Artiest)].albums.push(album);
 				}
 			} else {
 				// these are the Track nodes
@@ -146,11 +146,17 @@ ArtistController.$inject = ['$scope', '$http', 'switchView', 'ImageService'];
 AlbumController.$inject = ['$scope', '$http', 'switchView', 'ImageService'];
 
 function getFirstLetter(name) {
-	var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], firstLetter = name.charAt(0).toUpperCase();
+	name = stripThe(name);
+	var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], firstLetter = name.charAt(0);
 	if ($.inArray(firstLetter, specialChars) > -1) {
 		firstLetter = "#";
 	}
 	return firstLetter;
+}
+function stripThe(name) {
+	name = name.toUpperCase();
+	name = (name.indexOf("THE ") === 0) ? name.substring(4) : name ;
+	return name;
 }
 
 function _setupModels(switchView) {
