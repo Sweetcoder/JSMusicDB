@@ -37,7 +37,7 @@
         </script>
     </head>
 
-    <body class="home blog front-page" ng-app>
+    <body class="home blog front-page" ng-app="jsmusicdb">
         <div class="snap-drawers">
             <div class="snap-drawer snap-drawer-left">
                 <ul class="nav nav-list nav-stacked">
@@ -72,7 +72,7 @@
                             <div class="navbar-inner">
                                 <ul class="nav">
                                     <li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
-                                        <a href="#" ng-class="{true: 'active', false: ''}[letter.active]">{{firstletter}}</a>
+                                        <a href="#" ng-class="{true: 'active', false: ''}[letter.active]" ng-click="getLetter(letter)">{{firstletter}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -80,33 +80,29 @@
 
                     </div>
                     <div class="wrapper">
-                        <div id="artistOverviewView">
-                            <ul data-bind="foreach: Artiesten" class="media-list">
-                                <li class="media">
-                                    <div class="card artistCard span3" data-bind="click: getArtist">
-                                        <div class="image-wrapper" data-bind="style: { backgroundImage: 'url(' + art() + ')' }">
-                                            <div class="image-inner-wrapper">
-                                                &nbsp;
-                                            </div>
-                                        </div>
+                        <div id="artistOverviewView" ng-controller="ArtistOverviewController">
+                            <ul class="media-list">
+                                <li class="media" ng-repeat="artist in Artists" ng-controller="ArtistController">
+                                    <div class="card artistCard span3" ng-click="getArtist(artist)">
+                                        
+                                        <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
                                         <div class="details">
-                                            <div class="title fade-out" data-bind="text: Naam, attr: { title: Naam }">
-                                                &nbsp;
+                                            <div class="title fade-out">
+                                                {{artist.Naam}}
                                             </div>
                                             <div class="subtitle fade-out">
-                                                    <span data-bind="text: Albums().length"></span>
-                                                    <span data-bind="text: (Albums().length == 1) ? ' Album' : ' Albums'"></span>
-                                                </div>
+                                                <ng-pluralize count="artist.albums.length" when="{'0': 'No albmus', '1': '1 album', 'other': '{} albums'}"></ng-pluralize>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
-                            <div data-bind="visible: Artiesten().length === 0" class="alert alert-error">
+                            <div ng-show="Artists.length == 0" class="alert alert-error">
                                 <strong>Warning!</strong> No artists found, have you run the scanner module yet?
                             </div>
                         </div>
-                        <div id="artistView">
-                            <!-- ko with: ActiveArtist -->
+                        
+                        <div id="artistView" ng-controller="ArtistController">
                             <div id="headerBar">
                                 <div class="navbar">
                                     <div class="navbar-inner">
@@ -114,35 +110,30 @@
                                             <button type="button" class="close">
                                                 ×
                                             </button>
-                                            <span class="brand" data-bind="text: Naam">Name of the artist</span>
+                                            <span class="brand">{{Artist.Naam}}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <h2>Bio</h2>
                             <div class="well">
-                                <div data-bind="html: info.bio"></div>
+                                <div ng-bind-html-unsafe="Artist.bio"></div>
                             </div>
                             <h2>Collection</h2>
                             <div class="well well2">
-                                <ul data-bind="foreach: Albums" class="media-list">
-                                    <li class="media">
+                                <ul class="media-list">
+                                    <li class="media" ng-repeat="album in Artist.albums" ng-controller="AlbumController">
                                         <div class="card albumCard span3" data-bind="click: getAlbum">
-                                            <div class="image-wrapper" data-bind="style: { backgroundImage: 'url(' + art() + ')' }">
-                                                <div class="image-inner-wrapper">
-                                                    &nbsp;
-                                                </div>
-                                            </div>
+                                            <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
                                             <div class="details">
                                                 <div class="title fade-out">
-                                                    <span data-bind="text:Album, attr: { title: Album }"></span>
-                                                    <!-- ko if (Jaar && Jaar != 'null') -->
-                                                        &nbsp;(<span data-bind="text: Jaar"></span>)
-                                                    <!-- /ko -->
+                                                    {{album.Album}}
+                                                    <span ng-visible="album.Jaar">
+                                                        &nbsp;({{album.Jaar}})
+                                                    </span>
                                                 </div>
                                                 <div class="subtitle fade-out">
-                                                    <span data-bind="text: Tracks().length"></span>
-                                                    <span data-bind="text: (Tracks().length == 1) ? ' Track' : ' Tracks'"></span>
+                                                    <ng-pluralize count="album.tracks.length" when="{'0': 'No tracks', '1': '1 track', 'other': '{} tracks'}"></ng-pluralize>
                                                 </div>
                                             </div>
                                         </div>
@@ -152,7 +143,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- /ko -->
                         </div>
                         <div id="albumView">
                             <!-- ko with: ActiveAlbum -->
@@ -508,6 +498,13 @@
         <script src="js/angular-1.0.7.min.js"></script>
         <script src="js/snap.min.js"></script>
         <script src="js/lastfm.js"></script>
+        
+        <script src="js/services/switchView.js"></script>
+        
+        <script src="js/model/Letter.js"></script>
+        <script src="js/model/Artist.js"></script>
+        <script src="js/model/Album.js"></script>
+        <script src="js/model/Track.js"></script>
         
         <script src="js/controllers/jsmusicdb.js"></script>
     </body>
