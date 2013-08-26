@@ -138,6 +138,7 @@ ol li {
 
 /* artist view */
 #artistOverviewView {
+	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-webkit-transition: all .5s ease-out;
 	-moz-transition: all .5s ease-out;
@@ -151,6 +152,7 @@ ol li {
 	opacity: 1;
 }
 #artistOverviewView.hiden {
+	-webkit-transform: translate3d(150%,0,0);
 	transform: translate3d(150%,0,0);
 	-webkit-transition: all .5s ease-out;
 	-moz-transition: all .5s ease-out;
@@ -159,6 +161,7 @@ ol li {
 	transition: all .5s ease-out;
 }
 #artistView {
+	-webkit-transform: translate3d(150%,0,0);
 	transform: translate3d(150%,0,0);
 	-webkit-transition: all .5s ease-out;
 	-moz-transition: all .5s ease-out;
@@ -170,6 +173,7 @@ ol li {
 	width: 100%;
 }
 #artistView.show {
+	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-webkit-transition: all .5s ease-out;
 	-moz-transition: all .5s ease-out;
@@ -178,6 +182,7 @@ ol li {
 	transition: all .5s ease-out;
 }
 #albumView {
+	-webkit-transform: translate3d(150%,0,0);
 	transform: translate3d(150%,0,0);
 	-webkit-transition: all .5s ease-out;
 	-moz-transition: all .5s ease-out;
@@ -189,6 +194,7 @@ ol li {
 	width: 100%;
 }
 #albumView.show {
+	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-webkit-transition: all .5s ease-out;
 	-moz-transition: all .5s ease-out;
