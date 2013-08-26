@@ -5,19 +5,22 @@
 angular.module('jsmusicdb.switchView', []).factory('switchView', function ($rootScope) {
 	return {
 		letter: function (l) {
-			console.log('switching to', l);
 			$rootScope.$broadcast('letterChange', l);
-			window.scrollTo(0,0);
 		},
 		artist: function (a) {
-			console.log('switching to', a);
 			$rootScope.$broadcast('artistChange', a);
-			window.scrollTo(0,0);
 		},
 		album: function (a) {
-			console.log('switching to', a);
 			$rootScope.$broadcast('albumChange', a);
-			window.scrollTo(0,0);
+		},
+		addToPlaylist: function (a) {
+			$rootScope.$broadcast('addAlbumToPlaylist' ,a);
+		},
+		setAsPlaylist: function (a) {
+			$rootScope.$broadcast('setAsPlaylist' ,a);
+		},
+		playTrack: function (a, t) {
+			$rootScope.$broadcast('playTrack', a, t);
 		}
 	}
 });

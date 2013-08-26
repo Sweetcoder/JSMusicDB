@@ -1,4 +1,4 @@
-html,body  {
+html, body {
 	font-family: 'Lato', sans-serif;
 }
 body {
@@ -60,17 +60,15 @@ ol li {
 /* taken from google music (ninja style!)*/
 .card {
 	background: none repeat scroll 0 0 white;
-    border-radius: 2px 2px 2px 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: default;
-    
-    font-weight: 300;
-    margin: 5px;
-    overflow: hidden;
-    position: relative;
-    vertical-align: top;
-    white-space: nowrap;
-    
+	border-radius: 2px 2px 2px 2px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	cursor: default;
+	font-weight: 300;
+	margin: 5px;
+	overflow: hidden;
+	position: relative;
+	vertical-align: top;
+	white-space: nowrap;
 }
 .media .actions {
 	position: absolute;
@@ -82,143 +80,142 @@ ol li {
 	display: block;
 }
 .card .image-wrapper {
-    border-radius: 2px 2px 0 0;
-    cursor: pointer;
-    position: relative;
-    width: 100%;
-    height: 160px;
-    background-repeat: no-repeat;
+	border-radius: 2px 2px 0 0;
+	cursor: pointer;
+	position: relative;
+	width: 100%;
+	height: 160px;
+	background-repeat: no-repeat;
 	background-color: #EEE;
 	background-size: cover;
 }
 .card .image-inner-wrapper {
-    border-radius: 2px 2px 0 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+	border-radius: 2px 2px 0 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
 }
 .card .image {
-    border-radius: 2px 2px 0 0;
-    cursor: pointer;
-    display: block;
-    margin: 0 auto;
-    vertical-align: top;
-    width: 100%;
+	border-radius: 2px 2px 0 0;
+	cursor: pointer;
+	display: block;
+	margin: 0 auto;
+	vertical-align: top;
+	width: 100%;
 }
 .card .details {
-    margin: 7px 10px;
-    overflow: hidden;
+	margin: 7px 10px;
+	overflow: hidden;
 }
 .fade-out:after {
-    bottom: 0;
-    content: "";
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 30px;
+	bottom: 0;
+	content: "";
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 30px;
 }
 .card .title {
-    color: #333333;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 18px;
-    max-height: 38px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform:capitalize;
+	color: #333333;
+	cursor: pointer;
+	font-size: 16px;
+	line-height: 18px;
+	max-height: 38px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-transform: capitalize;
 }
 .card .subtitle {
 	color: #888;
-	font-size: 14px;	
+	font-size: 14px;
 }
 .fade-out {
-    overflow: hidden;
-    position: relative;
-    white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+	white-space: nowrap;
 }
 
 /* artist view */
 #artistOverviewView {
-	animation-duration: 0.5s;
-	animation-name: slidein;
-	-webkit-transform: translate3d(0,0,0);
-	-moz-transform: translate3d(0,0,0);
-	-ms-transform: translate3d(0,0,0);
-	-o-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	-o-transition: all .5s ease-out;
+	-ms-transition: all .5s ease-out;
+	transition: all .5s ease-out;
 	position: absolute;
 	top: 0;
 	width: 100%;
 	left: 0%;
 	opacity: 1;
 }
-#artistOverviewView.hide {
-	animation-duration: 0.5s;
-	animation-name: slideout;
-	left: -100%;
-	opacity: 0;
+#artistOverviewView.hiden {
+	transform: translate3d(150%,0,0);
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	-o-transition: all .5s ease-out;
+	-ms-transition: all .5s ease-out;
+	transition: all .5s ease-out;
 }
 #artistView {
-	animation-duration: 0.5s;
-	animation-name: slideout;
-	left: 100%;
-	opacity: 0;
-    -webkit-transform: translate3d(0,0,0);
-	-moz-transform: translate3d(0,0,0);
-	-ms-transform: translate3d(0,0,0);
-	-o-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-    position: absolute;
-    top: 0;
-    width: 100%;
+	transform: translate3d(150%,0,0);
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	-o-transition: all .5s ease-out;
+	-ms-transition: all .5s ease-out;
+	transition: all .5s ease-out;
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 #artistView.show {
-	animation-duration: 0.5s;
-	animation-name: slidein;
-	left: 0;
-	opacity: 1;
+	transform: translate3d(0,0,0);
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	-o-transition: all .5s ease-out;
+	-ms-transition: all .5s ease-out;
+	transition: all .5s ease-out;
 }
 #albumView {
-	animation-duration: 0.5s;
-	animation-name: slideout;
-	left: 100%;
-	opacity: 0;
-	-webkit-transform: translate3d(0,0,0);
-	-moz-transform: translate3d(0,0,0);
-	-ms-transform: translate3d(0,0,0);
-	-o-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
+	transform: translate3d(150%,0,0);
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	-o-transition: all .5s ease-out;
+	-ms-transition: all .5s ease-out;
+	transition: all .5s ease-out;
 	position: absolute;
 	top: 0;
 	width: 100%;
 }
 #albumView.show {
-	animation-duration: 0.5s;
-	animation-name: slidein;
-	left: 0;
-	opacity: 1;
+	transform: translate3d(0,0,0);
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	-o-transition: all .5s ease-out;
+	-ms-transition: all .5s ease-out;
+	transition: all .5s ease-out;
 }
 /* animations */
 @keyframes slidein {
-	from {
-		left: 100%;
-		opacity: 0;
-	}
-	to {
-		left: 0;
-		opacity: 1;
-	}
+from {
+	left: 100%;
+	opacity: 0;
 }
-@keyframes slideout {
-	from {
-		left: 0;
-		opacity: 1;
-	}
-	to {
-		left: -100%;
-		opacity: 0;
-	}
+to {
+	left: 0;
+	opacity: 1;
+}
+}
+@keyframes
+slideout {from {
+	left: 0;
+	opacity: 1;
+}
+to {
+	left: -100%;
+	opacity: 0;
+}
 }
 
 .navbar .close {
@@ -287,10 +284,10 @@ table th.dur {
 }
 #albumView .art {
 	border-radius: 5px;
-    box-shadow: 0 0 2px;
-    float: left;
-    margin: 0 1% 0 0;
-    width: 19%;
+	box-shadow: 0 0 2px;
+	float: left;
+	margin: 0 1% 0 0;
+	width: 19%;
 }
 #albumView table {
 	position: relative;
@@ -304,20 +301,20 @@ table th.dur {
 /* loader */
 #loader {
 	background: none repeat scroll 0 0 #FFFFFF;
-    border: 3px solid #AAAAAA;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 0 5000px rgba(0,0,0,0.75);
-    bottom: 0;
-    display: block;
-    height: 88px;
-    left: 0;
-    margin: auto;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-    width: 374px;
-    z-index: 1;
+	border: 3px solid #AAAAAA;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 0 0 5000px rgba(0,0,0,0.75);
+	bottom: 0;
+	display: block;
+	height: 88px;
+	left: 0;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 0;
+	width: 374px;
+	z-index: 1;
 }
 #loader img {
 	display: block;
@@ -326,14 +323,13 @@ table th.dur {
 
 /* player */
 #player {
-	display: none;
 	position: fixed;
 	left: 0;
 	bottom: 0;
 	width: 100%;
 	background: #F5F5F5;
 	border-top: 1px solid #cccccc;
-	box-shadow: 1px -1px 0 rgba(0,0,0,0.25);	
+	box-shadow: 1px -1px 0 rgba(0,0,0,0.25);
 	z-index: 3;
 	-webkit-transition: translate3d(0,0,0);
 }
@@ -346,9 +342,9 @@ table th.dur {
 }
 #player .info-Title {
 	margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 #player .info {
 	white-space: nowrap;
@@ -412,10 +408,10 @@ table th.dur {
 }
 .playlist .group .art {
 	border-radius: 5px;
-    box-shadow: 0 0 2px;
-    float: left;
-    margin: 0 1% 0 0;
-    width: 19%;
+	box-shadow: 0 0 2px;
+	float: left;
+	margin: 0 1% 0 0;
+	width: 19%;
 }
 .playlist .group table {
 	width: 80%;

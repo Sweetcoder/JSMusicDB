@@ -11,4 +11,5 @@ function Track(node) {
 	that.path = node.Pad;
 	that.Disc = node.Disk;
 	that.AlbumNode = null;
+	that.isPlaying = false;
 }
