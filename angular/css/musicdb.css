@@ -34,7 +34,7 @@ form {
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
-h1 .toggle {
+.toggle i {
 	margin: 13px 8px 0 0;
 	display: inline-block;
 	cursor: pointer;
@@ -140,6 +140,8 @@ ol li {
 
 /* artist view */
 #artistOverviewView {
+	animation-duration: 0.5s;
+	animation-name: slidein;
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	-ms-transform: translate3d(0,0,0);
@@ -148,9 +150,20 @@ ol li {
 	position: absolute;
 	top: 0;
 	width: 100%;
+	left: 0%;
+	opacity: 1;
+}
+#artistOverviewView.hide {
+	animation-duration: 0.5s;
+	animation-name: slideout;
+	left: -100%;
+	opacity: 0;
 }
 #artistView {
-    display: none;
+	animation-duration: 0.5s;
+	animation-name: slideout;
+	left: 100%;
+	opacity: 0;
     -webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	-ms-transform: translate3d(0,0,0);
@@ -160,8 +173,17 @@ ol li {
     top: 0;
     width: 100%;
 }
+#artistView.show {
+	animation-duration: 0.5s;
+	animation-name: slidein;
+	left: 0;
+	opacity: 1;
+}
 #albumView {
-	display: none;
+	animation-duration: 0.5s;
+	animation-name: slideout;
+	left: 100%;
+	opacity: 0;
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	-ms-transform: translate3d(0,0,0);
@@ -171,6 +193,34 @@ ol li {
 	top: 0;
 	width: 100%;
 }
+#albumView.show {
+	animation-duration: 0.5s;
+	animation-name: slidein;
+	left: 0;
+	opacity: 1;
+}
+/* animations */
+@keyframes slidein {
+	from {
+		left: 100%;
+		opacity: 0;
+	}
+	to {
+		left: 0;
+		opacity: 1;
+	}
+}
+@keyframes slideout {
+	from {
+		left: 0;
+		opacity: 1;
+	}
+	to {
+		left: -100%;
+		opacity: 0;
+	}
+}
+
 .navbar .close {
 	margin-top: 10px;
 }
@@ -276,6 +326,7 @@ table th.dur {
 
 /* player */
 #player {
+	display: none;
 	position: fixed;
 	left: 0;
 	bottom: 0;

@@ -4,7 +4,7 @@ function Album(node) {
 	that.Tijd = node["U:M:S"];
 	that.Kwaliteit = node["Kbit/s"];
 	that.Album = node.Album;
-	that.Jaar = node.Jaar;
+	that.Jaar = (node.Jaar != 'null') ? node.Jaar : null;
 	that.Artiest = node.Artiest;
 	that.tracks = [];
 	that.url = 'http://ws.audioscrobbler.com/2.0/';

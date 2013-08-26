@@ -67,7 +67,7 @@
                 </div>
                 <div id="content">
                     <div class="" ng-controller="LetterController">
-                        <h1><i class="icon-align-justify toggle" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
+                        <h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
                         <div class="navbar">
                             <div class="navbar-inner">
                                 <ul class="nav">
@@ -107,7 +107,7 @@
                                 <div class="navbar">
                                     <div class="navbar-inner">
                                         <div id="breadcrumbs" class="breadcrumbs main-tab">
-                                            <button type="button" class="close">
+                                            <button type="button" class="close" ng-click="closeView()">
                                                 ×
                                             </button>
                                             <span class="brand">{{Artist.Naam}}</span>
@@ -123,12 +123,12 @@
                             <div class="well well2">
                                 <ul class="media-list">
                                     <li class="media" ng-repeat="album in Artist.albums" ng-controller="AlbumController">
-                                        <div class="card albumCard span3" data-bind="click: getAlbum">
+                                        <div class="card albumCard span3" ng-click="getAlbum(album)">
                                             <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
                                             <div class="details">
                                                 <div class="title fade-out">
                                                     {{album.Album}}
-                                                    <span ng-visible="album.Jaar">
+                                                    <span ng-show="album.Jaar">
                                                         &nbsp;({{album.Jaar}})
                                                     </span>
                                                 </div>
@@ -144,24 +144,21 @@
                                 </ul>
                             </div>
                         </div>
-                        <div id="albumView">
-                            <!-- ko with: ActiveAlbum -->
+                        <div id="albumView" ng-controller="AlbumController">
                             <div id="headerBar">
                                 <div class="navbar">
                                     <div class="navbar-inner">
                                         <div id="breadcrumbs" class="breadcrumbs main-tab">
-                                            <button type="button" class="close">
+                                            <button type="button" class="close" ng-click="closeView()">
                                                 ×
                                             </button>
-                                            <span class="brand" data-bind="text: Artiest">Name of the artist</span>
-                                            <span class="brand"> - </span>
-                                            <span class="brand" data-bind="text: Album">Name of the artist</span>
+                                            <span class="brand">{{Album.Artiest}} - {{Album.Album}}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="well">
-                                <img data-bind="attr: { src: art(), alt: Artiest + ' - ' + Album}" class='art'>
+                                <img class='art' ng-src="{{Album.art}}" >
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -170,22 +167,28 @@
                                             <th class="dur">Duration</th>
                                         </tr>
                                     </thead>
-                                    <tbody data-bind="foreach: Tracks">
-                                        <tr data-bind="click: playFile, attr: { 'class' : (root.loggedin()) ? 'playable' : ''}">
-                                            <td data-bind="attr: { 'class': (isplaying()) ? 'trackno eq' : 'trackno'}"><span data-bind="text: (Nummer != 'None') ? Nummer : ' ', visible: !isplaying()">Nummer</span><span data-bind="visible: isplaying"><img src="img/ani_equalizer_black.gif" alt=""></span></td>
-                                            <td><span data-bind="text: Titel">Titel</span></td>
-                                            <td><span data-bind="text: Tijd">Tijd</span></td>
+                                    <tbody>
+                                        <tr data-bind="click: playFile, attr: { 'class' : (root.loggedin()) ? 'playable' : ''}" ng-repeat="track in Album.tracks" ng-controller="TrackController">
+                                            <td class="trackno">
+                                                <span ng-show="track.isPlaying">
+                                                    <img src="img/ani_equalizer_black.gif" alt="">
+                                                </span>
+                                                <span ng-show="!track.isPlaying">
+                                                    {{track.Nummer}}
+                                                </span>
+                                            </td>
+                                            <td>{{track.Titel}}</td>
+                                            <td>{{track.Tijd}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /ko -->
                         </div>
                     </div>
                 </div>
                 <div id="playlist" style="display: none;">
                     <div class="">
-                        <h1><i class="icon-align-justify toggle"></i>Playlist</h1>
+                        <h1 class="toggle"><i class="icon-align-justify"></i>Playlist</h1>
                     </div>
                     <div class="wrapper">
                         <div class="well">
@@ -226,7 +229,7 @@
                 </div>
                 <div id="settings" style="display: none;">
                     <div class="">
-                        <h1><i class="icon-align-justify toggle"></i>Settings</h1>
+                        <h1 class="toggle"><i class="icon-align-justify"></i>Settings</h1>
                     </div>
                     <div class="wrapper">
                         <div class="well">
@@ -324,30 +327,30 @@
                 </div>
                 <div id="about" style="display: none;">
                     <div class="">
-                        <h1><i class="icon-align-justify toggle"></i>About</h1>
+                        <h1 class="toggle"><i class="icon-align-justify"></i>About</h1>
                     </div>
                     <div class="wrapper">
                         <div class="well">
                             <table class="table table-bordered">
                                 <tr>
                                     <td>Total amount of artists:</td>
-                                    <td><span data-bind="text: totalArtists"></span></td>
+                                    <td>{{totalArtists}}</td>
                                 </tr>
                                 <tr>
                                     <td>Total amount of albums:</td>
-                                    <td><span data-bind="text: totalAlbums"></span></td>
+                                    <td>{{totalAlbums}}</td>
                                 </tr>
                                 <tr>
                                     <td>Total amount of tracks:</td>
-                                    <td><span data-bind="text: totalTracks"></span></td>
+                                    <td>{{totalTracks}}</td>
                                 </tr>
                                 <tr>
                                     <td>Total playing time:</td>
-                                    <td><span data-bind="text: ums(totalPlaying())"></span> (U:M:S)</td>
+                                    <td>{{totalPlaying}}<span data-bind="text: ums(totalPlaying())"></span> (U:M:S)</td>
                                 </tr>
                                 <tr>
                                     <td>Debug</td>
-                                    <td><span data-bind="html: debugtext"></span></td>
+                                    <td><span ng-bind-html-unsafe="debugText">&nbsp;</span></td>
                                 </tr>
                             </table>
                         </div>
