@@ -136,94 +136,51 @@ ol li {
 	white-space: nowrap;
 }
 
-/* artist view */
-#artistOverviewView {
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-	-webkit-transition: all .5s ease-out;
-	-moz-transition: all .5s ease-out;
-	-o-transition: all .5s ease-out;
-	-ms-transition: all .5s ease-out;
-	transition: all .5s ease-out;
+/* animations */
+.view {
+	-webkit-transition: all .3s ease-in;
+	-moz-transition: all .3s ease-in;
+	-o-transition: all .3s ease-in;
+	-ms-transition: all .3s ease-in;
+	transition: all .3s ease-in;
+	opacity: 1;
+}
+#content .wrapper > div {
 	position: absolute;
 	top: 0;
 	width: 100%;
 	left: 0%;
-	opacity: 1;
+	height: 100%;
+	/* hardware */
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
 }
-#artistOverviewView.hiden {
-	-webkit-transform: translate3d(150%,0,0);
-	transform: translate3d(150%,0,0);
-	-webkit-transition: all .5s ease-out;
-	-moz-transition: all .5s ease-out;
-	-o-transition: all .5s ease-out;
-	-ms-transition: all .5s ease-out;
-	transition: all .5s ease-out;
-}
-#artistView {
-	-webkit-transform: translate3d(150%,0,0);
-	transform: translate3d(150%,0,0);
-	-webkit-transition: all .5s ease-out;
-	-moz-transition: all .5s ease-out;
-	-o-transition: all .5s ease-out;
-	-ms-transition: all .5s ease-out;
-	transition: all .5s ease-out;
-	position: absolute;
-	top: 0;
-	width: 100%;
-}
-#artistView.show {
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-	-webkit-transition: all .5s ease-out;
-	-moz-transition: all .5s ease-out;
-	-o-transition: all .5s ease-out;
-	-ms-transition: all .5s ease-out;
-	transition: all .5s ease-out;
-}
-#albumView {
-	-webkit-transform: translate3d(150%,0,0);
-	transform: translate3d(150%,0,0);
-	-webkit-transition: all .5s ease-out;
-	-moz-transition: all .5s ease-out;
-	-o-transition: all .5s ease-out;
-	-ms-transition: all .5s ease-out;
-	transition: all .5s ease-out;
-	position: absolute;
-	top: 0;
-	width: 100%;
-}
-#albumView.show {
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-	-webkit-transition: all .5s ease-out;
-	-moz-transition: all .5s ease-out;
-	-o-transition: all .5s ease-out;
-	-ms-transition: all .5s ease-out;
-	transition: all .5s ease-out;
-}
-/* animations */
-@keyframes slidein {
-from {
-	left: 100%;
+#content .wrapper > .child {
+	-webkit-transition: all .3s ease-in;
+	-moz-transition: all .3s ease-in;
+	-o-transition: all .3s ease-in;
+	-ms-transition: all .3s ease-in;
+	transition: all .3s ease-in;
 	opacity: 0;
+	-webkit-transform: translate3d(110%, 0, 0) scale(0.001);
+	-moz-transform: translate3d(110%, 0, 0) scale(0.001);
+	-ms-transform: translate3d(110%, 0, 0) scale(0.001);
+	transform: translate3d(110%, 0, 0) scale(0.001);
 }
-to {
-	left: 0;
-	opacity: 1;
-}
-}
-@keyframes
-slideout {from {
-	left: 0;
-	opacity: 1;
-}
-to {
-	left: -100%;
+#content .wrapper > .parent {
+	-webkit-transition: all .3s ease-in;
+	-moz-transition: all .3s ease-in;
+	-o-transition: all .3s ease-in;
+	-ms-transition: all .3s ease-in;
+	transition: all .3s ease-in;
 	opacity: 0;
+	-webkit-transform: translate3d(-110%, 0, 0) scale(0.001);
+	-moz-transform: translate3d(-110%, 0, 0) scale(0.001);
+	-ms-transform: translate3d(-110%, 0, 0) scale(0.001);
+	transform: translate3d(-110%, 0, 0) scale(0.001);
 }
-}
-
 .navbar .close {
 	margin-top: 10px;
 }
@@ -281,12 +238,19 @@ table th.dur {
 .table td.eq {
 	vertical-align: top;
 }
+#artistOverviewView .media-list {
+	margin-bottom: 80px;
+}
 #artistView .well {
 	padding: 5px;
+}
+#artistView .well2 {
+	margin-bottom: 80px;
 }
 #albumView .well {
 	position: relative;
 	overflow: hidden;
+	margin-bottom: 80px;
 }
 #albumView .art {
 	border-radius: 5px;

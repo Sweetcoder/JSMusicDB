@@ -70,9 +70,10 @@ function LetterController($scope, switchView) {
 		activeLetter = letter;
 		activeLetter.active = true;
 		switchView.letter(letter);
-		$("#artistOverviewView").removeClass("hiden");
-		$("#artistView").removeClass("show");
-		$("#albumView").removeClass("show");
+		$("#artistOverviewView").removeClass("child").removeClass("parent").addClass("view");
+		$("#artistView").addClass("child").removeClass("parent").removeClass("view");
+		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
+		$(".snap-content").get(0).scrollTop = 0;
 	};
 };
 
@@ -83,9 +84,10 @@ function ArtistOverviewController($scope, $http, switchView) {
 	$scope.getArtist = function (artist) {
 		switchView.artist(artist);
 		// TODO: generic function
-		$("#artistOverviewView").addClass("hiden");
-		$("#artistView").addClass("show");
-		$("#albumView").removeClass("show");
+		$("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
+		$("#artistView").removeClass("child").removeClass("parent").addClass("view");
+		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
+		$(".snap-content").get(0).scrollTop = 0;
 	}
 };
 
@@ -98,15 +100,17 @@ function ArtistController($scope, $http, switchView, ImageService) {
 	
 	$scope.getAlbum = function (album) {
 		switchView.album(album);
-		$("#artistOverviewView").addClass("hiden");
-		$("#artistView").removeClass("show");
-		$("#albumView").addClass("show");
+		$("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
+		$("#artistView").removeClass("child").addClass("parent").removeClass("view");
+		$("#albumView").removeClass("child").removeClass("parent").addClass("view");
+		$(".snap-content").get(0).scrollTop = 0;
 	};
 	$scope.closeView = function () {
 		// return to letter view
-		$("#artistOverviewView").removeClass("hiden");
-		$("#artistView").removeClass("show");
-		$("#albumView").removeClass("show");
+		$("#artistOverviewView").removeClass("child").removeClass("parent").addClass("view");
+		$("#artistView").addClass("child").removeClass("parent").removeClass("view");
+		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
+		$(".snap-content").get(0).scrollTop = 0;
 	};
 }
 function AlbumController($scope, $http, switchView, ImageService) {
@@ -117,9 +121,9 @@ function AlbumController($scope, $http, switchView, ImageService) {
 		switchView.addToPlaylist(album);
 	};
 	$scope.closeView = function () {
-		$("#artistOverviewView").addClass("hiden");
-		$("#artistView").addClass("show");
-		$("#albumView").removeClass("show");
+		$("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
+		$("#artistView").removeClass("child").removeClass("parent").addClass("view");
+		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
 	};
 	$scope.art = ImageService.getAlbumArt($scope);
 }
@@ -146,16 +150,17 @@ function PlayerController($scope, $http, switchView, $rootScope) {
 		
 	var play = function (album, track) {
 		if ($scope.track) $scope.track.isPlaying = false;
-		track.isPlaying = true;
 		
 		$scope.track = track;
+		$scope.track.isPlaying = true;
 		$scope.album = album;
 		$scope.isPlaying = true;
+		$scope.playstate = 'play';
 		
 		// set audio source
 		var src = "";
 		if ($rootScope.server != 0) {
-			src = playerpath.replace('$s', $rootScope.server) + track.path.replace('+', '%2B').replace('&', '%26') + '&sid='+$rootScope.sid + '&server=' + $rootScope.url;
+			src = playerpath.replace('$s', $rootScope.server) + track.path.replace('+', '%2B').replace('&', '%26') + '&sid='+$rootScope.sid + '&server=' + encodeURIComponent($rootScope.url);
 		}
 		//if (model.server() != "0") {
 		//	src = playerpath.replace('$s', model.server()) + track.path.replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid + '&server=' + model.url();
@@ -166,12 +171,7 @@ function PlayerController($scope, $http, switchView, $rootScope) {
 		audiotag.load();
 		// and play the track!
 		audiotag.play();
-	}	
-		
-	$scope.$on('playTrack', function (e, album, track) {
-		switchView.setAsPlaylist(album);
-		play(album,track);
-	});
+	}
 	var prefixZero = function (n) {
 		if (n < 10) {
 			return "0" + n;
@@ -184,21 +184,63 @@ function PlayerController($scope, $http, switchView, $rootScope) {
 			sec = (integer - minutes*60);
 		return prefixZero(minutes) + ":" + prefixZero(sec.toFixed(0));
 	};
-	var gotoNextTrack = function (i) {
-		var list = $scope.album.tracks,
-			current = $.inArray($scope.track, list);
-		if (current > -1) {
-			var next = current + i;
-			var track = $scope.album.tracks[next];
-			if (track) {
-				play($scope.album, track);
-			} else {
+	var gotoNextTrack = function (ii) {
+		// get the complete playlist from the playlist scope
+		var playlistscope = angular.element(document.querySelector('#playlist .playlist')).scope(),
+			playlist = playlistscope.playlist;
+			
+		var skipToAlbum = function(index, start) {
+			if (index == -1 || playlist.length < index) {
 				$scope.isPlaying = false;
 				$scope.track.isPlaying = false;
+				audiotag.pause();
+			} else {
+				var album = playlist[index],
+					track = null;
+				if (start) {
+					track = album.tracks[0];
+				} else {
+					track = album.tracks[album.tracks.length - 1];
+				}
+				play(album, track);
 			}
 		}
+		var hasNext = false;
+		$.each(playlist, function (i) {
+			var list = this.tracks,
+				current = $.inArray($scope.track, list);
+			if (current > -1) {
+				var next = current + ii;
+				var track = list[next];
+				// skip to next track
+				if (track) {
+					play($scope.album, track);
+					$scope.$apply();
+					hasNext = true;
+					return false;
+				} else if (next == list.length) {
+					// skip to next album
+					skipToAlbum(i+1, true);
+					hasNext = true;
+				} else if (next == -1) {
+					// skip to previous album
+					skipToAlbum(i-1, false);
+					hasNext = true;
+				}
+			}
+			if (!hasNext) {
+				$scope.isPlaying = false;
+				$scope.track.isPlaying = false;
+				audiotag.pause();
+			}
+			
+		});
 	}
 	
+	$scope.$on('playTrack', function (e, album, track) {
+		switchView.setAsPlaylist(album);
+		play(album,track);
+	});
 	$scope.pos = function () {
 		var percentage = ($scope.position / $scope.len) * 100;
 		return (percentage) ? percentage + '%' : '0%';
@@ -209,6 +251,18 @@ function PlayerController($scope, $http, switchView, $rootScope) {
 	$scope.previous = function () {
 		gotoNextTrack(-1);
 	}
+	$scope.playstate = 'play';
+	$scope.playpause = function () {
+		if ($scope.playstate == 'play') {
+			$scope.playstate = 'pause';
+			$scope.track.isPlaying = false;
+			audiotag.pause();
+		} else {
+			$scope.playstate = 'play';
+			$scope.track.isPlaying = true;
+			audiotag.play();
+		}
+	}
 	
 	// audiotag events
 	audiotag.addEventListener('timeupdate', function () {
@@ -216,7 +270,7 @@ function PlayerController($scope, $http, switchView, $rootScope) {
 		$scope.position = audiotag.currentTime;
 		$scope.end = ums(audiotag.duration);
 		$scope.len = audiotag.duration;
-		$scope.$digest();
+		$scope.$apply();
 	});
 	audiotag.addEventListener('ended', function () {
 		gotoNextTrack(1);
@@ -267,6 +321,12 @@ function SettingsController($scope, $rootScope) {
 	if (!$scope.store) {
 		$(".toggle").tooltip("show");
 	}
+	
+	var lastfmkey = localStorage.getItem("key");
+	if (lastfmkey) {
+		$scope.lastfm = lastfmkey;
+		$rootScope.lastfmkey = lastfmkey;
+	}
 };
 
 /* caching */
@@ -316,6 +376,7 @@ function AppController($scope, $http, switchView, $rootScope) {
 		var stop = new Date();
 		debug.push('Fill and sort models done in ' + (stop - start) + ' ms');
 		$scope.debugText = debug.join('<br />');
+		
 	});	
 };
 AppController.$inject = ['$scope', '$http', 'switchView', '$rootScope'];
