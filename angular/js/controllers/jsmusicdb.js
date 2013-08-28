@@ -294,6 +294,18 @@ function PlayerController($scope, $http, switchView, $rootScope) {
 		$.post(url, data, function(json) {});
 	}
 	
+	$scope.playlistView = 'list';
+	$scope.toggleView = function () {
+		$("#main .container > div").hide();
+		if ($scope.playlistView == 'list') {
+			$("#playlist").show();
+			$scope.playlistView = 'th';
+		} else {
+			$("#content").show();
+			$scope.playlistView = 'list';
+		}
+	};
+	
 	// audiotag events
 	audiotag.addEventListener('timeupdate', function () {
 		$scope.current = ums(audiotag.currentTime);
