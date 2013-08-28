@@ -263,6 +263,15 @@ function PlayerController($scope, $http, switchView, $rootScope) {
 			audiotag.play();
 		}
 	}
+	$scope.updatePosition = function ($event) {
+		if ($scope.len) {
+			var clientX = $event.clientX,
+				left = clientX - $($event.target).offset().left,
+				perc = (left / $($event.target).width()),
+				time = perc * $scope.len;
+			audiotag.currentTime = time;
+		}
+	}
 	
 	// audiotag events
 	audiotag.addEventListener('timeupdate', function () {
