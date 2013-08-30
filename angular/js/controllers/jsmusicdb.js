@@ -358,6 +358,7 @@ function AppController($scope, $http, switchView, $rootScope) {
 				// add track to album
 				if (albumCache[track.Artiest + " - " + track.Album]) {
 					albumCache[track.Artiest + " - " + track.Album].tracks.push(track);
+					track.albumNode = albumCache[track.Artiest + " - " + track.Album];
 				}
 			}
 		});

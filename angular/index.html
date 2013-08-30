@@ -400,7 +400,7 @@
                 <i class="icon-chevron-left"></i>
             </button>
             <div class="span11">
-                <a data-toggle="lightbox" href="#albumart"><img class="thumbnail span2" ng-src="{{album.art}}"></a>
+                <a data-toggle="lightbox" href="#albumart"><img class="thumbnail span2" ng-src="{{track.albumNode.art}}"></a>
                 <div class="span9 offset2">
                     <div class="progressBar span9" style="margin-left: 0;">
                         <span class="time start">{{position | timeFilter}}</span>
@@ -433,7 +433,7 @@
                                     <i class="icon-volume-{{muteState}}"></i>
                                 </button>
 
-                                <button class="btn" ng-show="lastfmkey" ng-click="love(album, track)">
+                                <button class="btn" ng-show="lastfmkey" ng-click="love(track.albumNode, track)">
                                     <i class="icon-heart"></i>
                                 </button>
 
@@ -453,7 +453,7 @@
         </div>
         <div id="albumart" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="lightbox-content" ng-controller="PlayerController">
-                <img ng-src="{{album.art}}">
+                <img ng-src="{{track.albumNode.art}}">
                 <div class="lightbox-caption">
 
                     <div class="progressBar">
