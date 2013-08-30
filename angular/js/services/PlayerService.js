@@ -30,7 +30,6 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function 
 		var album = $scope.album,
 			track = $scope.track,
 			index = $.inArray(track, album.tracks);
-		// current track is from a different CD
 		var skipToNextAlbum = false;
 		if (track.Album != album.Album) {
 			skipToNextAlbum = true;
@@ -39,14 +38,12 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function 
 		if (index !== -1 || skipToNextAlbum) {
 			var next = index - 1;
 			track = album.tracks[next];
-			console.log("track", track, album.tracks);
 			if (track) {
 				return track;
 			} 
 		}
 	}
 	this.nextAlbum = function ($scope) {
-		
 		var playlistscope = angular.element(document.querySelector('#playlist .playlist')).scope(),
 			playlist = playlistscope.playlist,
 			nextAlbum = $.inArray($scope.album, playlist) + 1;
@@ -57,7 +54,6 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function 
 		}
 	}
 	this.previousAlbum = function ($scope) {
-		
 		var playlistscope = angular.element(document.querySelector('#playlist .playlist')).scope(),
 			playlist = playlistscope.playlist,
 			previousAlbum = $.inArray($scope.album, playlist) - 1;

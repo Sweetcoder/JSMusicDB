@@ -1,4 +1,4 @@
-var jsmusicdb = angular.module('jsmusicdb', ['jsmusicdb.switchView', 'jsmusicdb.playerService']);
+var jsmusicdb = angular.module('jsmusicdb', ['jsmusicdb.switchView', 'jsmusicdb.playerService', 'TimeFilters']);
 
 // factories
 jsmusicdb.factory('ImageService', function($http) {
@@ -146,7 +146,8 @@ function PlaylistController($scope) {
 
 function PlayerController($scope, $http, switchView, $rootScope, playerService) {
 	var playerpath = 'proxy/$s/stream.php?path=',
-		audiotag = $('audio').get(0);
+		audiotag = $('audio').get(0),
+		watching = [$scope.album, $scope.track];
 	
 	var play = function (album, track) {
 		if ($scope.track) $scope.track.isPlaying = false;
@@ -172,53 +173,6 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 		// and play the track!
 		audiotag.play();
 	}
-	var prefixZero = function (n) {
-		if (n < 10) {
-			return "0" + n;
-		}
-		return n;
-	};
-	var ums = function (t) {
-		var integer = Number(t);
-		var minutes = Math.floor(integer/60,10),
-			sec = (integer - minutes*60);
-		return prefixZero(minutes) + ":" + prefixZero(sec.toFixed(0));
-	};
-	var gotoNextTrack = function (ii) {
-		// get the complete playlist from the playlist scope
-		
-		
-		var hasNext = false;
-		$.each(playlist, function (i) {
-			var list = this.tracks,
-				current = $.inArray($scope.track, list);
-			if (current > -1) {
-				var next = current + ii;
-				var track = list[next];
-				// skip to next track
-				if (track) {
-					play($scope.album, track);
-					hasNext = true;
-					return false;
-				} else if (next == list.length) {
-					// skip to next album
-					skipToAlbum(i+1, true);
-					hasNext = true;
-				} else if (next == -1) {
-					// skip to previous album
-					skipToAlbum(i-1, false);
-					hasNext = true;
-				}
-			}
-			if (!hasNext) {
-				$scope.isPlaying = false;
-				$scope.track.isPlaying = false;
-				audiotag.pause();
-			}
-			
-		});
-	}
-	
 	$scope.$on('playTrack', function (e, album, track) {
 		switchView.setAsPlaylist(album);
 		play(album,track);
@@ -252,6 +206,18 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 				audiotag.pause();
 			}
 		}
+		
+		/*
+		var nextTrack = playerService.nextTrack();
+		if (nextTrack) {
+			play(nextTrack.album, nextTrack.track);
+		} else {
+			$scope.isPlaying = false;
+			$scope.track.isPlaying = false;
+			audiotag.pause();
+		}
+		*/
+		
 	}
 	$scope.previous = function () {
 		
@@ -279,6 +245,17 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 				audiotag.pause();
 			}
 		}
+		
+		/*
+		var nextTrack = playerService.previousTrack();
+		if (nextTrack) {
+			play(nextTrack.album, nextTrack.track);
+		} else {
+			$scope.isPlaying = false;
+			$scope.track.isPlaying = false;
+			audiotag.pause();
+		}
+		*/
 	}
 	$scope.playstate = 'play';
 	$scope.playpause = function () {
@@ -337,14 +314,12 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 	
 	// audiotag events
 	audiotag.addEventListener('timeupdate', function () {
-		$scope.current = ums(audiotag.currentTime);
 		$scope.position = audiotag.currentTime;
-		$scope.end = ums(audiotag.duration);
 		$scope.len = audiotag.duration;
 		$scope.$apply();
 	});
 	audiotag.addEventListener('ended', function () {
-		gotoNextTrack(1);
+		$scope.next();
 	});
 };
 
@@ -414,7 +389,7 @@ function AppController($scope, $http, switchView, $rootScope) {
 				$scope.totalArtists = value.totals.artists;
 				$scope.totalAlbums = value.totals.albums;
 				$scope.totalTracks = value.totals.tracks;
-				$scope.totalPlaying = ums(value.totals.playingTime);
+				$scope.totalPlaying = value.totals.playingTime;
 			} else if (value.Naam && !value.Artiest) {
 				// these are the nodes without an Artiest attribute but with a Naam attribute; these are the Artists meta nodes
 				if (!letterCache[getFirstLetter(value.Naam)]) {
@@ -470,30 +445,6 @@ function stripThe(name) {
 	name = name.toUpperCase();
 	name = (name.indexOf("THE ") === 0) ? name.substring(4) : name ;
 	return name;
-}
-function ums(total) {
-	// total = total in seconds
-	var days = parseInt(total / (3600 * 24)),
-		rest = parseInt(total % (3600 * 24)),
-		hours = parseInt(rest / 3600),
-		rest = parseInt(total % 3600),
-		minutes = parseInt(rest / 60),
-		seconds = parseInt(rest % 60);
-	if (days === 0) {
-		days = "";
-	} else {
-		days = days + " days, "
-	}
-	if (hours < 10) {
-		hours = "0" + hours;
-	}
-	if (minutes < 10) {
-		minutes = "0" + minutes;
-	}
-	if (seconds < 10) {
-		seconds = "0" + seconds;
-	}
-	return days + hours + ":" + minutes + ":" + seconds;
 }
 function _setupModels(switchView) {
 	// push all letters in a simple array

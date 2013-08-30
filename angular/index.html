@@ -342,7 +342,7 @@
                                 </tr>
                                 <tr>
                                     <td>Total playing time:</td>
-                                    <td>{{totalPlaying}}<span data-bind="text: ums(totalPlaying())"></span> (U:M:S)</td>
+                                    <td>{{totalPlaying | timeFilter}} (U:M:S)</td>
                                 </tr>
                                 <tr>
                                     <td>Debug</td>
@@ -403,11 +403,11 @@
                 <a data-toggle="lightbox" href="#albumart"><img class="thumbnail span2" ng-src="{{album.art}}"></a>
                 <div class="span9 offset2">
                     <div class="progressBar span9" style="margin-left: 0;">
-                        <span class="time start">{{current}}</span>
+                        <span class="time start">{{position | timeFilter}}</span>
                         <div class="progress progress-striped active" ng-click="updatePosition($event)">
                             <div class="bar" ng-style="{width: pos()}"></div>
                         </div>
-                        <span class="time stop">{{end}}</span>
+                        <span class="time stop">{{len | timeFilter}}</span>
                     </div>
                     <div class="span5" style="margin-left: 0;">
                         <h3 class="info-Title">{{track.Titel}}</h3>
@@ -501,6 +501,8 @@
 
         <script src="js/services/switchView.js"></script>
         <script src="js/services/PlayerService.js"></script>
+        
+        <script src="js/filters/TimeFilter.js"></script>
 
         <script src="js/model/Letter.js"></script>
         <script src="js/model/Artist.js"></script>
