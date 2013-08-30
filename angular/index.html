@@ -187,7 +187,7 @@
                     <div class="wrapper">
                         <div class="well">
                             <div class="playlist" ng-controller="PlaylistController">
-                                <div class="group" ng-repeat="album in playlist">
+                                <div class="group" ng-repeat="album in playlistAlbums">
                                     <h3>{{album.Artiest}} - {{album.Album}} <span ng-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span></h3>
                                     <img ng-src="{{album.art}}" class="art">
                                     <table class="table table-striped table-bordered table-hover">

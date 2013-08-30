@@ -19,8 +19,8 @@ angular.module('jsmusicdb.switchView', []).factory('switchView', function ($root
 		setAsPlaylist: function (a) {
 			$rootScope.$broadcast('setAsPlaylist' ,a);
 		},
-		playTrack: function (a, t) {
-			$rootScope.$broadcast('playTrack', a, t);
+		playTrack: function (t) {
+			$rootScope.$broadcast('playTrack', t);
 		}
-	}
+	};
 });

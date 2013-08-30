@@ -23,7 +23,7 @@ jsmusicdb.factory('ImageService', function($http) {
 				} else {
 					$scope.art = "images/nocover.png";
 				}
-				return $scope.art
+				return $scope.art;
 			}
 		},
 		getAlbumArt: function ($scope) {
@@ -54,15 +54,15 @@ jsmusicdb.factory('ImageService', function($http) {
 				} else {
 					$scope.art = "images/nocover.png";
 				}
-				return $scope.art
+				return $scope.art;
 			}
 		}
-	}
+	};
 });
 
 // controllers
 function LetterController($scope, switchView) {
-	$scope.Letters = letterCache
+	$scope.Letters = letterCache;
 
 	// set the artistsInLetter var to reflect the artists in the current active letter
 	$scope.getLetter = function(letter) {
@@ -88,7 +88,7 @@ function ArtistOverviewController($scope, $http, switchView) {
 		$("#artistView").removeClass("child").removeClass("parent").addClass("view");
 		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
 		$(".snap-content").get(0).scrollTop = 0;
-	}
+	};
 };
 
 function ArtistController($scope, $http, switchView, ImageService) {
@@ -113,12 +113,12 @@ function ArtistController($scope, $http, switchView, ImageService) {
 		$(".snap-content").get(0).scrollTop = 0;
 	};
 }
-function AlbumController($scope, $http, switchView, ImageService) {
+function AlbumController($scope, $http, ImageService, playerService) {
 	$scope.$on('albumChange', function(e, album) {
 		$scope.Album = album;
 	});
 	$scope.addToPlaylist = function (album) {
-		switchView.addToPlaylist(album);
+		playerService.addAlbum(album);
 	};
 	$scope.closeView = function () {
 		$("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
@@ -127,16 +127,16 @@ function AlbumController($scope, $http, switchView, ImageService) {
 	};
 	$scope.art = ImageService.getAlbumArt($scope);
 }
-function TrackController($scope, switchView) {
+function TrackController($scope, switchView, playerService) {
 	$scope.playTrack = function (album, track) {
-		switchView.playTrack(album, track);
-	}
+		playerService.addAlbum(album);
+		switchView.playTrack(track);
+	};
 };
 
-function PlaylistController($scope) {
+function PlaylistController($scope, playerService) {
 	$scope.$on("addAlbumToPlaylist", function (e, album) {
-		if (!$scope.playlist) $scope.playlist = [];
-		$scope.playlist.push(album);
+		playerService.addAlbum(album);
 	});
 	$scope.$on("setAsPlaylist", function (e, album) {
 		$scope.playlist = []; // clear current playlist
@@ -149,10 +149,8 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 		audiotag = $('audio').get(0),
 		watching = [$scope.album, $scope.track];
 	
-	var play = function (album, track) {
+	var play = function (track) {
 		if ($scope.track) $scope.track.isPlaying = false;
-		
-		$scope.album = playerService.album(album);
 		$scope.track = playerService.track(track);
 		$scope.track.isPlaying = true;
 		$scope.isPlaying = true;
@@ -172,91 +170,37 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 		audiotag.load();
 		// and play the track!
 		audiotag.play();
-	}
-	$scope.$on('playTrack', function (e, album, track) {
-		switchView.setAsPlaylist(album);
-		play(album,track);
+	};
+	$scope.$on('playTrack', function (e, track) {
+		// switchView.setAsPlaylist(album);
+		play(track);
 	});
 	$scope.pos = function () {
 		var percentage = ($scope.position / $scope.len) * 100;
 		return (percentage) ? percentage + '%' : '0%';
-	}
+	};
 	$scope.next = function () {
-		
-		/* all logic should be in the service! */
-		
-		var track = playerService.nextTrack($scope);
+		var track = playerService.nextTrack($scope.track);
 		if (track) {
-			play($scope.album, track);
+			play(track);
 		} else {
-			var album = playerService.nextAlbum($scope);
-			if (album) {
-				$scope.album = album;
-				track = playerService.nextTrack($scope);
-				if (track) {
-					play($scope.album, track);
-				} else {
-					$scope.isPlaying = false;
-					$scope.track.isPlaying = false;
-					audiotag.pause();
-				}
-			} else {
-				$scope.isPlaying = false;
-				$scope.track.isPlaying = false;
-				audiotag.pause();
-			}
-		}
-		
-		/*
-		var nextTrack = playerService.nextTrack();
-		if (nextTrack) {
-			play(nextTrack.album, nextTrack.track);
-		} else {
-			$scope.isPlaying = false;
 			$scope.track.isPlaying = false;
-			audiotag.pause();
+			$scope.track = null;
+			$scope.isPlaying = false;
+			audiotag.stop();
 		}
-		*/
-		
-	}
+	};
 	$scope.previous = function () {
-		
-		/* all logic should be in the service! */
-		
-		
-		var track = playerService.previousTrack($scope);
+		var track = playerService.previousTrack($scope.track);
 		if (track) {
-			play($scope.album, track);
+			play(track);
 		} else {
-			var album = playerService.previousAlbum($scope);
-			if (album) {
-				$scope.album = album;
-				track = playerService.previousTrack($scope);
-				if (track) {
-					play($scope.album, track);
-				} else {
-					$scope.isPlaying = false;
-					$scope.track.isPlaying = false;
-					audiotag.pause();
-				}
-			} else {
-				$scope.isPlaying = false;
-				$scope.track.isPlaying = false;
-				audiotag.pause();
-			}
-		}
-		
-		/*
-		var nextTrack = playerService.previousTrack();
-		if (nextTrack) {
-			play(nextTrack.album, nextTrack.track);
-		} else {
-			$scope.isPlaying = false;
 			$scope.track.isPlaying = false;
-			audiotag.pause();
+			$scope.track = null;
+			$scope.isPlaying = false;
+			audiotag.stop();
 		}
-		*/
-	}
+	};
 	$scope.playstate = 'play';
 	$scope.playpause = function () {
 		if ($scope.playstate == 'play') {
@@ -268,7 +212,7 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 			$scope.track.isPlaying = true;
 			audiotag.play();
 		}
-	}
+	};
 	$scope.updatePosition = function ($event) {
 		if ($scope.len) {
 			var clientX = $event.clientX,
@@ -277,7 +221,7 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 				time = perc * $scope.len;
 			audiotag.currentTime = time;
 		}
-	}
+	};
 	$scope.muteState = 'up';
 	$scope.toggleMute = function () {
 		if ($scope.muteState == 'up') {
@@ -287,7 +231,7 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 			$scope.muteState = 'up';
 			audiotag.volume = 1;
 		}
-	}
+	};
 	$scope.love = function (album, track) {
 		var url = 'http://ws.audioscrobbler.com/2.0/', data = {
 			method : 'track.love',
@@ -298,7 +242,7 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
 			api_sig: lastfm.signplayinglove(album.Artiest, track.Titel, 'track.love')
 		};
 		$.post(url, data, function(json) {});
-	}
+	};
 	
 	$scope.playlistView = 'list';
 	$scope.toggleView = function () {
@@ -342,7 +286,7 @@ function SettingsController($scope, $rootScope) {
 						password: $scope.password,
 						url: $scope.url,
 						server: $scope.server
-					}
+					};
 					localStorage.removeItem("store");
 					localStorage.setItem("store", JSON.stringify(stored));
 				}
@@ -430,7 +374,8 @@ AppController.$inject = ['$scope', '$http', 'switchView', '$rootScope'];
 LetterController.$inject = ['$scope', 'switchView'];
 ArtistOverviewController.$inject = ['$scope', '$http', 'switchView'];
 ArtistController.$inject = ['$scope', '$http', 'switchView', 'ImageService'];
-AlbumController.$inject = ['$scope', '$http', 'switchView', 'ImageService'];
+AlbumController.$inject = ['$scope', '$http', 'ImageService', 'playerService'];
+PlaylistController.$inject = ['$scope', 'playerService'];
 PlayerController.$inject = ['$scope', '$http', 'switchView', '$rootScope', 'playerService'];
 
 function getFirstLetter(name) {
