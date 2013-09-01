@@ -100,49 +100,6 @@ function _setupModels(switchView, $rootScope) {
         if (l.artists.length === 0) {
             delete $rootScope.letterCache[letter];
         }
-        
-        l.artists.sort(function(a, b) {
-            if (a.Naam < b.Naam) {
-                return -1;
-            } else {
-                return 1;
-            }
-        });
-        for (var i = 0; i < l.artists.length; i++) {
-            var a = l.artists[i];
-            a.albums.sort(function(a, b) {
-                if (a.Jaar < b.Jaar) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            });
-            for (var j = 0; j < a.albums.length; j++) {
-                var al = a.albums[j];
-                al.tracks.sort(function(a, b) {
-                    if (!isNaN(a.Disc)) {
-                        // sort by discnumber (or by number, secondary)
-                        if (Number(a.Disc) < Number(b.Disc)) {
-                            return -1;
-                        } else if (Number(a.Disc) == Number(b.Disc)) {
-                            if (Number(a.Nummer) < Number(b.Nummer)) {
-                                return -1;
-                            } else {
-                                return 1;
-                            }
-                        } else {
-                            return 1;
-                        }
-                    } else {
-                        if (Number(a.Nummer) < Number(b.Nummer)) {
-                            return -1;
-                        } else {
-                            return 1;
-                        }
-                    }
-                });
-            }
-        }
         $rootScope.letters.push(l);
     }
     // sort the array

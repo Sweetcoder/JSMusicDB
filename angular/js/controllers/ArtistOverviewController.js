@@ -11,4 +11,7 @@ jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView
         $("#albumView").addClass("child").removeClass("parent").removeClass("view");
         $(".snap-content").get(0).scrollTop = 0;
     };
+    
+    // sorting defaults
+    $scope.sortArtists = 'Naam';
 }]);

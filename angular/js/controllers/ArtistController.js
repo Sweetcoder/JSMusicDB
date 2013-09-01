@@ -20,4 +20,7 @@ jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'sw
         $("#albumView").addClass("child").removeClass("parent").removeClass("view");
         $(".snap-content").get(0).scrollTop = 0;
     };
+    
+    // sorting defaults
+    $scope.sortAlbums = 'Jaar';
 }]);
