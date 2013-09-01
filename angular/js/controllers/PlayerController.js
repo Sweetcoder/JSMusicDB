@@ -1,4 +1,4 @@
-function PlayerController($scope, $http, switchView, $rootScope, playerService) {
+jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$rootScope' ,'playerService', function ($scope, $http, switchView, $rootScope, playerService) {
     "use strict";
     var playerpath = 'proxy/$s/stream.php?path=',
         audiotag = $('audio').get(0),
@@ -27,6 +27,19 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
         audiotag.load();
         // and play the track!
         audiotag.play();
+        
+        // set now playling status
+        if (localStorage.getItem("key")) {
+            var url = 'http://ws.audioscrobbler.com/2.0/', data = {
+                method : 'track.updateNowPlaying',
+                api_key : '956c1818ded606576d6941de5ff793a5',
+                artist : $scope.track.albumNode.Artiest,
+                track : $scope.track.Titel,
+                sk : localStorage.getItem("key"),
+                api_sig: lastfm.signplayinglove($scope.track.albumNode.Artiest, $scope.track.Titel, 'track.updateNowPlaying')
+            };
+            $.post(url, data, function(json) {});
+        }
     };
     $scope.$on('playTrack', function (e, track) {
         // switchView.setAsPlaylist(album);
@@ -70,6 +83,12 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
             audiotag.play();
         }
     };
+    $scope.stop = function () {
+        $scope.playstate = 'play';
+        $scope.isPlaying = false;
+        $scope.track.isPlaying = false;
+        audiotag.src = '';
+    };
     $scope.updatePosition = function ($event) {
         if ($scope.len) {
             var clientX = $event.clientX,
@@ -90,17 +109,36 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
         }
     };
     $scope.love = function (album, track) {
-        var url = 'http://ws.audioscrobbler.com/2.0/', data = {
-            method : 'track.love',
-            api_key : '956c1818ded606576d6941de5ff793a5',
-            artist : album.Artiest,
-            track : track.Titel,
-            sk : localStorage.getItem("key"),
-            api_sig: lastfm.signplayinglove(album.Artiest, track.Titel, 'track.love')
-        };
-        $.post(url, data, function(json) {});
+        if (localStorage.getItem("key")) {
+            var url = 'http://ws.audioscrobbler.com/2.0/', data = {
+                method : 'track.love',
+                api_key : '956c1818ded606576d6941de5ff793a5',
+                artist : album.Artiest,
+                track : track.Titel,
+                sk : localStorage.getItem("key"),
+                api_sig: lastfm.signplayinglove(album.Artiest, track.Titel, 'track.love')
+            };
+            $.post(url, data, function(json) {});
+        }
     };
-    
+    var scrobble = function () {
+        // scrobble
+        if (localStorage.getItem("key") && !$scope.scrobbeld) {
+            var now = new Date(),
+                ts = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + now.getTimezoneOffset(), now.getSeconds()) / 1000,
+                url = 'http://ws.audioscrobbler.com/2.0/', data = {
+                method : 'track.scrobble',
+                api_key : '956c1818ded606576d6941de5ff793a5',
+                artist : $scope.track.albumNode.Artiest,
+                track : $scope.track.Titel,
+                timestamp : ts,
+                sk : localStorage.getItem("key"),
+                api_sig: lastfm.signscrobble($scope.track.albumNode.Artiest, $scope.track.Titel, ts)
+            };
+            $.post(url, data, function(json) {});
+        }
+        $scope.scrobbeld = true;
+    };
     $scope.playlistView = 'list';
     $scope.toggleView = function () {
         $("#main .container > div").hide();
@@ -117,9 +155,12 @@ function PlayerController($scope, $http, switchView, $rootScope, playerService) 
     audiotag.addEventListener('timeupdate', function () {
         $scope.position = audiotag.currentTime;
         $scope.len = audiotag.duration;
+        if ($scope.position / $scope.len > 0.5 && !$scope.scrobbeld) {
+            scrobble();
+        }
         $scope.$apply();
     });
     audiotag.addEventListener('ended', function () {
         $scope.next();
     });
-}
+}]);

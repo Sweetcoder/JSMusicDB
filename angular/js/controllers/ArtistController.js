@@ -1,4 +1,4 @@
-function ArtistController($scope, $http, switchView, ImageService) {
+jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'switchView', function ($scope, $http, ImageService, switchView) {
     "use strict";
     $scope.$on('artistChange', function(e, artist) {
         $scope.Artist = artist;
@@ -20,4 +20,4 @@ function ArtistController($scope, $http, switchView, ImageService) {
         $("#albumView").addClass("child").removeClass("parent").removeClass("view");
         $(".snap-content").get(0).scrollTop = 0;
     };
-}
+}]);

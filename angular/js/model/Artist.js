@@ -1,4 +1,5 @@
-function Artist(node) {
+jsmusicdb.Artist = function(node) {
+    "use strict";
 	var that = this;
 	that.Naam = node.Naam;
 	that.Omvang = node.MB;
@@ -12,5 +13,5 @@ function Artist(node) {
 		artist : node.Naam,
 		format : 'json',
 		autoCorrect : true
-	}
+	};
 };

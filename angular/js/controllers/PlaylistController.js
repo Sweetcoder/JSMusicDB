@@ -1,4 +1,4 @@
-function PlaylistController($scope, playerService) {
+jsmusicdb.controller('PlaylistController', ['$scope', 'playerService', function ($scope, playerService) {
     "use strict";
     $scope.$on("addAlbumToPlaylist", function (e, album) {
         playerService.addAlbum(album);
@@ -7,4 +7,4 @@ function PlaylistController($scope, playerService) {
         $scope.playlist = []; // clear current playlist
         $scope.playlist.push(album);
     });
-}
+}]);

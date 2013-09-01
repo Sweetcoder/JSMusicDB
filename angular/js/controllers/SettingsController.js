@@ -1,9 +1,9 @@
-function SettingsController($scope, $rootScope) {
+jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($scope, $rootScope) {
     "use strict";
-    var proxy = 'proxy/'+$scope.server+'/login.php',
-        lastfmkey = localStorage.getItem("key");
+    var lastfmkey = localStorage.getItem("key");
     $rootScope.url = $scope.url;
     $scope.server = 1;
+    var proxy = 'proxy/'+$scope.server+'/login.php';
     
     $scope.login = function () {
         // TODO: should be an angular $http
@@ -49,5 +49,5 @@ function SettingsController($scope, $rootScope) {
         $scope.lastfm = lastfmkey;
         $rootScope.lastfmkey = lastfmkey;
     }
-    $rootScope.lastfmkey = 'lastfmkey';
-}
+    
+}]);

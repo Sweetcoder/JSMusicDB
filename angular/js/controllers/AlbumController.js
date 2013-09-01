@@ -1,4 +1,4 @@
-function AlbumController($scope, $http, ImageService, playerService) {
+jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'playerService', function ($scope, $http, ImageService, playerService) {
     "use strict";
     $scope.$on('albumChange', function(e, album) {
         $scope.Album = album;
@@ -12,4 +12,4 @@ function AlbumController($scope, $http, ImageService, playerService) {
         $("#albumView").addClass("child").removeClass("parent").removeClass("view");
     };
     $scope.art = ImageService.getAlbumArt($scope);
-}
+}]);

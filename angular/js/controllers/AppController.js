@@ -1,9 +1,8 @@
 var jsmusicdb = angular.module('jsmusicdb', ['jsmusicdb.switchView', 'jsmusicdb.playerService', 'TimeFilters']);
 /* caching */
 // var letterCache = {}, letters = [], activeLetter = null, artistCache = {}, albumCache = {}, debug = [];
-
-function AppController($scope, $http, switchView, $rootScope) {"use strict";
-
+jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView' ,'$rootScope', function ($scope, $http, switchView, $rootScope) {
+    "use strict";
     /* declare globals */
     $rootScope.letterCache = {};
     $rootScope.letters = [];
@@ -25,24 +24,24 @@ function AppController($scope, $http, switchView, $rootScope) {"use strict";
             } else if (value.Naam && !value.Artiest) {
                 // these are the nodes without an Artiest attribute but with a Naam attribute; these are the Artists meta nodes
                 if (!$rootScope.letterCache[getFirstLetter(stripThe(value.Naam))]) {
-                    var letter = new Letter(value);
+                    var letter = new jsmusicdb.Letter(value);
                     $rootScope.letterCache[getFirstLetter(stripThe(value.Naam))] = letter;
                 }
                 if (!$rootScope.artistCache[stripThe(value.Naam)]) {
-                    var artist = new Artist(value);
+                    var artist = new jsmusicdb.Artist(value);
                     $rootScope.artistCache[stripThe(value.Naam)] = artist;
                     $rootScope.letterCache[getFirstLetter(stripThe(value.Naam))].artists.push(artist);
                 }
             } else if (value.Naam && value.Artiest) {
                 // these are the nodes with an Artiest and a Name attribute; these are the Album meta nodes
                 if (!$rootScope.albumCache[value.Naam]) {
-                    var album = new Album(value);
+                    var album = new jsmusicdb.Album(value);
                     $rootScope.albumCache[value.Naam] = album;
                     $rootScope.artistCache[stripThe(album.Artiest)].albums.push(album);
                 }
             } else {
                 // these are the Track nodes
-                var track = new Track(value);
+                var track = new jsmusicdb.Track(value);
                 // add track to album
                 if ($rootScope.albumCache[track.Artiest + " - " + track.Album]) {
                     $rootScope.albumCache[track.Artiest + " - " + track.Album].tracks.push(track);
@@ -58,7 +57,7 @@ function AppController($scope, $http, switchView, $rootScope) {"use strict";
         $scope.debugText = $rootScope.debug.join('<br />');
 
     });
-}
+}]);
 
 /*
 AppController.$inject = ['$scope', '$http', 'switchView', '$rootScope'];

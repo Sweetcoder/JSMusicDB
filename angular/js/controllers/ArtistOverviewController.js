@@ -1,4 +1,4 @@
-function ArtistOverviewController($scope, $http, switchView) {
+jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView', function ($scope, $http, switchView) {
     "use strict";
     $scope.$on('letterChange', function(e, letter) {
         $scope.Artists = letter.artists;
@@ -11,4 +11,4 @@ function ArtistOverviewController($scope, $http, switchView) {
         $("#albumView").addClass("child").removeClass("parent").removeClass("view");
         $(".snap-content").get(0).scrollTop = 0;
     };
-}
+}]);
