@@ -4,8 +4,9 @@
 
 import os, fnmatch, json, sys, codecs, time, eyed3
 
-#rootpath = r"/volume1/music/"
-rootpath = r"C:\\Users\\lucien.immink\\Dropbox\\addasoft\\Workspace\\testmusic"
+rootpath = r"/volume1/music/"
+#rootpath = r"C:\\Users\\lucien.immink\\Dropbox\\addasoft\\Workspace\\testmusic"
+#rootpath = r"d:\\music"
 artists = dict()
 albums = dict()
 jsonFile = list()

@@ -5,6 +5,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         watching = [$scope.album, $scope.track],
     
     play = function (track) {
+        $scope.scrobbeld = false;
         if ($scope.track) {
             $scope.track.isPlaying = false;
         }
@@ -17,29 +18,16 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         var src = "";
         if ($rootScope.server !== 0) {
             src = playerpath.replace('$s', $rootScope.server) + track.path.replace('+', '%2B').replace('&', '%26') + '&sid='+$rootScope.sid + '&server=' + encodeURIComponent($rootScope.url);
+        } else {
+            src = 'file:///' + track.path;
         }
-        //if (model.server() != "0") {
-        //  src = playerpath.replace('$s', model.server()) + track.path.replace('+', '%2B').replace('&', '%26') + '&sid='+window.sid + '&server=' + model.url();
-        //} else {
-        //  src = 'file:///' + track.path;
-        //}
         audiotag.src = src;
         audiotag.load();
         // and play the track!
         audiotag.play();
         
         // set now playling status
-        if (localStorage.getItem("key")) {
-            var url = 'http://ws.audioscrobbler.com/2.0/', data = {
-                method : 'track.updateNowPlaying',
-                api_key : '956c1818ded606576d6941de5ff793a5',
-                artist : $scope.track.albumNode.Artiest,
-                track : $scope.track.Titel,
-                sk : localStorage.getItem("key"),
-                api_sig: lastfm.signplayinglove($scope.track.albumNode.Artiest, $scope.track.Titel, 'track.updateNowPlaying')
-            };
-            $.post(url, data, function(json) {});
-        }
+        playerService.scrobbleNowPlaying($scope);
     };
     $scope.$on('playTrack', function (e, track) {
         // switchView.setAsPlaylist(album);
@@ -122,21 +110,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         }
     };
     var scrobble = function () {
-        // scrobble
-        if (localStorage.getItem("key") && !$scope.scrobbeld) {
-            var now = new Date(),
-                ts = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + now.getTimezoneOffset(), now.getSeconds()) / 1000,
-                url = 'http://ws.audioscrobbler.com/2.0/', data = {
-                method : 'track.scrobble',
-                api_key : '956c1818ded606576d6941de5ff793a5',
-                artist : $scope.track.albumNode.Artiest,
-                track : $scope.track.Titel,
-                timestamp : ts,
-                sk : localStorage.getItem("key"),
-                api_sig: lastfm.signscrobble($scope.track.albumNode.Artiest, $scope.track.Titel, ts)
-            };
-            $.post(url, data, function(json) {});
-        }
+        playerService.scrobble($scope);
         $scope.scrobbeld = true;
     };
     $scope.playlistView = 'list';
