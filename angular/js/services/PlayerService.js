@@ -2,9 +2,9 @@
  * Service module to hold information about the player
  */
 
-angular.module('jsmusicdb.playerService', []).service('playerService', function($rootScope, $http) {
-    "use strict";
+angular.module('jsmusicdb.playerService', []).service('playerService', function($rootScope, $http) {"use strict";
     var that = this;
+    that.busy = false;
     this.track = function(track) {
         return track;
     };
@@ -27,34 +27,38 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
         var index = $.inArray(track, $rootScope.playlist);
         return $rootScope.playlist[index - 1];
     };
-    this.scrobble = function ($scope) {
+    this.scrobble = function($scope) {
         // scrobble
-        if (localStorage.getItem("key") && !$scope.scrobbeld) {
-            var now = new Date(),
-                ts = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + now.getTimezoneOffset(), now.getSeconds()) / 1000,
-                url = 'http://ws.audioscrobbler.com/2.0/', data = {
+        if (localStorage.getItem("key") && !that.busy) {
+            that.busy = true;
+            var now = new Date(), ts = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + now.getTimezoneOffset(), now.getSeconds()) / 1000, url = 'http://ws.audioscrobbler.com/2.0/', data = {
                 method : 'track.scrobble',
                 api_key : '956c1818ded606576d6941de5ff793a5',
                 artist : $scope.track.albumNode.Artiest,
                 track : $scope.track.Titel,
                 timestamp : ts,
                 sk : localStorage.getItem("key"),
-                api_sig: lastfm.signscrobble($scope.track.albumNode.Artiest, $scope.track.Titel, ts)
+                api_sig : lastfm.signscrobble($scope.track.albumNode.Artiest, $scope.track.Titel, ts)
             };
-            $http.post(url, data);
+            $.post(url, data, function () {
+                that.busy = false;
+            });
         }
     };
-    this.scrobbleNowPlaying = function ($scope) {
-        if (localStorage.getItem("key")) {
+    this.scrobbleNowPlaying = function($scope) {
+        if (localStorage.getItem("key") && !that.busy) {
+            that.busy = true;
             var url = 'http://ws.audioscrobbler.com/2.0/', data = {
                 method : 'track.updateNowPlaying',
                 api_key : '956c1818ded606576d6941de5ff793a5',
                 artist : $scope.track.albumNode.Artiest,
                 track : $scope.track.Titel,
                 sk : localStorage.getItem("key"),
-                api_sig: lastfm.signplayinglove($scope.track.albumNode.Artiest, $scope.track.Titel, 'track.updateNowPlaying')
+                api_sig : lastfm.signplayinglove($scope.track.albumNode.Artiest, $scope.track.Titel, 'track.updateNowPlaying')
             };
-            $http.post(url, data);
+            $.post(url, data, function () {
+                that.busy = false;
+            });
         }
     };
-}); 
+});
