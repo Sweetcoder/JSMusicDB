@@ -15,7 +15,28 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
         $rootScope.playlist = $rootScope.playlist || [];
         $rootScope.playlistAlbums = $rootScope.playlistAlbums || [];
         if ($.inArray(album, $rootScope.playlistAlbums) === -1) {
-            $rootScope.playlist = $rootScope.playlist.concat(album.tracks);
+            $rootScope.playlist = $rootScope.playlist.concat(album.tracks.sort(function (a,b) {
+            	if (!isNaN(a.Disc)) {
+					// sort by discnumber (or by number, secondary)
+					if (Number(a.Disc) < Number(b.Disc)) {
+						return -1;
+					} else if (Number(a.Disc) == Number(b.Disc)) {
+						if (Number(a.Nummer) < Number(b.Nummer)) {
+							return -1;
+						} else {
+							return 1;
+						}	
+					} else {
+						return 1;
+					}
+				} else {
+					if (Number(a.Nummer) < Number(b.Nummer)) {
+						return -1;
+					} else {
+						return 1;
+					}	
+				}
+            }));
             $rootScope.playlistAlbums = $rootScope.playlistAlbums.concat(album);
         }
     };
