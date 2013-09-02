@@ -10,7 +10,7 @@ jsmusicdb.Track = function(node) {
     that.Titel = node.Titel;
     that.Nummer = Number(node.Track);
     that.path = node.Pad;
-    that.Disc = node.Disk;
+    that.Disc = Number(node.Disk);
     that.AlbumNode = null;
     that.isPlaying = false;
 }; 
