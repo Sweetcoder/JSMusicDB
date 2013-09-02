@@ -1,7 +1,7 @@
 var jsmusicdb = angular.module('jsmusicdb', ['jsmusicdb.switchView', 'jsmusicdb.playerService', 'TimeFilters']);
 /* caching */
 // var letterCache = {}, letters = [], activeLetter = null, artistCache = {}, albumCache = {}, debug = [];
-jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView' ,'$rootScope', function ($scope, $http, switchView, $rootScope) {
+jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView' ,'$rootScope', '$location' , function ($scope, $http, switchView, $rootScope, $location) {
     "use strict";
     /* declare globals */
     $rootScope.letterCache = {};
@@ -49,16 +49,14 @@ jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView' ,'$rootSc
                 }
             }
         });
-        _setupModels(switchView, $rootScope);
+        _setupModels(switchView, $rootScope, $location);
         $("#loader").hide();
         $("#content").fadeIn();
         var stop = new Date();
         $rootScope.debug.push('Fill and sort models done in ' + (stop - start) + ' ms');
         $scope.debugText = $rootScope.debug.join('<br />');
-
     });
 }]);
-
 /*
 AppController.$inject = ['$scope', '$http', 'switchView', '$rootScope'];
 LetterController.$inject = ['$scope', 'switchView'];
@@ -86,7 +84,7 @@ function stripThe(name) {
     return name;
 }
 
-function _setupModels(switchView, $rootScope) {
+function _setupModels(switchView, $rootScope, $location) {
     "use strict";
     // push all letters in a simple array
     var letter = null;
@@ -116,7 +114,6 @@ function _setupModels(switchView, $rootScope) {
         $rootScope.activeLetter.active = true;
         switchView.letter($rootScope.activeLetter);
     }
-
     // sidebar
     var snapper = new Snap({
         element : document.getElementById('main')

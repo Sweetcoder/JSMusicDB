@@ -5,7 +5,10 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
     $scope.server = 1;
     var proxy = 'proxy/'+$scope.server+'/login.php';
     
+    $scope.isLoading = false;
+    
     $scope.login = function () {
+        $scope.isLoading = true;
         // TODO: should be an angular $http
         $.getJSON(proxy, { account: $scope.username, passwd: $scope.password, server: $scope.url}, function (json) {
             if (json.success && json.success === true) {
@@ -28,6 +31,7 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
                 // TODO: error handling
                 localStorage.removeItem("store");
             }
+            $scope.isLoading = false;
         });
     };
     

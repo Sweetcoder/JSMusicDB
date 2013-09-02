@@ -1,7 +1,9 @@
-jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView', function ($scope, $http, switchView) {
+jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView', '$location', function ($scope, $http, switchView, $location) {
     "use strict";
     $scope.$on('letterChange', function(e, letter) {
         $scope.Artists = letter.artists;
+        // update location
+        // $location.path('/letter/' + letter.letter);
     });
     $scope.getArtist = function (artist) {
         switchView.artist(artist);

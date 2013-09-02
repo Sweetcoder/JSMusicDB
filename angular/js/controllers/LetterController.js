@@ -4,7 +4,9 @@ jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', 
 
     // set the artistsInLetter var to reflect the artists in the current active letter
     $scope.getLetter = function(letter) {
-        $scope.activeLetter.active = false;
+        if ($scope.activeLetter) {
+            $scope.activeLetter.active = false;
+        }
         $scope.activeLetter = letter;
         $scope.activeLetter.active = true;
         switchView.letter(letter);

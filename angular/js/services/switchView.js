@@ -10,8 +10,8 @@ angular.module('jsmusicdb.switchView', []).factory('switchView', function ($root
 		artist: function (a) {
 			$rootScope.$broadcast('artistChange', a);
 		},
-		album: function (a) {
-			$rootScope.$broadcast('albumChange', a);
+		album: function (a, ar) {
+			$rootScope.$broadcast('albumChange', a, ar);
 		},
 		addToPlaylist: function (a) {
 			$rootScope.$broadcast('addAlbumToPlaylist' ,a);

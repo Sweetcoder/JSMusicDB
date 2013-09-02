@@ -81,31 +81,37 @@
 					</div>
 					<div class="wrapper">
 						<div id="artistOverviewView" ng-controller="ArtistOverviewController" class="view">
-							<div class="btn-group pull-right">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
-								<ul class="dropdown-menu">
-									<li><a href="#" ng-click="sortArtists = 'Naam'; reverse = false">Alphabetic</a></li>
-									<li><a href="#" ng-click="sortArtists = 'albums.length'; reverse = true">By amount of albums</a></li>
-								</ul>
-							</div>
-							<h2>Artists</h2>
-							<ul class="media-list">
-								<li class="media" ng-repeat="artist in Artists | orderBy: sortArtists:reverse" ng-controller="ArtistController">
-									<div class="card artistCard span3" ng-click="getArtist(artist)">
+							<div ng-show="Artists && Artists.length > 0">
+								<div class="btn-group pull-right">
+									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="#" ng-click="sortArtists = 'Naam'; reverse = false">Alphabetic</a>
+										</li>
+										<li>
+											<a href="#" ng-click="sortArtists = 'albums.length'; reverse = true">By amount of albums</a>
+										</li>
+									</ul>
+								</div>
+								<h2>Artists</h2>
+								<ul class="media-list">
+									<li class="media" ng-repeat="artist in Artists | orderBy: sortArtists:reverse" ng-controller="ArtistController">
+										<div class="card artistCard span3" ng-click="getArtist(artist)">
 
-										<div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
-										<div class="details">
-											<div class="title fade-out">
-												{{artist.Naam}}
-											</div>
-											<div class="subtitle fade-out">
-												<ng-pluralize count="artist.albums.length" when="{'0': 'No albmus', '1': '1 album', 'other': '{} albums'}"></ng-pluralize>
+											<div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
+											<div class="details">
+												<div class="title fade-out">
+													{{artist.Naam}}
+												</div>
+												<div class="subtitle fade-out">
+													<ng-pluralize count="artist.albums.length" when="{'0': 'No albmus', '1': '1 album', 'other': '{} albums'}"></ng-pluralize>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-							</ul>
-							<div ng-show="Artists.length == 0" class="alert alert-error">
+									</li>
+								</ul>
+							</div>
+							<div ng-show="!Artists || Artists.length == 0" class="alert alert-error">
 								<strong>Warning!</strong> No artists found, have you run the scanner module yet?
 							</div>
 						</div>
@@ -130,8 +136,12 @@
 							<div class="btn-group pull-right">
 								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
 								<ul class="dropdown-menu">
-									<li><a href="#" ng-click="sortAlbums = 'Album'; reverse = false">Alphabetic</a></li>
-									<li><a href="#" ng-click="sortAlbums = 'Jaar'; reverse = false">By Year</a></li>
+									<li>
+										<a href="#" ng-click="sortAlbums = 'Album'; reverse = false">Alphabetic</a>
+									</li>
+									<li>
+										<a href="#" ng-click="sortAlbums = 'Jaar'; reverse = false">By Year</a>
+									</li>
 								</ul>
 							</div>
 							<h2>Collection</h2>
@@ -312,7 +322,7 @@
 									</div>
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary" ng-click="login()">
-											Log in
+											Log in <span ng-show="isLoading"> <img src="css/img/ajax-submit.gif" /> </span>
 										</button>
 									</div>
 								</div>
@@ -475,10 +485,10 @@
 
 					<div class="progressBar">
 						<span class="time start">{{position | timeFilter}}</span>
-                        <div class="progress progress-striped active" ng-click="updatePosition($event)">
-                            <div class="bar" ng-style="{width: pos()}"></div>
-                        </div>
-                        <span class="time stop">{{len | timeFilter}}</span>
+						<div class="progress progress-striped active" ng-click="updatePosition($event)">
+							<div class="bar" ng-style="{width: pos()}"></div>
+						</div>
+						<span class="time stop">{{len | timeFilter}}</span>
 					</div>
 					<div class="btn-toolbar">
 						<div class="btn-group">
