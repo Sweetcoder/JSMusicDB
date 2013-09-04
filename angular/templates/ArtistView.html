@@ -6,14 +6,14 @@
                     <button type="button" class="close" ng-click="closeView()">
                         ×
                     </button>
-                    <span class="brand">{{Artist.Naam}}</span>
+                    <span class="brand">{{artist.Naam}}</span>
                 </div>
             </div>
         </div>
     </div>
     <h2>Bio</h2>
     <div class="well">
-        <div ng-bind-html-unsafe="Artist.bio"></div>
+        <div ng-bind-html-unsafe="bio"></div>
     </div>
     <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
@@ -29,7 +29,7 @@
     <h2>Collection</h2>
     <div class="well well2">
         <ul class="media-list">
-            <li class="media" ng-repeat="album in Artist.albums  | orderBy: sortAlbums:reverse" ng-controller="AlbumController">
+            <li class="media" ng-repeat="album in artist.albums  | orderBy: sortAlbums:reverse" ng-controller="AlbumController">
                 <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{album.Artiest}}/album/{{album.Album}}">
                 <div class="card albumCard span3">
                     <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>

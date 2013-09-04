@@ -66,7 +66,7 @@
 					<img src="css/img/ajax-loader.gif" alt="" />
 				</div>
 				<div id="content">
-					<div class="" ng-controller="LetterController">
+					<div ng-controller="LetterController">
 						<h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
 						<div class="navbar">
 							<div class="navbar-inner">
@@ -79,12 +79,7 @@
 						</div>
 
 					</div>
-					<div class="wrapper">
-					    <div ng-view class="wrapper"></div>
-						
-						
-						
-					</div>
+					<div ng-view class="wrapper"></div>
 				</div>
 				<div id="playlist" style="display: none;">
 					<div class="">
@@ -421,6 +416,7 @@
 
 		<script src="js/controllers/SettingsController.js"></script>
 
+        <script src="js/services/ModelService.js"></script>
 		<script src="js/services/ImageService.js"></script>
 		<script src="js/services/switchView.js"></script>
 		<script src="js/services/PlayerService.js"></script>

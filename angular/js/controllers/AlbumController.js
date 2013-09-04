@@ -1,13 +1,16 @@
 jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'playerService', '$location','$routeParams', '$rootScope', 'switchView', function ($scope, $http, ImageService, playerService, $location, $routeParams, $rootScope, switchView) {
     "use strict";
-    $scope.$on('albumChange', function(e, album, artist) {
-        $scope.Album = album;
-        $scope.Artist = artist;
+    $scope.$on('albumChange', function(e, album, artist, update) {
+        $scope.album = album;
+        $scope.artist = artist;
         // update location
         // $location.path('/artist/' + artist.Naam + '/album/' + album.Album);
         $("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
         $("#artistView").removeClass("child").addClass("parent").removeClass("view");
         $("#albumView").removeClass("child").removeClass("parent").addClass("view");
+        if (update) {
+        	$scope.art = ImageService.getAlbumArt($scope);
+        }
     });
     $scope.addToPlaylist = function (album) {
         playerService.addAlbum(album);
@@ -21,26 +24,23 @@ jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'pla
     $scope.art = ImageService.getAlbumArt($scope);
     
     if ($routeParams.album) {
-    	var digest = function () {
-    		var activeLetter = null;
-    		if ($rootScope.activeLetter) {
-    			activeLetter = $rootScope.activeLetter;
+		$rootScope.$watch(function () {
+			return $rootScope.parsed;
+		}, function (n, o) {
+			if (n) {
+				var activeLetter = $rootScope.activeLetter;
     			$.each(activeLetter.artists, function () {
     				if (this.Naam === $routeParams.artist) {
+    					var artist = this;
     					$.each(this.albums, function () {
     						if (this.Album === $routeParams.album) {
-    							switchView.album(this);
+    							switchView.album(this, artist, true);
     							return false;
     						}
     					});
     				}
     			});
-    		} else {
-    			setTimeout(function () {
-    				digest();
-    			}, 100);
-    		}
-    	}
-    	digest();
+			}
+		});
     }
 }]);

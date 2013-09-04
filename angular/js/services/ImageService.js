@@ -27,6 +27,7 @@ jsmusicdb.factory('ImageService', function($http) {
             }
         },
         getAlbumArt : function($scope) {
+        	console.log('get art', $scope.album);
             if ($scope.album && !$scope.album.art) {
                 $http.get($scope.album.url, {
                     params : $scope.album.data

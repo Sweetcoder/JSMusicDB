@@ -10,14 +10,14 @@ angular.module('jsmusicdb.switchView', []).factory('switchView', function ($root
 		routeLetter: function (l) {
 			$rootScope.$broadcast('routeLetterChange', l);
 		},
-		artist: function (a) {
-			$rootScope.$broadcast('artistChange', a);
+		artist: function (a, up) {
+			$rootScope.$broadcast('artistChange', a, up);
 		},
 		routeArtist: function (a) {
 			$rootScope.$broadcast('routeArtistChange', a);
 		},
-		album: function (a, ar) {
-			$rootScope.$broadcast('albumChange', a, ar);
+		album: function (a, ar, up) {
+			$rootScope.$broadcast('albumChange', a, ar, up);
 		},
 		addToPlaylist: function (a) {
 			$rootScope.$broadcast('addAlbumToPlaylist' ,a);
