@@ -11,6 +11,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 		<!-- Bootstrap -->
+		
 		<link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -18,6 +19,10 @@
 		<link href="css/snap.css" rel="stylesheet">
 
 		<link rel="stylesheet" href="css/musicdb.css" type="text/css" />
+		
+		<!--
+		<link type="text/css" rel="stylesheet" href="/min/b=music/css&amp;f=bootstrap.min.css,bootstrap-responsive.min.css,bootstrap-lightbox.min.css,snap.css,musicdb.css" />
+		-->
 		<script type='text/javascript' src='/wordpress/wp-content/themes/responsive/js/responsive-modernizr.js?ver=2.6.1'></script>
 
 		<script type="text/javascript">
@@ -230,6 +235,10 @@
 						<div class="well">
 							<table class="table table-bordered">
 								<tr>
+									<td>Last updated:</td>
+									<td>{{timestamp | date:'medium'}}</td>
+								</tr>
+								<tr>
 									<td>Total amount of artists:</td>
 									<td>{{totalArtists}}</td>
 								</tr>
@@ -393,6 +402,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<script src="js/md5.js"></script>
 		<script src="js/jquery-2.0.3.min.js"></script>
 		<script src="js/jquery.transit.js"></script>
@@ -427,5 +437,8 @@
 		<script src="js/model/Artist.js"></script>
 		<script src="js/model/Album.js"></script>
 		<script src="js/model/Track.js"></script>
+		<!--
+		<script src="/min/b=music/js&f=md5.js,jquery-2.0.3.min.js,jquery.transit.js,bootstrap.min.js,bootstrap-lightbox.min.js,angular-1.0.7.min.js,snap.min.js,iscroll.js,lastfm.js,controllers/AppController.js,controllers/LetterController.js,controllers/ArtistOverviewController.js,controllers/ArtistController.js,controllers/AlbumController.js,controllers/TrackController.js,controllers/PlaylistController.js,controllers/PlayerController.js,controllers/SettingsController.js,services/ModelService.js,services/ImageService.js,services/switchView.js,services/PlayerService.js,filters/TimeFilter.js,model/Letter.js,model/Artist.js,model/Album.js,model/Track.js"></script>
+		-->
 	</body>
 </html>

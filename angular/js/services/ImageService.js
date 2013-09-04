@@ -1,5 +1,4 @@
-jsmusicdb.factory('ImageService', function($http) {
-    "use strict";
+jsmusicdb.factory('ImageService', function($http) {"use strict";
     var image = null;
     return {
         getInfo : function($scope, type) {
@@ -23,15 +22,14 @@ jsmusicdb.factory('ImageService', function($http) {
                 } else {
                     $scope.art = "images/nocover.png";
                 }
-                if (type == 'art') {
-                	return $scope.art;
+                if (type === 'art') {
+                    return $scope.art;
                 } else {
-                	return $scope.bio;
+                    return $scope.bio;
                 }
             }
         },
         getAlbumArt : function($scope) {
-        	console.log('get art', $scope.album);
             if ($scope.album && !$scope.album.art) {
                 $http.get($scope.album.url, {
                     params : $scope.album.data
@@ -65,4 +63,4 @@ jsmusicdb.factory('ImageService', function($http) {
             }
         }
     };
-}); 
+});

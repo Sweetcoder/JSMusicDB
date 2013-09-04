@@ -12,6 +12,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 					$scope.totalAlbums = value.totals.albums;
 					$scope.totalTracks = value.totals.tracks;
 					$scope.totalPlaying = value.totals.playingTime;
+					$scope.timestamp = value.totals.timestamp * 1000;
 				} else if (value.Naam && !value.Artiest) {
 					// these are the nodes without an Artiest attribute but with a Naam attribute; these are the Artists meta nodes
 					if (!$rootScope.letterCache[getFirstLetter(stripThe(value.Naam))]) {
