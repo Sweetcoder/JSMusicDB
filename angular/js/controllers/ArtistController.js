@@ -3,12 +3,12 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 	$scope.$on('artistChange', function(e, artist, update) {
 		$scope.artist = artist;
 		if (update) {
-			$scope.art = ImageService.getInfo($scope);
-			$scope.bio = ImageService.getInfo($scope);
+			$scope.art = ImageService.getInfo($scope, 'art');
+			$scope.bio = ImageService.getInfo($scope, 'bio');
 		}
 	});
-	$scope.art = ImageService.getInfo($scope);
-	$scope.bio = ImageService.getInfo($scope);
+	$scope.art = ImageService.getInfo($scope, 'art');
+	$scope.bio = ImageService.getInfo($scope, 'bio');
 
 	$scope.getAlbum = function(album) {
 		switchView.album(album, $scope.Artist);

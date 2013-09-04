@@ -2,7 +2,7 @@ jsmusicdb.factory('ImageService', function($http) {
     "use strict";
     var image = null;
     return {
-        getInfo : function($scope) {
+        getInfo : function($scope, type) {
             if ($scope.artist && !$scope.artist.art) {
                 $http.get($scope.artist.url, {
                     params : $scope.artist.data
@@ -23,7 +23,11 @@ jsmusicdb.factory('ImageService', function($http) {
                 } else {
                     $scope.art = "images/nocover.png";
                 }
-                return $scope.art;
+                if (type == 'art') {
+                	return $scope.art;
+                } else {
+                	return $scope.bio;
+                }
             }
         },
         getAlbumArt : function($scope) {
