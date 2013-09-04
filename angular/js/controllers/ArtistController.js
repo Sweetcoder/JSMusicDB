@@ -1,9 +1,8 @@
-jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'switchView', '$location', function ($scope, $http, ImageService, switchView, $location) {
+jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'switchView', '$location', '$routeParams', '$rootScope', function ($scope, $http, ImageService, switchView, $location, $routeParams, $rootScope) {
     "use strict";
+    $scope.Artist = new jsmusicdb.Artist({});
     $scope.$on('artistChange', function(e, artist) {
         $scope.Artist = artist;
-        // update location
-        // $location.path('/artist/' + artist.Naam);
     });
     $scope.art = ImageService.getInfo($scope);
     $scope.bio = ImageService.getInfo($scope);
@@ -21,9 +20,31 @@ jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'sw
         $("#artistView").addClass("child").removeClass("parent").removeClass("view");
         $("#albumView").addClass("child").removeClass("parent").removeClass("view");
         $(".snap-content").get(0).scrollTop = 0;
-        // window.history.back();
+        window.history.back();
     };
     
     // sorting defaults
     $scope.sortAlbums = 'Jaar';
+    
+     // get routing
+    
+    if ($routeParams.artist) {
+    	var digest = function () {
+    		var activeLetter = null;
+    		if ($rootScope.activeLetter) {
+    			activeLetter = $rootScope.activeLetter;
+    			$.each(activeLetter.artists, function () {
+    				if (this.Naam === $routeParams.artist) {
+    					switchView.artist(this);
+    					return false;
+    				}
+    			})
+    		} else {
+    			setTimeout(function () {
+    				digest();
+    			}, 100);
+    		}
+    	}
+    	digest();
+    }
 }]);

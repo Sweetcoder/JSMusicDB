@@ -72,7 +72,7 @@
 							<div class="navbar-inner">
 								<ul class="nav">
 									<li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
-										<a href="#" ng-class="{true: 'active', false: ''}[letter.active]" ng-click="getLetter(letter)">{{firstletter}}</a>
+										<a ng-class="{true: 'active', false: ''}[letter.active]" ng-href="#/letter/{{firstletter}}">{{firstletter}}</a>
 									</li>
 								</ul>
 							</div>
@@ -80,128 +80,10 @@
 
 					</div>
 					<div class="wrapper">
-						<div id="artistOverviewView" ng-controller="ArtistOverviewController" class="view">
-							<div ng-show="Artists && Artists.length > 0">
-								<div class="btn-group pull-right">
-									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#" ng-click="sortArtists = 'Naam'; reverse = false">Alphabetic</a>
-										</li>
-										<li>
-											<a href="#" ng-click="sortArtists = 'albums.length'; reverse = true">By amount of albums</a>
-										</li>
-									</ul>
-								</div>
-								<h2>Artists</h2>
-								<ul class="media-list">
-									<li class="media" ng-repeat="artist in Artists | orderBy: sortArtists:reverse" ng-controller="ArtistController">
-										<div class="card artistCard span3" ng-click="getArtist(artist)">
-
-											<div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
-											<div class="details">
-												<div class="title fade-out">
-													{{artist.Naam}}
-												</div>
-												<div class="subtitle fade-out">
-													<ng-pluralize count="artist.albums.length" when="{'0': 'No albmus', '1': '1 album', 'other': '{} albums'}"></ng-pluralize>
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div ng-show="!Artists || Artists.length == 0" class="alert alert-error">
-								<strong>Warning!</strong> No artists found, have you run the scanner module yet?
-							</div>
-						</div>
-
-						<div id="artistView" ng-controller="ArtistController" class="child">
-							<div id="headerBar">
-								<div class="navbar">
-									<div class="navbar-inner">
-										<div id="breadcrumbs" class="breadcrumbs main-tab">
-											<button type="button" class="close" ng-click="closeView()">
-												×
-											</button>
-											<span class="brand">{{Artist.Naam}}</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<h2>Bio</h2>
-							<div class="well">
-								<div ng-bind-html-unsafe="Artist.bio"></div>
-							</div>
-							<div class="btn-group pull-right">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="#" ng-click="sortAlbums = 'Album'; reverse = false">Alphabetic</a>
-									</li>
-									<li>
-										<a href="#" ng-click="sortAlbums = 'Jaar'; reverse = false">By Year</a>
-									</li>
-								</ul>
-							</div>
-							<h2>Collection</h2>
-							<div class="well well2">
-								<ul class="media-list">
-									<li class="media" ng-repeat="album in Artist.albums  | orderBy: sortAlbums:reverse" ng-controller="AlbumController">
-										<div class="card albumCard span3" ng-click="getAlbum(album)">
-											<div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
-											<div class="details">
-												<div class="title fade-out">
-													{{album.Album}}
-													<span ng-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span>
-												</div>
-												<div class="subtitle fade-out">
-													<ng-pluralize count="album.tracks.length" when="{'0': 'No tracks', '1': '1 track', 'other': '{} tracks'}"></ng-pluralize>
-												</div>
-											</div>
-										</div>
-										<div class="actions">
-											<button class="btn" ng-click="addToPlaylist(album)">
-												<i class="icon-plus"></i>
-											</button>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div id="albumView" ng-controller="AlbumController" class="child">
-							<div id="headerBar">
-								<div class="navbar">
-									<div class="navbar-inner">
-										<div id="breadcrumbs" class="breadcrumbs main-tab">
-											<button type="button" class="close" ng-click="closeView()">
-												×
-											</button>
-											<span class="brand">{{Album.Artiest}} - {{Album.Album}}</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="well">
-								<img class='art' ng-src="{{Album.art}}" >
-								<table class="table table-striped table-bordered table-hover">
-									<thead>
-										<tr>
-											<th class="trackno">#</th>
-											<th class="track">Track</th>
-											<th class="dur">Duration</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="track in Album.tracks| orderBy: ['Disc', 'Nummer']" ng-controller="TrackController" ng-click="playTrack(Album, track)">
-											<td class="trackno"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span><span ng-show="!track.isPlaying"> {{track.Nummer}} </span></td>
-											<td>{{track.Titel}}</td>
-											<td>{{track.Tijd}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
+					    <div ng-view class="wrapper"></div>
+						
+						
+						
 					</div>
 				</div>
 				<div id="playlist" style="display: none;">
@@ -525,9 +407,9 @@
 		<script src="js/snap.min.js"></script>
 		<script src="js/iscroll.js"></script>
 		<script src="js/lastfm.js"></script>
-
+		
 		<script src="js/controllers/AppController.js"></script>
-
+		
 		<script src="js/controllers/LetterController.js"></script>
 		<script src="js/controllers/ArtistOverviewController.js"></script>
 		<script src="js/controllers/ArtistController.js"></script>

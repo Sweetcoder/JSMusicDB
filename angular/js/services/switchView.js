@@ -7,8 +7,14 @@ angular.module('jsmusicdb.switchView', []).factory('switchView', function ($root
 		letter: function (l) {
 			$rootScope.$broadcast('letterChange', l);
 		},
+		routeLetter: function (l) {
+			$rootScope.$broadcast('routeLetterChange', l);
+		},
 		artist: function (a) {
 			$rootScope.$broadcast('artistChange', a);
+		},
+		routeArtist: function (a) {
+			$rootScope.$broadcast('routeArtistChange', a);
 		},
 		album: function (a, ar) {
 			$rootScope.$broadcast('albumChange', a, ar);

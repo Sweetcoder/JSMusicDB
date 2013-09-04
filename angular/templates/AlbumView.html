@@ -1,0 +1,33 @@
+<div id="albumView" ng-controller="AlbumController" class="view">
+    <div id="headerBar">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div id="breadcrumbs" class="breadcrumbs main-tab">
+                    <button type="button" class="close" ng-click="closeView()">
+                        ×
+                    </button>
+                    <span class="brand">{{Album.Artiest}} - {{Album.Album}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well">
+        <img class='art' ng-src="{{Album.art}}" >
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="trackno">#</th>
+                    <th class="track">Track</th>
+                    <th class="dur">Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="track in Album.tracks| orderBy: ['Disc', 'Nummer']" ng-controller="TrackController" ng-click="playTrack(Album, track)">
+                    <td class="trackno"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span><span ng-show="!track.isPlaying"> {{track.Nummer}} </span></td>
+                    <td>{{track.Titel}}</td>
+                    <td>{{track.Tijd}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

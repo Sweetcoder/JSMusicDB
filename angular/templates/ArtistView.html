@@ -1,0 +1,55 @@
+<div id="artistView" ng-controller="ArtistController" class="view">
+    <div id="headerBar">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div id="breadcrumbs" class="breadcrumbs main-tab">
+                    <button type="button" class="close" ng-click="closeView()">
+                        ×
+                    </button>
+                    <span class="brand">{{Artist.Naam}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>Bio</h2>
+    <div class="well">
+        <div ng-bind-html-unsafe="Artist.bio"></div>
+    </div>
+    <div class="btn-group pull-right">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a ng-click="sortAlbums = 'Album'; reverse = false">Alphabetic</a>
+            </li>
+            <li>
+                <a ng-click="sortAlbums = 'Jaar'; reverse = false">By Year</a>
+            </li>
+        </ul>
+    </div>
+    <h2>Collection</h2>
+    <div class="well well2">
+        <ul class="media-list">
+            <li class="media" ng-repeat="album in Artist.albums  | orderBy: sortAlbums:reverse" ng-controller="AlbumController">
+                <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{album.Artiest}}/album/{{album.Album}}">
+                <div class="card albumCard span3">
+                    <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
+                    <div class="details">
+                        <div class="title fade-out">
+                            {{album.Album}}
+                            <span ng-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span>
+                        </div>
+                        <div class="subtitle fade-out">
+                            <ng-pluralize count="album.tracks.length" when="{'0': 'No tracks', '1': '1 track', 'other': '{} tracks'}"></ng-pluralize>
+                        </div>
+                    </div>
+                </div>
+                </a>
+                <div class="actions">
+                    <button class="btn" ng-click="addToPlaylist(album)">
+                        <i class="icon-plus"></i>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
