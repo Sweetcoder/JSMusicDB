@@ -15,27 +15,27 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
         $rootScope.playlist = $rootScope.playlist || [];
         $rootScope.playlistAlbums = $rootScope.playlistAlbums || [];
         if ($.inArray(album, $rootScope.playlistAlbums) === -1) {
-            $rootScope.playlist = $rootScope.playlist.concat(album.tracks.sort(function (a,b) {
-            	if (!isNaN(a.Disc)) {
-					// sort by discnumber (or by number, secondary)
-					if (Number(a.Disc) < Number(b.Disc)) {
-						return -1;
-					} else if (Number(a.Disc) == Number(b.Disc)) {
-						if (Number(a.Nummer) < Number(b.Nummer)) {
-							return -1;
-						} else {
-							return 1;
-						}	
-					} else {
-						return 1;
-					}
-				} else {
-					if (Number(a.Nummer) < Number(b.Nummer)) {
-						return -1;
-					} else {
-						return 1;
-					}	
-				}
+            $rootScope.playlist = $rootScope.playlist.concat(album.tracks.sort(function(a, b) {
+                if (!isNaN(a.Disc)) {
+                    // sort by discnumber (or by number, secondary)
+                    if (Number(a.Disc) < Number(b.Disc)) {
+                        return -1;
+                    } else if (Number(a.Disc) == Number(b.Disc)) {
+                        if (Number(a.Nummer) < Number(b.Nummer)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    } else {
+                        return 1;
+                    }
+                } else {
+                    if (Number(a.Nummer) < Number(b.Nummer)) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                }
             }));
             $rootScope.playlistAlbums = $rootScope.playlistAlbums.concat(album);
         }
@@ -61,7 +61,7 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
                 sk : localStorage.getItem("key"),
                 api_sig : lastfm.signscrobble($scope.track.albumNode.Artiest, $scope.track.Titel, ts)
             };
-            $.post(url, data, function () {
+            $.post(url, data, function() {
                 that.busy = false;
             });
         }
@@ -77,9 +77,59 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
                 sk : localStorage.getItem("key"),
                 api_sig : lastfm.signplayinglove($scope.track.albumNode.Artiest, $scope.track.Titel, 'track.updateNowPlaying')
             };
-            $.post(url, data, function () {
+            $.post(url, data, function() {
                 that.busy = false;
             });
         }
     };
+    this.random = function(random) {
+        if (random) {
+            $rootScope.playlist = shuffle($rootScope.playlist);
+        } else {
+            $rootScope.playlist = [];
+            $.each($rootScope.playlistAlbums, function() {
+                $rootScope.playlist = $rootScope.playlist.concat(this.tracks.sort(function(a, b) {
+                    if (!isNaN(a.Disc)) {
+                        // sort by discnumber (or by number, secondary)
+                        if (Number(a.Disc) < Number(b.Disc)) {
+                            return -1;
+                        } else if (Number(a.Disc) == Number(b.Disc)) {
+                            if (Number(a.Nummer) < Number(b.Nummer)) {
+                                return -1;
+                            } else {
+                                return 1;
+                            }
+                        } else {
+                            return 1;
+                        }
+                    } else {
+                        if (Number(a.Nummer) < Number(b.Nummer)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    }
+                }));
+            });
+        }
+    };
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
 });

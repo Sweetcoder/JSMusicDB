@@ -2,7 +2,6 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
     "use strict";
     var lastfmkey = localStorage.getItem("key");
     $rootScope.url = $scope.url;
-    $scope.server = 1;
     var proxy = 'proxy/'+$scope.server+'/login.php';
     
     $scope.isLoading = false;
@@ -10,29 +9,42 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
     $scope.login = function () {
         $scope.isLoading = true;
         // TODO: should be an angular $http
-        $.getJSON(proxy, { account: $scope.username, passwd: $scope.password, server: $scope.url}, function (json) {
-            if (json.success && json.success === true) {
-                // login successfull
-                $scope.loggedIn = true;
-                $rootScope.sid = json.data.sid;
-                $rootScope.url = $scope.url;
-                $rootScope.server = $scope.server;
-                if ($scope.store) {
-                    var stored = {
-                        username: $scope.username,
-                        password: $scope.password,
-                        url: $scope.url,
-                        server: $scope.server
-                    };
+        if ($scope.server != 0) {
+            $.getJSON(proxy, { account: $scope.username, passwd: $scope.password, server: $scope.url}, function (json) {
+                if (json.success && json.success === true) {
+                    // login successfull
+                    $scope.loggedIn = true;
+                    $rootScope.sid = json.data.sid;
+                    $rootScope.url = $scope.url;
+                    $rootScope.server = $scope.server;
+                    if ($scope.store) {
+                        var stored = {
+                            username: $scope.username,
+                            password: $scope.password,
+                            url: $scope.url,
+                            server: $scope.server
+                        };
+                        localStorage.removeItem("store");
+                        localStorage.setItem("store", JSON.stringify(stored));
+                    }
+                } else {
+                    // TODO: error handling
                     localStorage.removeItem("store");
-                    localStorage.setItem("store", JSON.stringify(stored));
                 }
-            } else {
-                // TODO: error handling
-                localStorage.removeItem("store");
+                $scope.isLoading = false;
+                $rootScope.canPlay = true;
+            });
+        } else {
+            if ($scope.store) {
+                var stored = {
+                    server: $scope.server
+                };
+                 localStorage.removeItem("store");
+                 localStorage.setItem("store", JSON.stringify(stored));
             }
             $scope.isLoading = false;
-        });
+            $rootScope.canPlay = true;
+        }
     };
     
     if (localStorage.getItem("store")) {
@@ -42,13 +54,9 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
         $scope.url = stored.url;
         $scope.server = stored.server;
         $scope.login();
-        $scope.store = true;
-        $(".toggle").tooltip("destroy"); // no need for hints anymore!
+        $(".toggle > i").tooltip("destroy"); // no need for hints anymore!
     }
     // show tooltip to hint the user to login
-    if (!$scope.store) {
-        $(".toggle").tooltip("show");
-    }
     if (lastfmkey) {
         $scope.lastfm = lastfmkey;
         $rootScope.lastfmkey = lastfmkey;

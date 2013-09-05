@@ -45,7 +45,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
             $scope.track.isPlaying = false;
             $scope.track = null;
             $scope.isPlaying = false;
-            audiotag.stop();
+            audiotag.pause();
         }
     };
     $scope.previous = function () {
@@ -56,7 +56,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
             $scope.track.isPlaying = false;
             $scope.track = null;
             $scope.isPlaying = false;
-            audiotag.stop();
+            audiotag.pause();
         }
     };
     $scope.playstate = 'play';
@@ -75,6 +75,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         $scope.playstate = 'play';
         $scope.isPlaying = false;
         $scope.track.isPlaying = false;
+        audiotag.pause();
         audiotag.src = '';
     };
     $scope.updatePosition = function ($event) {
@@ -122,6 +123,17 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         } else {
             $("#content").show();
             $scope.playlistView = 'list';
+        }
+    };
+    
+    $scope.isRandom = 'arrow-right';
+    $scope.toggleRandom = function () {
+        if ($scope.isRandom === 'arrow-right') {
+            playerService.random(true);
+            $scope.isRandom = 'random';
+        } else {
+            playerService.random(false);
+            $scope.isRandom = 'arrow-right';
         }
     };
     

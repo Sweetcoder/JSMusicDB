@@ -355,10 +355,10 @@ table th.dur {
 }
 
 .progressBar .start {
-	left: -10%;
+	left: -50px;
 }
 .progressBar .stop {
-	right: -8%;
+	right: -50px;
 }
 .lightbox-content .time {
 	background: transparent;
