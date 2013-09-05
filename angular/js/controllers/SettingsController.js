@@ -2,15 +2,14 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
     "use strict";
     var lastfmkey = localStorage.getItem("key");
     $rootScope.url = $scope.url;
-    var proxy = 'proxy/'+$scope.server+'/login.php';
     
     $scope.isLoading = false;
     
     $scope.login = function () {
         $scope.isLoading = true;
         // TODO: should be an angular $http
-        if ($scope.server != 0) {
-            $.getJSON(proxy, { account: $scope.username, passwd: $scope.password, server: $scope.url}, function (json) {
+        if ($scope.server !== 0) {
+            $.getJSON('proxy/'+$scope.server+'/login.php', { account: $scope.username, passwd: $scope.password, server: $scope.url}, function (json) {
                 if (json.success && json.success === true) {
                     // login successfull
                     $scope.loggedIn = true;
