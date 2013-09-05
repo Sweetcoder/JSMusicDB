@@ -19,17 +19,17 @@
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
         <ul class="dropdown-menu">
             <li>
-                <a ng-click="sortAlbums = 'Album'; reverse = false">Alphabetic</a>
+                <a ng-click="sortService.sortAlbums = 'Album'">Alphabetic</a>
             </li>
             <li>
-                <a ng-click="sortAlbums = 'Jaar'; reverse = false">By Year</a>
+                <a ng-click="sortService.sortAlbums = 'Jaar'">By Year</a>
             </li>
         </ul>
     </div>
     <h2>Collection</h2>
     <div class="well well2">
         <ul class="media-list">
-            <li class="media" ng-repeat="album in artist.albums  | orderBy: sortAlbums:reverse" ng-controller="AlbumController">
+            <li class="media" ng-repeat="album in artist.albums  | orderBy: sortService.sortAlbums" ng-controller="AlbumController">
                 <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{album.Artiest}}/album/{{album.Album}}">
                 <div class="card albumCard span3">
                     <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>

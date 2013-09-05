@@ -4,16 +4,16 @@
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sort <span class="caret"></span> </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a ng-click="sortArtists = 'Naam'; reverse = false">Alphabetic</a>
+                    <a ng-click="sortService.sortArtists = 'Naam'">Alphabetic</a>
                 </li>
                 <li>
-                    <a ng-click="sortArtists = 'albums.length'; reverse = true">By amount of albums</a>
+                    <a ng-click="sortService.sortArtists = '-albums.length'">By amount of albums</a>
                 </li>
             </ul>
         </div>
         <h2>Artists</h2>
         <ul class="media-list">
-            <li class="media" ng-repeat="artist in Artists | orderBy: sortArtists:reverse" ng-controller="ArtistController">
+            <li class="media" ng-repeat="artist in Artists | orderBy: sortService.sortArtists" ng-controller="ArtistController">
                 <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{artist.Naam}}">
                 <div class="card artistCard span3">
 

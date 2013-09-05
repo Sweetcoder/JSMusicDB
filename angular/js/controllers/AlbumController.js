@@ -1,5 +1,5 @@
-jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'playerService', '$location', '$routeParams', '$rootScope', 'switchView',
-function($scope, $http, ImageService, playerService, $location, $routeParams, $rootScope, switchView) {"use strict";
+jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'playerService', '$location', '$routeParams', '$rootScope', 'switchView', 'sortService',
+function($scope, $http, ImageService, playerService, $location, $routeParams, $rootScope, switchView, sortService) {"use strict";
     $scope.$on('albumChange', function(e, album, artist, update) {
         $scope.album = album;
         $scope.artist = artist;

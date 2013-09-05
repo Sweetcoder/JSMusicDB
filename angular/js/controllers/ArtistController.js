@@ -1,5 +1,5 @@
-jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'switchView', '$location', '$routeParams', '$rootScope', 'modelService',
-function($scope, $http, ImageService, switchView, $location, $routeParams, $rootScope, modelService) {"use strict";
+jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'switchView', '$location', '$routeParams', '$rootScope', 'modelService', 'sortService',
+function($scope, $http, ImageService, switchView, $location, $routeParams, $rootScope, modelService, sortService) {"use strict";
 	$scope.$on('artistChange', function(e, artist, update) {
 		$scope.artist = artist;
 		if (update) {
@@ -26,8 +26,8 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 		window.history.back();
 	};
 
-	// sorting defaults
-	$scope.sortAlbums = 'Jaar';
+	// sorting
+	$scope.sortService = sortService;
 
 	// get routing
 
