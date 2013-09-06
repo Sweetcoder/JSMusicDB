@@ -106,7 +106,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="track in album.tracks | orderBy: ['Disc', 'Nummer']">
+											<tr ng-repeat="track in album.tracks| orderBy: orderTracks">
 												<td class="trackno"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span></td>
 												<td class="trackno">{{track.Nummer}}</td>
 												<td>{{track.Titel}}</td>
