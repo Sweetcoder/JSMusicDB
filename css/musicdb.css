@@ -1,8 +1,11 @@
 html, body {
 	font-family: 'Lato', sans-serif;
+	overflow: visible;
 }
 body {
 	background: #ffffff;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 iframe {
 	display: none;
@@ -18,7 +21,6 @@ form {
 	position: relative;
 }
 #main {
-	position: absolute;
 	background: #E5E5E5;
 }
 .drawers {
@@ -30,9 +32,11 @@ form {
 .container {
 	padding: 0 4%;
 }
+.snap-drawer-left {
+    z-index: 0;
+}
 .snap-content {
-	overflow-x: hidden;
-	overflow-y: scroll;
+	position: static;
 }
 .toggle i {
 	margin: 13px 8px 0 0;
@@ -146,11 +150,6 @@ ol li {
 	opacity: 1;
 }
 #content .wrapper > div {
-	position: absolute;
-	top: 0;
-	width: 100%;
-	left: 0%;
-	height: 100%;
 	/* hardware */
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
@@ -373,13 +372,9 @@ table th.dur {
 }
 
 /* playlist */
-.playlist .group {
-	clear: left;
-}
 .playlist .group .art {
 	border-radius: 5px;
 	box-shadow: 0 0 2px;
-	float: left;
 	margin: 0 1% 0 0;
 	width: 19%;
 }

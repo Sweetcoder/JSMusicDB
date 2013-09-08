@@ -24,6 +24,11 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         audiotag.src = src;
         audiotag.load();
         audiotag.play();
+        // another try to fix the damned mobile playback
+        setTimeout(function () {
+            audiotag.pause();
+            audiotag.play();
+        }, 10);
         // set now playling status
         playerService.scrobbleNowPlaying($scope);
     };

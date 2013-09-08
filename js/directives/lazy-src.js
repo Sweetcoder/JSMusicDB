@@ -201,7 +201,7 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
 
             // Listen for window changes.
             win.on("resize.bnLazySrc", windowChanged);
-            $("#main").on("scroll.bnLazySrc", windowChanged);
+            win.on("scroll", windowChanged);
 
             // Set up a timer to watch for document-height changes.
             documentTimer = setInterval(checkDocumentHeight, documentDelay);
@@ -224,7 +224,6 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
 
         // I start the render time if the window changes.
         function windowChanged() {
-
             if (!renderTimer) {
 
                 startRenderTimer();
@@ -260,7 +259,7 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
         // going to assume that the image doesn't change
         // height over time.
         var height = null;
-        
+
         var cachedResult = null;
 
         // ---
@@ -283,7 +282,7 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
             // the cache it for the duration of the page.
             if (height === null) {
 
-                height = element.height();
+                height = element.height() || 215;
 
             }
             // Update the dimensions of the element.
@@ -298,7 +297,6 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
             ) || ((top <= topFoldOffset ) && (bottom >= bottomFoldOffset )
             )
             );
-
         }
 
         // I move the cached source into the live source.
@@ -333,41 +331,42 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
         function renderSource() {
             // element[0].src = source;
             // element[0].style.backgroundImage = 'url(' + source + ')';
-            if (cachedResult) {
-                element[0].src = cachedResult;
-            } else {
-                var splitted = source.split("|");
-                $http.get('http://ws.audioscrobbler.com/2.0/', {
-                    params : {
-                        method : 'album.getinfo',
-                        api_key : '956c1818ded606576d6941de5ff793a5',
-                        artist : splitted[0],
-                        album : splitted[1],
-                        format : 'json',
-                        autoCorrect : true
-                    }
-                }).success(function(json) {
-                    if (json.album) {
-                        var artlist = json.album.image;
-                        $.each(artlist, function() {
-                            if (this.size === 'extralarge') {
-                                var url = this["#text"];
-                                if (url !== "") {
-                                    url = url.split("/");
-                                    url = "http://userserve-ak.last.fm/serve/500/" + url[5];
-                                    cachedResult = url || "images/nocover.png";
-                                } else {
-                                    cachedResult = "images/nocover.png";
-                                }
-                                element[0].src = cachedResult;
+            //if (cachedResult) {
+            //    element[0].src = cachedResult;
+            //} else {
+            var splitted = source.split("|");
+
+            $http.get('http://ws.audioscrobbler.com/2.0/', {
+                params : {
+                    method : 'album.getinfo',
+                    api_key : '956c1818ded606576d6941de5ff793a5',
+                    artist : splitted[0],
+                    album : splitted[1],
+                    format : 'json',
+                    autoCorrect : true
+                }
+            }).success(function(json) {
+                if (json.album) {
+                    var artlist = json.album.image;
+                    $.each(artlist, function() {
+                        if (this.size === 'extralarge') {
+                            var url = this["#text"];
+                            if (url !== "") {
+                                url = url.split("/");
+                                url = "http://userserve-ak.last.fm/serve/500/" + url[5];
+                                cachedResult = url || "images/nocover.png";
+                            } else {
+                                cachedResult = "images/nocover.png";
                             }
-                        });
-                    } else {
-                        cachedResult = "images/nocover.png";
-                        element[0].src = cachedResult;
-                    }
-                });
-            }
+                            element[0].src = cachedResult;
+                        }
+                    });
+                } else {
+                    cachedResult = "images/nocover.png";
+                    element[0].src = cachedResult;
+                }
+            });
+            // }
         }
 
         // Return the public API.

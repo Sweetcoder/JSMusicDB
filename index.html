@@ -95,7 +95,7 @@
 							<div class="playlist" ng-controller="PlaylistController">
 								<div class="group" ng-repeat="album in playlistAlbums">
 									<h3>{{album.Artiest}} - {{album.Album}} <span ng-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span></h3>
-									<img ng-src="{{album.art}}" class="art">
+									<img bn-lazy-src="{{album.Artiest}}|{{album.Album}}" class="art" align="left">
 									<table class="table table-striped table-bordered table-hover">
 										<thead>
 											<tr>
@@ -310,7 +310,7 @@
 				<i class="icon-chevron-left"></i>
 			</button>
 			<div class="span11">
-				<a data-toggle="lightbox" href="#albumart"><img class="thumbnail span2" ng-src="{{track.albumNode.art}}"></a>
+				<a data-toggle="lightbox" href="#albumart"><img class="thumbnail span2" bn-lazy-src="{{track.Artiest}}|{{track.Album}}"></a>
 				<div class="span9 offset2">
 					<div class="progressBar span9" style="margin-left: 0;">
 						<span class="time start">{{position | timeFilter}}</span>

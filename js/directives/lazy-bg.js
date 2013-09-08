@@ -201,7 +201,7 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
 
             // Listen for window changes.
             win.on("resize.bnLazySrc", windowChanged);
-            $("#main").on("scroll.bnLazySrc", windowChanged);
+            win.on("scroll.bnLazySrc", windowChanged);
 
             // Set up a timer to watch for document-height changes.
             documentTimer = setInterval(checkDocumentHeight, documentDelay);
