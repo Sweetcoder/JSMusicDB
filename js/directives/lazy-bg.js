@@ -1,4 +1,4 @@
-jsmusicdb.directive("bnLazyBg", function($window, $document, ImageService) {
+jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService) {
 
     // I manage all the images that are currently being
     // monitored on the page for lazy loading.
@@ -202,7 +202,7 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, ImageService) {
             // Listen for window changes.
             win.on("resize.bnLazySrc", windowChanged);
             $("#main").on("scroll.bnLazySrc", windowChanged);
-            
+
             // Set up a timer to watch for document-height changes.
             documentTimer = setInterval(checkDocumentHeight, documentDelay);
 
@@ -260,6 +260,8 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, ImageService) {
         // going to assume that the image doesn't change
         // height over time.
         var height = element.height();
+
+        var cachedResult = null;
 
         // ---
         // PUBLIC METHODS.
@@ -329,9 +331,63 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, ImageService) {
         // I load the lazy source value into the actual
         // source value of the image element.
         function renderSource() {
-            // element[0].src = source;
-            element[0].style.backgroundImage = 'url(' + source + ')';
+            if (cachedResult) {
+                element[0].style.backgroundImage = 'url(' + cachedResult + ')';
+            } else {
+                if (source.indexOf("|") === -1) {
+                    $http.get('http://ws.audioscrobbler.com/2.0/', {
+                        params : {
+                            method : 'artist.getinfo',
+                            api_key : '956c1818ded606576d6941de5ff793a5',
+                            artist : source,
+                            format : 'json',
+                            autoCorrect : true
+                        }
+                    }).success(function(json) {
+                        if (json.artist) {
+                            cachedResult = json.artist.image[3]["#text"] || "images/nocover.png";
+                            element[0].style.backgroundImage = 'url(' + cachedResult + ')';
+                        } else {
+                            cachedResult = "images/nocover.png";
+                            element[0].style.backgroundImage = 'url(' + cachedResult + ')';
+                        }
 
+                    });
+                } else {
+                    var splitted = source.split("|");
+                    $http.get('http://ws.audioscrobbler.com/2.0/', {
+                        params : {
+                            method : 'album.getinfo',
+                            api_key : '956c1818ded606576d6941de5ff793a5',
+                            artist : splitted[0],
+                            album : splitted[1],
+                            format : 'json',
+                            autoCorrect : true
+                        }
+                    }).success(function(json) {
+                        if (json.album) {
+                            var artlist = json.album.image;
+                            $.each(artlist, function() {
+                                if (this.size === 'extralarge') {
+                                    var url = this["#text"];
+                                    if (url !== "") {
+                                        url = url.split("/");
+                                        url = "http://userserve-ak.last.fm/serve/500/" + url[5];
+                                        cachedResult = url || "images/nocover.png";
+                                        element[0].style.backgroundImage = 'url(' + cachedResult + ')';
+                                    } else {
+                                        cachedResult = "images/nocover.png";
+                                        element[0].style.backgroundImage = 'url(' + cachedResult + ')';
+                                    }
+                                }
+                            });
+                        } else {
+                            cachedResult = "images/nocover.png";
+                            element[0].style.backgroundImage = 'url(' + cachedResult + ')';
+                        }
+                    });
+                }
+            }
         }
 
         // Return the public API.
@@ -358,7 +414,6 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, ImageService) {
         // Since the lazy-src will likely need some sort
         // of string interpolation, we don't want to
         attributes.$observe("bnLazyBg", function(newSource) {
-
             lazyImage.setSource(newSource);
 
         });
@@ -379,4 +434,4 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, ImageService) {
         restrict : "A"
     });
 
-}); 
+});

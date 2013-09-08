@@ -9,7 +9,7 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
         $("#artistView").removeClass("child").addClass("parent").removeClass("view");
         $("#albumView").removeClass("child").removeClass("parent").addClass("view");
         if (update) {
-            $scope.art = ImageService.getAlbumArt($scope);
+            //$scope.art = ImageService.getAlbumArt($scope);
         }
     });
     $scope.addToPlaylist = function(album) {
@@ -21,7 +21,7 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
         $("#albumView").addClass("child").removeClass("parent").removeClass("view");
         window.history.back();
     };
-    $scope.art = ImageService.getAlbumArt($scope);
+    // $scope.art = ImageService.getAlbumArt($scope);
     $scope.orderTracks = function(a) {
         var totalNumber= 0;
         if (a.Disc) {

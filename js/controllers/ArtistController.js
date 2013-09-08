@@ -6,7 +6,6 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 			ImageService.getInfo($scope);
 		}
 	});
-	ImageService.getInfo($scope);
 
 	$scope.getAlbum = function(album) {
 		switchView.album(album, $scope.Artist);
