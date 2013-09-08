@@ -23,15 +23,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         }
         audiotag.src = src;
         audiotag.load();
-        
-        // hack for setting src twice, could fix problems on mobiles.
-        setTimeout(function () {
-            audiotag.src = src;
-            audiotag.load();
-            // and play the track!
-            audiotag.play();
-        }, 10);
-        
+        audiotag.play();
         // set now playling status
         playerService.scrobbleNowPlaying($scope);
     };

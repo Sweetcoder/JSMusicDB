@@ -1,7 +1,7 @@
 jsmusicdb.factory('ImageService', function($http) {"use strict";
     var image = null;
     return {
-        getInfo : function($scope, type) {
+        getInfo : function($scope) {
             if ($scope.artist && !$scope.artist.art) {
                 $http.get($scope.artist.url, {
                     params : $scope.artist.data
@@ -22,11 +22,10 @@ jsmusicdb.factory('ImageService', function($http) {"use strict";
                 } else {
                     $scope.art = "images/nocover.png";
                 }
-                if (type === 'art') {
-                    return $scope.art;
-                } else {
-                    return $scope.bio;
-                }
+                return {
+                    art: $scope.art,
+                    bio: $scope.bio
+                };
             }
         },
         getAlbumArt : function($scope) {
@@ -61,6 +60,27 @@ jsmusicdb.factory('ImageService', function($http) {"use strict";
                 }
                 return $scope.art;
             }
+        },
+        lazyLoadAlbumArt : function(album) {
+            $http.get(album.url, {
+                params : album.data
+            }).success(function(json) {
+                if (json.album) {
+                    var artlist = json.album.image;
+                    $.each(artlist, function() {
+                        if (this.size === 'extralarge') {
+                            var url = this["#text"];
+                            if (url !== "") {
+                                url = url.split("/");
+                                url = "http://userserve-ak.last.fm/serve/500/" + url[5];
+                                return url;
+                            } else {
+                                return "images/nocover.png";
+                            }
+                        }
+                    });
+                }
+            });
         }
     };
 });

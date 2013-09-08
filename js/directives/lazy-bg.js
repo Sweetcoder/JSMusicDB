@@ -1,4 +1,4 @@
-jsmusicdb.directive("bnLazyBg", function($window, $document) {
+jsmusicdb.directive("bnLazyBg", function($window, $document, ImageService) {
 
     // I manage all the images that are currently being
     // monitored on the page for lazy loading.
