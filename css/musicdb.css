@@ -384,6 +384,9 @@ table th.dur {
 .playlist .group h3 {
 	padding-top: 2%;
 }
+audio {
+	display: none;
+}
 @media (max-width: 767px) {
 	.media {
 		width: 24%;
@@ -408,7 +411,7 @@ table th.dur {
 		position: absolute;
 		right: 6px;
 		bottom: 2px;
-	}
+	} 
 }
 
 @media (max-width: 480px) {
