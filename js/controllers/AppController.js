@@ -28,9 +28,6 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 	$rootScope.parsed = false;
 
 	modelService.fetchJSON(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http, function() {
-		$("#loader").hide();
-		$("#content").fadeIn();
-
 		// sidebar
 		var snapper = new Snap({
 			element : document.getElementById('main')
@@ -61,6 +58,4 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		
 		$rootScope.parsed = true;
 	});
-	$("#loader").hide();
-	$("#content").fadeIn();
 }]);

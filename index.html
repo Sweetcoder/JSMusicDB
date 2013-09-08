@@ -66,7 +66,7 @@
 		</div>
 		<div class="snap-content" id="main" ng-controller="AppController">
 			<div class="container">
-				<div class="row" id="loader">
+				<div class="row" id="loader" ng-show="!activeLetter">
 					<h2>Please wait, loading data</h2>
 					<img src="css/img/ajax-loader.gif" alt="" />
 				</div>
@@ -436,6 +436,9 @@
 		<script src="js/services/switchView.js"></script>
 		<script src="js/services/SortService.js"></script>
 		<script src="js/services/PlayerService.js"></script>
+		
+		<script src="js/directives/lazy-bg.js"></script>
+		<script src="js/directives/lazy-src.js"></script>
 
 		<script src="js/filters/TimeFilter.js"></script>
 

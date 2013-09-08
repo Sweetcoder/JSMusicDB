@@ -17,7 +17,7 @@
                 <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{artist.Naam}}">
                 <div class="card artistCard span3">
 
-                    <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
+                    <div class="image-wrapper" bn-lazy-bg="{{art}}"></div>
                     <div class="details">
                         <div class="title fade-out">
                             {{artist.Naam}}
@@ -30,8 +30,5 @@
                 </a>
             </li>
         </ul>
-    </div>
-    <div ng-show="!Artists || Artists.length == 0" class="alert alert-error">
-        <strong>Warning!</strong> No artists found, have you run the scanner module yet?
     </div>
 </div>

@@ -32,7 +32,7 @@
             <li class="media" ng-repeat="album in artist.albums  | orderBy: sortService.sortAlbums" ng-controller="AlbumController">
                 <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{album.Artiest}}/album/{{album.Album}}">
                 <div class="card albumCard span3">
-                    <div class="image-wrapper" ng-style="{ backgroundImage: 'url(' + art + ')' }"></div>
+                    <div class="image-wrapper" bn-lazy-bg="{{art}}"></div>
                     <div class="details">
                         <div class="title fade-out">
                             {{album.Album}}
