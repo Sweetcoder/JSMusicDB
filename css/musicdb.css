@@ -3,7 +3,7 @@ html, body {
 	overflow: visible;
 }
 body {
-	background: #ffffff;
+	background: #e5e5e5;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -34,9 +34,12 @@ form {
 }
 .snap-drawer-left {
     z-index: 0;
+    background: #ffffff;
 }
 .snap-content {
 	position: static;
+	overflow-x: hidden;
+	min-height: 100%;
 }
 .toggle i {
 	margin: 13px 8px 0 0;
