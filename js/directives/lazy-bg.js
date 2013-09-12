@@ -370,6 +370,7 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
                             $.each(artlist, function() {
                                 if (this.size === 'extralarge') {
                                     var url = this["#text"];
+                                    /*
                                     if (url !== "") {
                                         url = url.split("/");
                                         url = "http://userserve-ak.last.fm/serve/500/" + url[5];
@@ -379,6 +380,9 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
                                         cachedResult = "images/nocover.png";
                                         element[0].style.backgroundImage = 'url(' + cachedResult + ')';
                                     }
+                                    */
+                                   cachedResult = url || "images/nocover.png";
+                                   element[0].style.backgroundImage = 'url(' + cachedResult + ')';
                                 }
                             });
                         } else {

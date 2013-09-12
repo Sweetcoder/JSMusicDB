@@ -97,7 +97,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 	}
 
 	function stripThe(name) {"use strict";
-		name = name.toUpperCase();
+		name = $.trim(name.toUpperCase());
 		name = (name.indexOf("THE ") === 0) ? name.substring(4) : name;
 		return name;
 	}

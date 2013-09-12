@@ -3,8 +3,12 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
     var playerpath = 'proxy/$s/stream.php?path=',
         audiotag = $('audio').get(0),
         watching = [$scope.album, $scope.track],
-    
-    play = function (track) {
+    sanitize = function (name) {
+      name = name.replace(/\+/g, '%2B');
+      name = name.replace(/\&/g, '%26');
+      return name;  
+    };
+    var play = function (track) {
         $scope.scrobbeld = false;
         if ($scope.track) {
             $scope.track.isPlaying = false;
@@ -17,7 +21,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
         // set audio source
         var src = "";
         if ($rootScope.server !== 0) {
-            src = playerpath.replace('$s', $rootScope.server) + track.path.replace('+', '%2B').replace('&', '%26') + '&sid='+$rootScope.sid + '&server=' + encodeURIComponent($rootScope.url);
+            src = playerpath.replace('$s', $rootScope.server) + sanitize(track.path) + '&sid='+$rootScope.sid + '&server=' + encodeURIComponent($rootScope.url);
         } else {
             src = 'file:///' + track.path;
         }

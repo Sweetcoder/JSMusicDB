@@ -38,6 +38,8 @@ jsmusicdb.factory('ImageService', function($http) {"use strict";
                         $.each(artlist, function() {
                             if (this.size === 'extralarge') {
                                 var url = this["#text"];
+                                $scope.art = url || "images/nocover.png";
+                                /*
                                 if (url !== "") {
                                     url = url.split("/");
                                     url = "http://userserve-ak.last.fm/serve/500/" + url[5];
@@ -45,6 +47,7 @@ jsmusicdb.factory('ImageService', function($http) {"use strict";
                                 } else {
                                     $scope.art = "images/nocover.png";
                                 }
+                                */
                             }
                         });
                     } else {
