@@ -40,10 +40,10 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
             if (n) {
                 var activeLetter = $rootScope.activeLetter;
                 $.each(activeLetter.artists, function() {
-                    if (this.Naam === $routeParams.artist) {
+                    if ($.trim(this.Naam) === $routeParams.artist) {
                         var artist = this;
                         $.each(this.albums, function() {
-                            if (this.Album === $routeParams.album) {
+                            if ($.trim(this.Album) === $routeParams.album) {
                                 switchView.album(this, artist, true);
                                 return false;
                             }

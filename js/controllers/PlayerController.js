@@ -6,6 +6,7 @@ jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$roo
     sanitize = function (name) {
       name = name.replace(/\+/g, '%2B');
       name = name.replace(/\&/g, '%26');
+      name = name.replace(/#/g, '%23');
       return name;  
     };
     var play = function (track) {

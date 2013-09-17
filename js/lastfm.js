@@ -1,3 +1,4 @@
+
 var lastfm = {
 	signtoken : function(api_key, method, token) {
 		return hex_md5('api_key' + api_key + 'method' + method + 'token' + token + lastfm.secret);
@@ -12,13 +13,13 @@ var lastfm = {
 	},
 	api_key : '956c1818ded606576d6941de5ff793a5',
 	secret : '4d183e73f7578dee78557665e9be3acc'
-}
+};
 
 $(function() {
 	var token = document.location.search;
 	if (token) {
 		token = token.split("=")[1];
-		var api_key = lastfm.api_key
+		var api_key = lastfm.api_key;
 		var api_sig = lastfm.signtoken(api_key, 'auth.getSession', token);
 
 		var url = 'http://ws.audioscrobbler.com/2.0/', data = {
