@@ -6,10 +6,6 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         name = name.replace(/#/g, '%23');
         return name;
     };
-    var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-    if (is_chrome) {
-        playerpath = 'proxy/$s/webkit.php?path=';
-    }
     var play = function(track) {
         $scope.scrobbeld = false;
         if ($scope.track) {
