@@ -39,8 +39,9 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
         }, function(n, o) {
             if (n) {
                 var activeLetter = $rootScope.activeLetter;
+                console.log(activeLetter);
                 $.each(activeLetter.artists, function() {
-                    if ($.trim(this.Naam) === $routeParams.artist) {
+                    if ($.trim(this.Naam).toLowerCase() === $routeParams.artist.toLowerCase()) {
                         var artist = this;
                         $.each(this.albums, function() {
                             if ($.trim(this.Album) === $routeParams.album) {
