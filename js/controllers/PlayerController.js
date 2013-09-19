@@ -21,7 +21,7 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
 
         // set audio source
         var src = "";
-        if ($rootScope.server !== 0) {
+        if ($rootScope.server !== '0') {
             src = playerpath.replace('$s', $rootScope.server) + sanitize(track.path) + '&sid=' + $rootScope.sid + '&server=' + encodeURIComponent($rootScope.url);
         } else {
             src = 'file:///' + track.path;
