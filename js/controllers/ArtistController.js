@@ -36,10 +36,14 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 				var activeLetter = $rootScope.activeLetter;
 				$.each(activeLetter.artists, function() {
 					if (this.Naam === $routeParams.artist) {
+					    if (window._gaq) {
+					       _gaq.push(['_trackPageview', '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist]);
+					    }
+					    window.document.title = 'JSMusicDB - ' + $routeParams.artist;
 						switchView.artist(this, true);
 						return false;
 					}
-				})
+				});
 			}
 		});
 	}

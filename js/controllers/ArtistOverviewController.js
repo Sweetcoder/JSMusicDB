@@ -32,6 +32,16 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
     // get routing
 
     if ($routeParams.letter) {
-        switchView.routeLetter($routeParams.letter);
+        $rootScope.$watch(function() {
+            return $rootScope.parsed;
+        }, function(n, o) {
+            if (n) {
+                if (window._gaq) {
+                    _gaq.push(['_trackPageview', '/letter/' + $routeParams.letter]);
+                }
+                window.document.title = 'JSMusicDB - letter: ' + $routeParams.letter;
+                switchView.routeLetter($routeParams.letter);
+            }
+        });
     }
-}]); 
+}]);

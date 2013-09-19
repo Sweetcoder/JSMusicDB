@@ -6,6 +6,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 		$http.get('music.json').success(function(data) {
 			var start = new Date();
 			$rootScope.debug.push('JSON fetched in ' + (start - mainStart) + ' ms');
+			start = new Date();
 			angular.forEach(data, function(value, key) {
 				if (value.totals) {
 					$scope.totalArtists = value.totals.artists;
@@ -15,14 +16,14 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 					$scope.timestamp = value.totals.timestamp * 1000;
 				} else if (value.Naam && !value.Artiest) {
 					// these are the nodes without an Artiest attribute but with a Naam attribute; these are the Artists meta nodes
-					if (!$rootScope.letterCache[getFirstLetter(stripThe(value.Naam))]) {
+					if (!$rootScope.letterCache[getFirstLetter(value.Naam)]) {
 						var letter = new jsmusicdb.Letter(value);
-						$rootScope.letterCache[getFirstLetter(stripThe(value.Naam))] = letter;
+						$rootScope.letterCache[getFirstLetter(value.Naam)] = letter;
 					}
 					if (!$rootScope.artistCache[stripThe(value.Naam)]) {
 						var artist = new jsmusicdb.Artist(value);
 						$rootScope.artistCache[stripThe(value.Naam)] = artist;
-						$rootScope.letterCache[getFirstLetter(stripThe(value.Naam))].artists.push(artist);
+						$rootScope.letterCache[getFirstLetter(value.Naam)].artists.push(artist);
 					}
 				} else if (value.Naam && value.Artiest) {
 					// these are the nodes with an Artiest and a Name attribute; these are the Album meta nodes
@@ -41,6 +42,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 					}
 				}
 			});
+			$rootScope.debug.push('JSON parsed in ' + (new Date() - start) + ' ms');
 			that.fetched = true;
 			that.setupModels(switchView, $rootScope, $location, $routeParams, ctl);
 			callback();
@@ -78,7 +80,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 					var letter = this;
 					if (this.letter == $routeParams.letter) {
 						$rootScope.activeLetter = this;
-						return false;
+						// return false;
 					}
 				});
 			}
@@ -89,11 +91,11 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 
 	function getFirstLetter(name) {"use strict";
 		name = stripThe(name);
-		var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], firstLetter = name.charAt(0);
+		var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'], firstLetter = name.charAt(0);
 		if ($.inArray(firstLetter, specialChars) > -1) {
 			firstLetter = "1";
 		}
-		return firstLetter;
+		return "" + firstLetter;
 	}
 
 	function stripThe(name) {"use strict";

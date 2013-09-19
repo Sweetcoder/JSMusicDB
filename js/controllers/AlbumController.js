@@ -40,10 +40,14 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
             if (n) {
                 var activeLetter = $rootScope.activeLetter;
                 $.each(activeLetter.artists, function() {
-                    if ($.trim(this.Naam).toLowerCase() === $routeParams.artist.toLowerCase()) {
+                    if ($.trim(this.Naam).toLowerCase() === $routeParams.artist.toLowerCase()) {                        
                         var artist = this;
                         $.each(this.albums, function() {
                             if ($.trim(this.Album) === $routeParams.album) {
+                                if (window._gaq) {
+                                    _gaq.push(['_trackPageview', '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist + '/album/' + $routeParams.album]);
+                                }
+                                window.document.title = 'JSMusicDB - ' + $routeParams.artist + " - " + $routeParams.album;
                                 switchView.album(this, artist, true);
                                 return false;
                             }
