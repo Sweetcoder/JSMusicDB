@@ -130,40 +130,6 @@
 					<div class="wrapper">
 						<div class="well">
 							<form id="setLogin" class="form-horizontal">
-								<!--
-								<legend>
-								Animations
-								</legend>
-								<div class="control-group">
-								<label for="animation">Changing Over-/Artist/Album view</label>
-								<div class="control">
-								<select data-bind="value: animation">
-								<option value="1">Scale</option>
-								<option value="2">Zoom</option>
-								<option value="3">Slide</option>
-								</select>
-								</div>
-								</div>
-								<legend>
-								Sortings
-								</legend>
-								<div class="control-group">
-								<label for="animation">Artists</label>
-								<div class="control">
-								<select data-bind="value: sortArtists">
-								<option value="1">Alphabetical</option>
-								<option value="2">Number of albums</option>
-								</select>
-								</div>
-								<label for="animation">Albums</label>
-								<div class="control">
-								<select data-bind="value: sortAlbums">
-								<option value="1">Alphabetical</option>
-								<option value="2">Date</option>
-								</select>
-								</div>
-								</div
-								-->
 								<legend>
 									Server settings
 								</legend>
@@ -181,7 +147,7 @@
 									<div class="control-group" ng-show="server">
 										<label class="control-label" for="nasUrl">Server URL</label>
 										<div class="controls">
-											<input type="text" id="nasUrl" placeholder="http://www.example.com:5000" ng-model="url">
+											<input type="url" id="nasUrl" placeholder="http://www.example.com:5000" ng-model="url">
 										</div>
 									</div>
 									<div class="control-group" ng-show="server">
@@ -213,7 +179,6 @@
 										Logged in as user {{username}} &nbsp;<a href="#" ng-click="logout()">Logout</a>
 									</div>
 								</div>
-								<!-- /ko -->
 								<legend>
 									Last.FM settings
 								</legend>
@@ -275,9 +240,6 @@
 								<ul>
 									<li>
 										Upcoming releases
-									</li>
-									<li>
-										URL based navigation
 									</li>
 									<li>
 										Loved track indication

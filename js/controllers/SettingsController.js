@@ -1,4 +1,4 @@
-jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
     "use strict";
     var lastfmkey = localStorage.getItem("key");
     $rootScope.url = $scope.url;
@@ -6,10 +6,9 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
     $scope.isLoading = false;
     
     $scope.login = function () {
-        $scope.isLoading = true;
-        // TODO: should be an angular $http
+        $scope.isLoading = true;        
         if ($scope.server !== 0) {
-            $.getJSON('proxy/'+$scope.server+'/login.php', { account: $scope.username, passwd: $scope.password, server: $scope.url}, function (json) {
+            $http.get('proxy/'+$scope.server+'/login.php', { params: { account: $scope.username, passwd: $scope.password, server: $scope.url}}).success(function(json) {
                 if (json.success && json.success === true) {
                     // login successfull
                     $scope.loggedIn = true;
@@ -45,7 +44,13 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', function ($s
             $rootScope.canPlay = true;
         }
     };
-    
+    $scope.logout = function () {
+        // logout from the server and reset the state
+        localStorage.removeItem("store");
+        $scope.isLoading = false;
+        $rootScope.canPlay = false;
+        $scope.loggedIn = false;
+    };
     if (localStorage.getItem("store")) {
         var stored = JSON.parse(localStorage.getItem("store"));
         $scope.username = stored.username;
