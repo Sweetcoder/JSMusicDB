@@ -5,7 +5,6 @@ jsmusicdb.controller('TrackController', ['$scope', 'switchView', 'playerService'
             playerService.addAlbum(album);
             switchView.playTrack(track);
         } else {
-            console.log('not logged in');
             $(".toggle > i").tooltip("show");
         }
     };
