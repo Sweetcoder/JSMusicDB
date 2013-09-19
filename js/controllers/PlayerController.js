@@ -6,6 +6,9 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         name = name.replace(/#/g, '%23');
         return name;
     };
+    if (navigator.userAgent.indexOf('Mobi') !== -1) {
+        playerpath = 'proxy/$s/mobile.php?path=';
+    }
     var play = function(track) {
         $scope.scrobbeld = false;
         if ($scope.track) {
