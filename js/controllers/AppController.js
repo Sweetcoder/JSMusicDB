@@ -55,7 +55,9 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		//var stop = new Date();
 		//$rootScope.debug.push('Fill and sort models done in ' + (stop - start) + ' ms');
 		$scope.debugText = $rootScope.debug.join('<br />');
-		
+		$(".snap-content").fadeIn(function () {
+		    $(".snap-drawers").show();
+		});
 		$rootScope.parsed = true;
 	});
 }]);

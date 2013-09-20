@@ -16,7 +16,7 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         }
         $scope.track = playerService.track(track);
         $scope.track.isPlaying = true;
-        $scope.isPlaying = true;
+        $rootScope.isPlaying = true;
         $scope.playstate = 'play';
 
         // set audio source
@@ -52,7 +52,7 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         } else {
             $scope.track.isPlaying = false;
             $scope.track = null;
-            $scope.isPlaying = false;
+            $rootScope.isPlaying = false;
             audiotag.pause();
         }
     };
@@ -63,7 +63,7 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         } else {
             $scope.track.isPlaying = false;
             $scope.track = null;
-            $scope.isPlaying = false;
+            $rootScope.isPlaying = false;
             audiotag.pause();
         }
     };
@@ -81,7 +81,7 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
     };
     $scope.stop = function() {
         $scope.playstate = 'play';
-        $scope.isPlaying = false;
+        $rootScope.isPlaying = false;
         $scope.track.isPlaying = false;
         audiotag.pause();
         audiotag.src = '';

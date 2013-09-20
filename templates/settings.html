@@ -1,0 +1,67 @@
+<div class="">
+	<h1 class="toggle"><i class="icon-align-justify"></i>Settings</h1>
+</div>
+<div class="wrapper">
+	<div class="well">
+		<form id="setLogin" class="form-horizontal">
+			<legend>
+				Server settings
+			</legend>
+			<div ng-hide="loggedIn">
+				<div class="control-group">
+					<label class="control-label" for="nas">Server type</label>
+					<div class="controls">
+						<select ng-model="server">
+							<option value="0">No server, play locally</option>
+							<option value="1">Synology</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group" ng-show="server">
+					<label class="control-label" for="nasUrl">Server URL</label>
+					<div class="controls">
+						<input type="url" id="nasUrl" placeholder="http://www.example.com:5000" ng-model="url">
+					</div>
+				</div>
+				<div class="control-group" ng-show="server">
+					<label class="control-label" for="nasUser">Username</label>
+					<div class="controls">
+						<input type="text" id="nasUser" placeholder="Username" ng-model="username">
+					</div>
+				</div>
+				<div class="control-group" ng-show="server">
+					<label class="control-label" for="nasPassword">Password</label>
+					<div class="controls">
+						<input type="password" id="nasPassword" ng-model="password">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="nasKeep">Store credentials</label>
+					<div class="controls">
+						<input type="checkbox" id="nasKeep" value="true" ng-model="store">
+					</div>
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary" ng-click="login()">
+						Log in <span ng-show="isLoading"> <img src="css/img/ajax-submit.gif" /> </span>
+					</button>
+				</div>
+			</div>
+			<div class="control-group" ng-show="loggedIn">
+				<div class="controls">
+					Logged in as user {{username}} &nbsp;<a href="#" ng-click="logout()">Logout</a>
+				</div>
+			</div>
+			<legend>
+				Last.FM settings
+			</legend>
+			<div class="control-group">
+				<div class="controls">
+					<span ng-hide="lastfmkey"> <a href="http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=http://www.arielext.org/music/index.html">Connect to last.fm</a> </span>
+					<span ng-show="lastfmkey"> Connected to last.fm <a href="#" data-bind="click: doRemoveLastFM">disconnect</a> </span>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
