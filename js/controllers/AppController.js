@@ -37,7 +37,7 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 			touchToDrag : false
 		});
 
-		$("#main .toggle").on("click", function() {
+		$("#main").on("click", " .toggle", function() {
 			if (snapper.state().state == "left") {
 				snapper.close();
 			} else {
