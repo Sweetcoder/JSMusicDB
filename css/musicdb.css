@@ -326,6 +326,7 @@ table th.dur {
 	bottom: 4px;
 	background: #ffffff;
 	margin-left: -1.3%;
+	max-width: 100px;
 }
 #player .info-Title {
 	margin: 0;
@@ -359,12 +360,7 @@ table th.dur {
 	height: 3px;
 	margin-bottom: 0;
 }
-.progressBar .progress:hover {
-	height: 15px;
-	margin: 1px 0;
-	border: 1px solid #ddd;
-	cursor: pointer;
-}
+
 .progressBar .time {
 	position: absolute;
 	padding: 2px 3px;
@@ -389,6 +385,17 @@ table th.dur {
 }
 .lightbox-content .progressBar .stop {
 	right: 0;
+}
+/*
+#player:hover .thumbnail {
+	max-width: inherit;
+}
+*/
+#player:hover .progressBar .progress {
+	height: 15px;
+	margin: 1px 0;
+	border: 1px solid #ddd;
+	cursor: pointer;
 }
 
 /* playlist */

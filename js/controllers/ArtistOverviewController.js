@@ -4,6 +4,9 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
         $scope.Artists = letter.artists;
         // update location
         // $location.path('/letter/' + letter.letter);
+        $("#main .container > div").hide();
+        $("#content").show();
+            
     });
     $scope.$on('routeArtistChange', function(e, artistName) {
         $.each($scope.Artists, function() {

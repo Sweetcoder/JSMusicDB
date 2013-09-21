@@ -132,14 +132,14 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         }
     };
 
-    $scope.isRandom = 'arrow-right';
+    $scope.isRandom = 'random';
     $scope.toggleRandom = function() {
-        if ($scope.isRandom === 'arrow-right') {
+        if ($scope.isRandom === 'random') {
             playerService.random(true);
-            $scope.isRandom = 'random';
+            $scope.isRandom = 'arrow-right';
         } else {
             playerService.random(false);
-            $scope.isRandom = 'arrow-right';
+            $scope.isRandom = 'random';
         }
     };
 

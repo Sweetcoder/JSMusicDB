@@ -7,9 +7,9 @@ function($routeProvider) {
 		templateUrl : 'templates/ArtistView.html',
 		controller : jsmusicdb.ArtistController
 	}).when('/letter/:letter/artist/:artist/album/:album', {
-		templateUrl : 'templates/AlbumView.html',
-		controller : jsmusicdb.AlbumController
-	}).otherwise({
+        templateUrl : 'templates/AlbumView.html',
+        controller : jsmusicdb.AlbumController
+    }).otherwise({
 		templateUrl : 'templates/ArtistOverview.html',
 		controller : jsmusicdb.ArtistOverviewController
 	})
@@ -47,7 +47,7 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		$(".snap-drawers").on("click", "a", function(e) {
 			e.preventDefault();
 			$("#main .container > div").hide();
-			$($(this).attr("href")).show();
+            $($(this).attr("href")).show();
 			_gaq.push(['_trackPageview', $(this).attr("href")]);
 			snapper.close();
 		});
