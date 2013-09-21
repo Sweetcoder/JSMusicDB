@@ -5,6 +5,7 @@
 angular.module('jsmusicdb.playerService', []).service('playerService', function($rootScope, $http) {"use strict";
     var that = this;
     that.busy = false;
+    that.isRandom = false;
     this.track = function(track) {
         return track;
     };
@@ -31,6 +32,9 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
                 }
             }));
             $rootScope.playlistAlbums = $rootScope.playlistAlbums.concat(album);
+            if (that.isRandom) {
+                $rootScope.playlist = shuffle($rootScope.playlist);
+            }
         }
     };
     this.nextTrack = function(track) {
@@ -75,8 +79,8 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
             });
         }
     };
-    this.random = function(random) {
-        if (random) {
+    this.random = function() {
+        if (that.isRandom) {
             $rootScope.playlist = shuffle($rootScope.playlist);
         } else {
             $rootScope.playlist = [];

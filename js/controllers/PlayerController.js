@@ -135,10 +135,12 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
     $scope.isRandom = 'random';
     $scope.toggleRandom = function() {
         if ($scope.isRandom === 'random') {
-            playerService.random(true);
+            playerService.isRandom = true;
+            playerService.random();
             $scope.isRandom = 'arrow-right';
         } else {
-            playerService.random(false);
+            playerService.isRandom = false;
+            playerService.random();
             $scope.isRandom = 'random';
         }
     };
