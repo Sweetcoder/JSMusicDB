@@ -45,9 +45,10 @@
                 </div>
                 </a>
                 <div class="actions">
-                    <button class="btn" ng-click="addToPlaylist(album)">
-                        <i class="icon-plus"></i>
+                    <button class="btn" ng-click="addToPlaylist(album)" ng-show="albumstate == 'plus'">
+                        <i class="icon-{{albumstate}}"></i>
                     </button>
+                    <i class="icon-{{albumstate}} albumAddedToPlaylist" ng-show="albumstate == 'ok'"></i>
                 </div>
             </li>
         </ul>

@@ -71,6 +71,7 @@ ol li {
 .media {
 	display: inline-block;
 	position: relative;
+	overflow: visible;
 }
 .media a {
 	text-decoration: none;
@@ -103,6 +104,11 @@ ol li {
 	right: 0;
 	top: 0;
 	display: none;
+}
+.media .actions .albumAddedToPlaylist {
+	position: absolute;
+	right: 10px;
+	top: 10px;	
 }
 .media:hover .actions {
 	display: block;

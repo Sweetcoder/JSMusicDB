@@ -14,7 +14,10 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
     });
     $scope.addToPlaylist = function(album) {
         playerService.addAlbum(album);
+        $scope.albumstate = "ok";
     };
+    $scope.albumstate = "plus";
+    
     $scope.closeView = function() {
         $("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
         $("#artistView").removeClass("child").removeClass("parent").addClass("view");
