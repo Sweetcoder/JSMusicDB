@@ -2,6 +2,7 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', '$http',
 function($scope, $rootScope, $http) {"use strict";
     var lastfmkey = localStorage.getItem("key");
     $rootScope.url = $scope.url;
+    $rootScope.canPlay = false;
 
     $scope.isLoading = false;
 

@@ -36,6 +36,14 @@ form {
     z-index: 0;
     background: #ffffff;
 }
+.snap-drawer-left li.highlight {
+	background: #DFF0D8;
+	border: 1px solid ##D6E9C6;
+	color: #468847;
+}
+.snap-drawer-left li.highlight a:after {
+	content: ' - Login here';
+}
 .snap-content {
 	position: static;
 	overflow-x: hidden;
