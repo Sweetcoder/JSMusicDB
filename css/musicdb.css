@@ -108,7 +108,9 @@ ol li {
 .media .actions .albumAddedToPlaylist {
 	position: absolute;
 	right: 10px;
-	top: 10px;	
+	top: 10px;
+	background-color: #FFFFFF;
+    box-shadow: 0 0 1px;
 }
 .media:hover .actions {
 	display: block;
