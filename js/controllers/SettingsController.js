@@ -7,6 +7,7 @@ function($scope, $rootScope, $http) {"use strict";
 
     $scope.login = function() {
         $scope.isLoading = true;
+        $scope.loginError = false;
         if ($scope.server !== '0') {
             $http.get('proxy/' + $scope.server + '/login.php', {
                 params : {
@@ -32,8 +33,8 @@ function($scope, $rootScope, $http) {"use strict";
                         localStorage.setItem("store", JSON.stringify(stored));
                     }
                 } else {
-                    // TODO: error handling
                     localStorage.removeItem("store");
+                    $scope.loginError = true;
                 }
                 $scope.isLoading = false;
                 $rootScope.canPlay = true;

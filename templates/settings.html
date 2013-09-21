@@ -9,6 +9,9 @@
 					Server settings
 				</legend>
 				<div ng-hide="loggedIn">
+					<div ng-show="loginError" class="alert alert-error">
+						<strong>Error!</strong> Please check all fields and resubmit.
+					</div>
 					<div class="control-group">
 						<label class="control-label" for="nas">Server type</label>
 						<div class="controls">
