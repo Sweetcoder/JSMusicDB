@@ -27,18 +27,21 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 					}
 				} else if (value.Naam && value.Artiest) {
 					// these are the nodes with an Artiest and a Name attribute; these are the Album meta nodes
-					if (!$rootScope.albumCache[value.Naam]) {
+					if (!$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album]) {
 						var album = new jsmusicdb.Album(value);
-						$rootScope.albumCache[value.Naam] = album;
+						$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album] = album;
 						$rootScope.artistCache[stripThe(album.Artiest)].albums.push(album);
 					}
 				} else {
 					// these are the Track nodes
 					var track = new jsmusicdb.Track(value);
 					// add track to album
-					if ($rootScope.albumCache[track.Artiest + " - " + track.Album]) {
-						$rootScope.albumCache[track.Artiest + " - " + track.Album].tracks.push(track);
-						track.albumNode = $rootScope.albumCache[track.Artiest + " - " + track.Album];
+					if ($rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album]) {
+						$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album].tracks.push(track);
+						track.albumNode = $rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album];
+					} else {
+						// TODO: do we want to log this/report these?
+						// console.log("no album found for",stripThe(value.Artiest) + "-" + value.Album, $rootScope.albumCache);
 					}
 				}
 			});
