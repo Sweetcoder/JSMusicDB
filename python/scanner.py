@@ -166,10 +166,16 @@ for filename in find_files(rootpath, '*.mp3'):
                 jsonFile.append(artist.toString())
                 artists[song.tag.artist] = True
                 totalArtist = totalArtist + 1
-            if song.tag.album not in albums:
+            combined = song.tag.album
+            if song.tag.artist:
+                if combined:
+                    combined = song.tag.artist + combined
+                else:
+                    combined = song.tag.artist
+            if combined not in albums:
                 album = Album(song)
                 jsonFile.append(album.toString())
-                albums[song.tag.album] = True
+                albums[combined] = True
                 totalAlbums = totalAlbums + 1
             track = Track(song, filename)
             totalTime = totalTime + track.seconds

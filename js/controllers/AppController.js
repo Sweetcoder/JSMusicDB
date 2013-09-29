@@ -1,4 +1,4 @@
-var jsmusicdb = angular.module('jsmusicdb', ['jsmusicdb.modelService', 'jsmusicdb.switchView', 'jsmusicdb.playerService', 'TimeFilters', 'jsmusicdb.sortService']).config(['$routeProvider',
+var jsmusicdb = angular.module('jsmusicdb', ['jsmusicdb.modelService', 'jsmusicdb.switchView', 'jsmusicdb.playerService', 'TimeFilters', 'jsmusicdb.sortService', 'ngRoute', 'ngSanitize']).config(['$routeProvider',
 function($routeProvider) {
 	$routeProvider.when('/letter/:letter', {
 		templateUrl : 'templates/ArtistOverview.html',
@@ -6,7 +6,7 @@ function($routeProvider) {
 	}).when('/letter/:letter/artist/:artist', {
 		templateUrl : 'templates/ArtistView.html',
 		controller : jsmusicdb.ArtistController
-	}).when('/letter/:letter/artist/:artist/album/:album', {
+	}).when("/letter/:letter/artist/:artist/album/:album*", {
         templateUrl : 'templates/AlbumView.html',
         controller : jsmusicdb.AlbumController
     }).otherwise({
@@ -15,7 +15,6 @@ function($routeProvider) {
 	})
 }]);
 /* caching */
-// var letterCache = {}, letters = [], activeLetter = null, artistCache = {}, albumCache = {}, debug = [];
 jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView', '$rootScope', '$location', '$routeParams', 'modelService',
 function($scope, $http, switchView, $rootScope, $location, $routeParams, modelService) {"use strict";
 	/* declare globals */
