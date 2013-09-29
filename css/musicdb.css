@@ -181,36 +181,34 @@ ol li {
 	transition: all .3s ease-in;
 	opacity: 1;
 }
-#content .wrapper > div {
+#content .wrapper {
 	/* hardware */
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	-ms-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
-}
-#content .wrapper > .child {
 	-webkit-transition: all .3s ease-in;
 	-moz-transition: all .3s ease-in;
 	-o-transition: all .3s ease-in;
 	-ms-transition: all .3s ease-in;
 	transition: all .3s ease-in;
-	opacity: 0;
-	-webkit-transform: translate3d(110%, 0, 0) scale(0.001);
-	-moz-transform: translate3d(110%, 0, 0) scale(0.001);
-	-ms-transform: translate3d(110%, 0, 0) scale(0.001);
-	transform: translate3d(110%, 0, 0) scale(0.001);
+	
+	-webkit-transform-origin:center top 0;
+	-moz-transform-origin:center top 0;
+	-ms-transform-origin:center top 0;
+	transform-origin:center top 0;
+	
+	opacity: 1;
 }
-#content .wrapper > .parent {
-	-webkit-transition: all .3s ease-in;
-	-moz-transition: all .3s ease-in;
-	-o-transition: all .3s ease-in;
-	-ms-transition: all .3s ease-in;
-	transition: all .3s ease-in;
+#content .wrapper.ng-enter {
+	-webkit-transform: scale(0.001);
+	-moz-transform: scale(0.001);
+	-ms-transform: scale(0.001);
+	transform: scale(0.001);
 	opacity: 0;
-	-webkit-transform: translate3d(-110%, 0, 0) scale(0.001);
-	-moz-transform: translate3d(-110%, 0, 0) scale(0.001);
-	-ms-transform: translate3d(-110%, 0, 0) scale(0.001);
-	transform: translate3d(-110%, 0, 0) scale(0.001);
+}
+#content .wrapper.ng-leave {
+	opacity: 0;
 }
 .navbar .close {
 	margin-top: 10px;
