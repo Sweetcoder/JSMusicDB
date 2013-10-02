@@ -339,6 +339,8 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
         	var cachedResult = null;
         	if (scope.artist) {
         		cachedResult = rootScope.cachedImages[scope.artist.Naam + '-' + scope.album.Album];
+        	} else if (scope.track) {
+        		cachedResult = rootScope.cachedImages[scope.track.Artiest + '-' + scope.track.Album];
         	} else {
         		cachedResult = rootScope.cachedImages[scope.album.Artiest + '-' + scope.album.Album];
         	}

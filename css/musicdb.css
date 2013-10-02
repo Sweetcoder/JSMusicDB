@@ -393,15 +393,15 @@ table th.dur {
 	position: absolute;
 	padding: 2px 3px;
 	border: 1px solid #cccccc;
-	top: -12px;
+	top: 2px;
 	background: #ffffff;
 }
 
 .progressBar .start {
-	left: -50px;
+	left: -55px;
 }
 .progressBar .stop {
-	right: -50px;
+	right: -55px;
 }
 .lightbox-content .time {
 	background: transparent;
