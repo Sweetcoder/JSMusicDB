@@ -41,6 +41,11 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
             return $rootScope.parsed;
         }, function(n, o) {
             if (n) {
+            	if ($rootScope.activeLetter) {
+					$rootScope.activeLetter.active = false;
+				}
+				$rootScope.activeLetter = $rootScope.letterCache[$routeParams.letter];
+				$rootScope.activeLetter.active = true;
                 var activeLetter = $rootScope.activeLetter;
                 $.each(activeLetter.artists, function() {
                     if ($.trim(this.Naam).toLowerCase() === $routeParams.artist.toLowerCase()) {                        
