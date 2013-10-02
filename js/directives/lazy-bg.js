@@ -3,7 +3,6 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
     // I manage all the images that are currently being
     // monitored on the page for lazy loading.
     var lazyLoader = (function() {
-
         // I maintain a list of images that lazy-loading
         // and have yet to be rendered.
         var images = [];
@@ -245,7 +244,7 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
     // ------------------------------------------ //
 
     // I represent a single lazy-load image.
-    function LazyImage(element) {
+    function LazyImage(element, scope) {
 
         // I am the interpolated LAZY SRC attribute of
         // the image as reported by AngularJS.
@@ -260,7 +259,9 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
         // going to assume that the image doesn't change
         // height over time.
         var height = element.height();
-
+		var scope = scope,
+			rootScope = scope.$root;
+		
         var cachedResult = null;
 
         // ---
@@ -313,7 +314,6 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
         // I set the interpolated source value reported
         // by the directive / AngularJS.
         function setSource(newSource) {
-
             source = newSource;
 
             if (isRendered) {
@@ -331,6 +331,14 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
         // I load the lazy source value into the actual
         // source value of the image element.
         function renderSource() {
+        	if (!rootScope.cachedImages) {
+        		rootScope.cachedImages = [];
+        	}
+        	if (scope.album) {
+        		var cachedResult = rootScope.cachedImages[scope.artist.Naam + '-' + scope.album.Album]; 
+        	} else {
+        		var cachedResult = rootScope.cachedImages[scope.artist.Naam];
+        	}
             if (cachedResult) {
                 element[0].style.backgroundImage = 'url(' + cachedResult + ')';
             } else {
@@ -351,7 +359,7 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
                             cachedResult = "images/nocover.png";
                             element[0].style.backgroundImage = 'url(' + cachedResult + ')';
                         }
-
+                        rootScope.cachedImages[scope.artist.Naam] = cachedResult;
                     });
                 } else {
                     var splitted = source.split("|");
@@ -378,6 +386,7 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
                             cachedResult = "images/nocover.png";
                             element[0].style.backgroundImage = 'url(' + cachedResult + ')';
                         }
+                        rootScope.cachedImages[scope.artist.Naam + '-' + scope.album.Album] = cachedResult;
                     });
                 }
             }
@@ -397,8 +406,8 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
 
     // I bind the UI events to the scope.
     function link($scope, element, attributes) {
-
-        var lazyImage = new LazyImage(element);
+		var scope = $scope;
+        var lazyImage = new LazyImage(element, scope);
 
         // Start watching the image for changes in its
         // visibility.

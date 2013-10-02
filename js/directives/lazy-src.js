@@ -244,7 +244,7 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
     // ------------------------------------------ //
 
     // I represent a single lazy-load image.
-    function LazyImage(element) {
+    function LazyImage(element, scope) {
 
         // I am the interpolated LAZY SRC attribute of
         // the image as reported by AngularJS.
@@ -259,6 +259,10 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
         // going to assume that the image doesn't change
         // height over time.
         var height = null;
+        var scope = scope,
+			rootScope = scope.$root;
+		
+        var cachedResult = null;
 
         var cachedResult = null;
 
@@ -329,47 +333,46 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
         // I load the lazy source value into the actual
         // source value of the image element.
         function renderSource() {
-            // element[0].src = source;
-            // element[0].style.backgroundImage = 'url(' + source + ')';
-            //if (cachedResult) {
-            //    element[0].src = cachedResult;
-            //} else {
-            var splitted = source.split("|");
-
-            $http.get('http://ws.audioscrobbler.com/2.0/', {
-                params : {
-                    method : 'album.getinfo',
-                    api_key : '956c1818ded606576d6941de5ff793a5',
-                    artist : splitted[0],
-                    album : splitted[1],
-                    format : 'json',
-                    autoCorrect : true
-                }
-            }).success(function(json) {
-                if (json.album) {
-                    var artlist = json.album.image;
-                    $.each(artlist, function() {
-                        if (this.size === 'extralarge') {
-                            var url = this["#text"];
-                            /*
-                            if (url !== "") {
-                                url = url.split("/");
-                                url = "http://userserve-ak.last.fm/serve/500/" + url[5];
-                                cachedResult = url || "images/nocover.png";
-                            } else {
-                                cachedResult = "images/nocover.png";
-                            }
-                            */
-                           cachedResult = url || "images/nocover.png";
-                            element[0].src = cachedResult;
-                        }
-                    });
-                } else {
-                    cachedResult = "images/nocover.png";
-                    element[0].src = cachedResult;
-                }
-            });
-            // }
+            if (!rootScope.cachedImages) {
+        		rootScope.cachedImages = [];
+        	}
+        	var cachedResult = null;
+        	if (scope.artist) {
+        		cachedResult = rootScope.cachedImages[scope.artist.Naam + '-' + scope.album.Album];
+        	} else {
+        		cachedResult = rootScope.cachedImages[scope.album.Artiest + '-' + scope.album.Album];
+        	}
+            if (cachedResult) {
+                element[0].src = cachedResult;
+            } else {
+	            var splitted = source.split("|");
+	
+	            $http.get('http://ws.audioscrobbler.com/2.0/', {
+	                params : {
+	                    method : 'album.getinfo',
+	                    api_key : '956c1818ded606576d6941de5ff793a5',
+	                    artist : splitted[0],
+	                    album : splitted[1],
+	                    format : 'json',
+	                    autoCorrect : true
+	                }
+	            }).success(function(json) {
+	                if (json.album) {
+	                    var artlist = json.album.image;
+	                    $.each(artlist, function() {
+	                        if (this.size === 'extralarge') {
+	                            var url = this["#text"];
+	                            cachedResult = url || "images/nocover.png";
+	                            element[0].src = cachedResult;
+	                        }
+	                    });
+	                } else {
+	                    cachedResult = "images/nocover.png";
+	                    element[0].src = cachedResult;
+	                }
+	                rootScope.cachedImages[scope.album.Artiest + '-' + scope.album.Album] = cachedResult;
+	            });
+            }
         }
 
         // Return the public API.
@@ -386,8 +389,8 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
 
     // I bind the UI events to the scope.
     function link($scope, element, attributes) {
-
-        var lazyImage = new LazyImage(element);
+		var scope = $scope;
+        var lazyImage = new LazyImage(element, scope);
 
         // Start watching the image for changes in its
         // visibility.
