@@ -11,4 +11,13 @@ jsmusicdb.controller('TrackController', ['$scope', 'switchView', 'playerService'
             $(".toggle > i").tooltip("show");
         }
     };
+    $scope.trackstate = "plus";
+    $scope.addToPlaylist = function(track) {
+        playerService.addTrack(track);
+        $scope.trackstate = "minus";
+    };
+    $scope.removeFromPlaylist = function(track) {
+        playerService.removeTrack(track);
+        $scope.trackstate = "plus";
+    };
 }]);

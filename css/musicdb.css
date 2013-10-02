@@ -108,27 +108,24 @@ ol li {
 	top: 0;
 	display: none;
 }
-.media .actions .albumAddedToPlaylist {
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	background-color: #FFFFFF;
-    box-shadow: 0 0 1px;
-}
 .media:hover .actions {
 	display: block;
 }
-#albumView .actions {
+#albumPlaylist .group {
+	position: relative;
+	margin-bottom: 20px;
+}
+#albumPlaylist .group h3 {
+	margin: 0;
+	padding: 0;
+}
+#albumView .actions, #albumPlaylist .actions {
 	position: absolute;
 	left: 5px;
 	top: 9px;
 }
-#albumView .actions .albumAddedToPlaylist {
-	position: absolute;
-	left: 16px;
-	top: 11px;
-	background-color: #FFFFFF;
-    box-shadow: 0 0 1px;
+#albumPlaylist .actions {
+	top: 25px;
 }
 .card .image-wrapper {
 	border-radius: 2px 2px 0 0;
@@ -442,14 +439,11 @@ table th.dur {
 .playlist .group .art {
 	border-radius: 5px;
 	box-shadow: 0 0 2px;
-	margin: 0 1% 0 0;
-	width: 19%;
+	margin: 40px 1% 0 1%;
+	width: 18%;
 }
 .playlist .group table {
 	width: 80%;
-}
-.playlist .group h3 {
-	padding-top: 2%;
 }
 audio {
 	display: none;
@@ -532,6 +526,11 @@ audio {
 	}
 	.media .actions .albumAddedToPlaylist {
 		top: -27px;
+	}
+	#albumPlaylist .actions {
+		top: auto;
+		left: auto;
+		right: 0;
 	}
 }
 @media (min-width: 480px) {

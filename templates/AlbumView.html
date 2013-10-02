@@ -15,9 +15,11 @@
         <img class='art' bn-lazy-src="{{artist.Naam}}|{{album.Album}}">
         <div class="actions">
             <button class="btn" ng-click="addToPlaylist(album)" ng-show="albumstate == 'plus'">
-                <i class="icon-{{albumstate}}" title="Album added to playlist"></i>
+                <i class="icon-{{albumstate}}"></i>
             </button>
-            <i class="icon-{{albumstate}} albumAddedToPlaylist" ng-show="albumstate == 'ok'"></i>
+            <button class="btn" ng-click="removeFromPlaylist(album)" ng-show="albumstate == 'minus'">
+                <i class="icon-{{albumstate}}"></i>
+            </button>
         </div>
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -28,10 +30,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="track in album.tracks| orderBy: orderTracks" ng-controller="TrackController" ng-click="playTrack(album, track)">
-                    <td class="trackno"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span><span ng-show="!track.isPlaying"> {{track.Nummer}} </span></td>
-                    <td>{{track.Titel}}</td>
-                    <td>{{track.Tijd}}</td>
+                <tr ng-repeat="track in album.tracks| orderBy: orderTracks" ng-controller="TrackController">
+                    <td class="trackno" ng-click="playTrack(album, track)"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span><span ng-show="!track.isPlaying"> {{track.Nummer}} </span></td>
+                    <td ng-click="playTrack(album, track)">{{track.Titel}}</td>
+                    <td>{{track.Tijd}}
+                    	<button class="btn" ng-click="addToPlaylist(track)" ng-show="trackstate == 'plus'">
+			                <i class="icon-{{trackstate}}" title="Track added to playlist"></i>
+			            </button>
+			            <button class="btn" ng-click="removeFromPlaylist(track)" ng-show="trackstate == 'minus'">
+			                <i class="icon-{{trackstate}}"></i>
+			            </button>
+                    </td>
                 </tr>
             </tbody>
         </table>

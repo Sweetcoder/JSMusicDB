@@ -41,6 +41,19 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
 			$rootScope.playlist.push(track);
 		}
 	};
+	this.removeAlbum = function (album) {
+	    var index = $.inArray(album, $rootScope.playlistAlbums);
+	    if (index !== -1) {
+	        $rootScope.playlistAlbums.splice(index ,1);
+	    }
+	};
+	
+	this.removeTrack = function (track) {
+	    var index = $.inArray(track, $rootScope.playlist);
+	    if (index !== -1) {
+	        $rootScope.playlist.splice(index, 1);
+	    }
+	};
 	this.nextTrack = function(track, type) {
 		if (type === 'track') {
 			var index = $.inArray(track, $rootScope.playlist);
