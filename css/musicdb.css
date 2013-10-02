@@ -118,6 +118,18 @@ ol li {
 .media:hover .actions {
 	display: block;
 }
+#albumView .actions {
+	position: absolute;
+	left: 5px;
+	top: 9px;
+}
+#albumView .actions .albumAddedToPlaylist {
+	position: absolute;
+	left: 16px;
+	top: 11px;
+	background-color: #FFFFFF;
+    box-shadow: 0 0 1px;
+}
 .card .image-wrapper {
 	border-radius: 2px 2px 0 0;
 	cursor: pointer;
