@@ -513,6 +513,14 @@ audio {
 	.playlist .group table {
 		width: 100%;
 	}
+	.media .actions {
+		top: auto;
+		bottom: 0;
+		display: block;
+	}
+	.media .actions .albumAddedToPlaylist {
+		top: -27px;
+	}
 }
 @media (min-width: 480px) {
 	.card {

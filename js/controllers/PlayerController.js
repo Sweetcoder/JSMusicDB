@@ -37,8 +37,9 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         // set now playling status
         playerService.scrobbleNowPlaying($scope);
     };
-    $scope.$on('playTrack', function(e, track) {
+    $scope.$on('playTrack', function(e, track, type) {
         // switchView.setAsPlaylist(album);
+        $scope.type = type;
         play(track);
     });
     $scope.pos = function() {
@@ -46,7 +47,7 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         return (percentage) ? percentage + '%' : '0%';
     };
     $scope.next = function() {
-        var track = playerService.nextTrack($scope.track);
+        var track = playerService.nextTrack($scope.track, $scope.type);
         if (track) {
             play(track);
         } else {
@@ -57,7 +58,7 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
         }
     };
     $scope.previous = function() {
-        var track = playerService.previousTrack($scope.track);
+        var track = playerService.previousTrack($scope.track, $scope.type);
         if (track) {
             play(track);
         } else {
