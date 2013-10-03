@@ -1,15 +1,3 @@
-<div ng-controller="LetterController">
-	<h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
-	<div class="navbar">
-		<div class="navbar-inner">
-			<ul class="nav">
-				<li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
-					<a ng-class="{true: 'active', false: ''}[letter.active]" ng-href="#/letter/{{firstletter}}">{{firstletter}}</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
 <div ng-controller="SettingsController">
 	<div class="wrapper">
 		<div class="well">

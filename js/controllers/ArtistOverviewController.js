@@ -2,11 +2,6 @@ jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView
 function($scope, $http, switchView, $location, $routeParams, $rootScope, sortService) {"use strict";
     $scope.$on('letterChange', function(e, letter) {
         $scope.Artists = letter.artists;
-        // update location
-        // $location.path('/letter/' + letter.letter);
-        $("#main .container > div").hide();
-        $("#content").show();
-            
     });
     $scope.$on('routeArtistChange', function(e, artistName) {
         $.each($scope.Artists, function() {
@@ -45,6 +40,7 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
                 window.document.title = 'JSMusicDB - letter: ' + $routeParams.letter;
                 switchView.routeLetter($routeParams.letter);
             }
+            $rootScope.contentPath = $location.path();
         });
     }
 }]);

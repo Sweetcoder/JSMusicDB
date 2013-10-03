@@ -3,14 +3,6 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
     $scope.$on('albumChange', function(e, album, artist, update) {
         $scope.album = album;
         $scope.artist = artist;
-        // update location
-        // $location.path('/artist/' + artist.Naam + '/album/' + album.Album);
-        $("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
-        $("#artistView").removeClass("child").addClass("parent").removeClass("view");
-        $("#albumView").removeClass("child").removeClass("parent").addClass("view");
-        if (update) {
-            //$scope.art = ImageService.getAlbumArt($scope);
-        }
     });
     $scope.addToPlaylist = function(album) {
         playerService.addAlbum(album);
@@ -68,6 +60,7 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
                     }
                 });
             }
+            $rootScope.contentPath = $location.path();
         });
     }
 }]);

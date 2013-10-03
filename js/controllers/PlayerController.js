@@ -1,5 +1,5 @@
-jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$rootScope', 'playerService',
-function($scope, $http, switchView, $rootScope, playerService) {"use strict";
+jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$rootScope', 'playerService', '$location',
+function($scope, $http, switchView, $rootScope, playerService, $location) {"use strict";
     var playerpath = 'proxy/$s/stream.php?path=', audiotag = $('audio').get(0), watching = [$scope.album, $scope.track], sanitize = function(name) {
         name = name.replace(/\+/g, '%2B');
         name = name.replace(/\&/g, '%26');
@@ -123,12 +123,11 @@ function($scope, $http, switchView, $rootScope, playerService) {"use strict";
     };
     $scope.playlistView = 'list';
     $scope.toggleView = function() {
-        $("#main .container > div").hide();
         if ($scope.playlistView === 'list') {
-            $("#playlist").show();
+            $location.path('/playlist');
             $scope.playlistView = 'th';
         } else {
-            $("#content").show();
+            $location.path($rootScope.contentPath);
             $scope.playlistView = 'list';
         }
     };

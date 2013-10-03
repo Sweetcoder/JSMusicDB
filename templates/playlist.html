@@ -1,21 +1,8 @@
-<div ng-controller="LetterController">
-	<h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
-	<div class="navbar">
-		<div class="navbar-inner">
-			<ul class="nav">
-				<li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
-					<a ng-class="{true: 'active', false: ''}[letter.active]" ng-href="#/letter/{{firstletter}}">{{firstletter}}</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
-<div class="wrapper" ng-controller="PlaylistController">
+
 	<div class="well">
 	    <h2>Playlists</h2>
 	    <ul class="nav nav-tabs">
 	        <li class="active"><a href="#trackPlaylist" data-toggle="tab">Default</a></li>
-	        <li><a href="#albumPlaylist" data-toggle="tab">Albums</a></li>
 	    </ul>
 	    <div class="tab-content">
     	    <div class="playlist tab-pane active" id="trackPlaylist">
@@ -30,7 +17,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="track in playlist | orderBy: orderTracks" ng-controller="TrackController">
+                        <tr ng-repeat="track in playlist" ng-controller="TrackController">
                             <td class="trackno" ng-click="playTrack(track.albumNode, track, 'track')"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span></td>
                             <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Artiest}}</td>
                             <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Album}}</td>
@@ -82,4 +69,3 @@
     		</div>
     	</div>
 	</div>
-</div>

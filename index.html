@@ -50,16 +50,16 @@
 						JSMusicDB
 					</li>
 					<li>
-						<a href="#content">Overview</a>
+						<a ng-href="#{{contentPath}}">Overview</a>
 					</li>
 					<li>
-						<a href="#playlist">Playlists</a>
+						<a href="#/playlist">Playlists</a>
 					</li>
 					<li ng-class="{false: 'highlight', true: ''}[canPlay]">
-						<a href="#settings">Settings</a>
+						<a href="#/settings">Settings</a>
 					</li>
 					<li>
-						<a href="#about">About</a>
+						<a href="#/about">About</a>
 					</li>
 				</ul>
 			</div>
@@ -92,17 +92,6 @@
 						<strong>Please note!</strong> No files found, the scanner is either busy or hasn't run yet. Please come back shortly.
 					</div>
 				</div>
-				<div id="playlist" style="display: none;">
-					<div ng-include src="'templates/playlist.html'"></div>
-					
-				</div>
-				<div id="settings" style="display: none;">
-					<div ng-include src="'templates/settings.html'"></div>
-					
-				</div>
-				<div id="about" style="display: none;">
-					<div ng-include src="'templates/about.html'"></div>
-				</div>
 			</div>
 		</div>
 		<div id="player" ng-show="isPlaying">
@@ -112,6 +101,8 @@
 		<div id="albumart" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div ng-include src="templates/albumart.html"></div>
 		</div>
+		
+		<div ng-controller="SettingsController"></div>
 		
 		<script src="js/md5.js"></script>
 		<script src="js/jquery-2.0.3.min.js"></script>
@@ -135,11 +126,12 @@
 		<script src="js/controllers/ArtistController.js"></script>
 		<script src="js/controllers/AlbumController.js"></script>
 		<script src="js/controllers/TrackController.js"></script>
-
+		
 		<script src="js/controllers/PlaylistController.js"></script>
 		<script src="js/controllers/PlayerController.js"></script>
 
 		<script src="js/controllers/SettingsController.js"></script>
+		<script src="js/controllers/AboutController.js"></script>
 
         <script src="js/services/ModelService.js"></script>
 		<script src="js/services/ImageService.js"></script>

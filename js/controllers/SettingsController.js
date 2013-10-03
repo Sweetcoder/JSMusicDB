@@ -1,5 +1,11 @@
 jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', '$http',
 function($scope, $rootScope, $http) {"use strict";
+
+    window.document.title = 'JSMusicDB - Settings';
+    if (window._gaq) {
+        _gaq.push(['_trackPageview', '/settings']);
+    }
+
     var lastfmkey = localStorage.getItem("key");
     $rootScope.url = $scope.url;
     $rootScope.canPlay = false;

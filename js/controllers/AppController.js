@@ -9,6 +9,15 @@ function($routeProvider) {
 	}).when("/letter/:letter/artist/:artist/album/:album*", {
         templateUrl : 'templates/AlbumView.html',
         controller : jsmusicdb.AlbumController
+    }).when("/playlist", {
+        templateUrl : 'templates/playlist.html',
+        controller : jsmusicdb.PlaylistController
+    }).when("/settings", {
+        templateUrl : 'templates/settings.html',
+        controller : jsmusicdb.SettingsController
+    }).when("/about", {
+        templateUrl : 'templates/about.html',
+        controller : jsmusicdb.AboutController
     }).otherwise({
 		templateUrl : 'templates/ArtistOverview.html',
 		controller : jsmusicdb.ArtistOverviewController
@@ -25,7 +34,8 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 	$rootScope.albumCache = {};
 	$rootScope.debug = [];
 	$rootScope.parsed = false;
-
+	$rootScope.contentPath = "";
+	
 	modelService.fetchJSON(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http, function() {
 		// sidebar
 		var snapper = new Snap({
@@ -44,15 +54,8 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 			}
 		});
 		$(".snap-drawers").on("click", "a", function(e) {
-			e.preventDefault();
-			$("#main .container > div").hide();
-            $($(this).attr("href")).show();
-			_gaq.push(['_trackPageview', $(this).attr("href")]);
 			snapper.close();
 		});
-
-		//var stop = new Date();
-		//$rootScope.debug.push('Fill and sort models done in ' + (stop - start) + ' ms');
 		$scope.debugText = $rootScope.debug.join('<br />');
 		$(".snap-content").fadeIn(function () {
 		    $(".snap-drawers").show();

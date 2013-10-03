@@ -52,6 +52,7 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 					}
 				});
 			}
+			$rootScope.contentPath = $location.path();
 		});
 	}
 }]); 

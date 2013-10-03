@@ -1,5 +1,11 @@
 jsmusicdb.controller('PlaylistController', ['$scope', 'playerService', function ($scope, playerService) {
     "use strict";
+    
+    window.document.title = 'JSMusicDB - Playlist';
+    if (window._gaq) {
+        _gaq.push(['_trackPageview', '/playlist']);
+    }
+    
     $scope.$on("addAlbumToPlaylist", function (e, album) {
         playerService.addAlbum(album);
     });
