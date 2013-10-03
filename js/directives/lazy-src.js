@@ -99,14 +99,6 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
 
             var currentDocumentHeight = doc.height();
 
-            // If the height has not changed, then ignore -
-            // no more images could have come into view.
-            if (currentDocumentHeight === documentHeight) {
-
-                return;
-
-            }
-
             // Cache the new document height.
             documentHeight = currentDocumentHeight;
 
@@ -117,7 +109,7 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
         // I check the lazy-load images that have yet to
         // be rendered.
         function checkImages() {
-
+            
             // Log here so we can see how often this
             // gets called during page activity.
             // console.log("Checking for visible images...");

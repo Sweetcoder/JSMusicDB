@@ -144,6 +144,12 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
             $scope.isRandom = 'random';
         }
     };
+    $scope.hide = function () {
+      $("#player").addClass("noshow");
+    };
+    $scope.show = function () {
+      $("#player").removeClass("noshow");
+    };
 
     // audiotag events
     audiotag.addEventListener('timeupdate', function() {

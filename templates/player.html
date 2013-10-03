@@ -1,13 +1,10 @@
-<div ng-controller="PlayerController" class="container">
-	<button class="close slideLeft" type="button">
-		<i class="icon-chevron-left"></i>
-	</button>
+<div ng-controller="PlayerController" class="container" ng-click="show(); $event.stopPropagation()">
 	<div class="span11">
 		<img class="thumbnail span2" bn-lazy-src="{{track.Artiest}}|{{track.Album}}">
 		<div class="span9 offset2">
 			<div class="progressBar span9" style="margin-left: 0;">
 				<span class="time start">{{position | timeFilter}}</span>
-				<div class="progress progress-striped active" ng-click="updatePosition($event)">
+				<div class="progress active" ng-click="updatePosition($event)">
 					<div class="bar" ng-style="{width: pos()}"></div>
 				</div>
 				<span class="time stop">{{len | timeFilter}}</span>
@@ -40,7 +37,7 @@
 							<i class="icon-{{isRandom}}"></i>
 						</button>
 
-						<button class="btn" ng-click="toggleMute()">
+						<button class="btn" ng-click="toggleMute()" id="mute-btn">
 							<i class="icon-volume-{{muteState}}"></i>
 						</button>
 
@@ -50,6 +47,10 @@
 
 						<button class="btn" ng-click="toggleView()">
 							<i class="icon-{{playlistView}}"></i>
+						</button>
+						
+						<button class="btn" ng-click="hide(); $event.stopPropagation()">
+							<i class="icon-chevron-down"></i>
 						</button>
 					</div>
 				</div>
