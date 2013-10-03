@@ -527,6 +527,9 @@ audio {
 		right: auto;
 		bottom: 47px;
 	}
+	#player.noshow {
+		height: 30px;
+	}
 	#albumView .art {
 		width: 100%;
 		float: none;
