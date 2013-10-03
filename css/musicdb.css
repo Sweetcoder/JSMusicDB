@@ -285,7 +285,16 @@ table th.dur {
 	width: 100px;
 }
 .table th, .table td {
-	vertical-align: middle;
+	vertical-align: top;
+	line-height: 33px;
+}
+.table tr button {
+	display: none;
+	position: relative;
+	right: -10px;
+}
+.table tr:hover button {
+	display: inline;
 }
 .table td.eq {
 	vertical-align: top;
@@ -505,7 +514,7 @@ audio {
 		margin-top: 10px;	
 	}
 	.navbar .brand {
-		width: 255px;	
+		width: 225px;	
 	}
 	.progressBar .progress:hover {
 		height: 3px;
@@ -531,6 +540,10 @@ audio {
 		top: auto;
 		left: auto;
 		right: 0;
+	}
+	.table tr button {
+		display: inline;
+		width: 27px;
 	}
 }
 @media (min-width: 480px) {
