@@ -17,6 +17,8 @@ angular.module('TimeFilters', []).filter('timeFilter', function() {
 		}
 		if (hours < 10) {
 			hours = "0" + hours + ":";
+		} else {
+			hours = hours + ":";
 		}
 		if (days == "" && hours == "00:") {
 			hours = "";
@@ -26,6 +28,9 @@ angular.module('TimeFilters', []).filter('timeFilter', function() {
 		}
 		if (seconds < 10) {
 			seconds = "0" + seconds;
+		}
+		if (isNaN(seconds) || isNaN(minutes) || isNaN(hours)) {
+			return '';
 		}
 		return days + hours + minutes + ":" + seconds;
 	};
