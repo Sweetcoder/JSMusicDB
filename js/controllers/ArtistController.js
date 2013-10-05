@@ -17,12 +17,8 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 		$(".snap-content").get(0).scrollTop = 0;
 	};
 	$scope.closeView = function() {
-		// return to letter view
-		$("#artistOverviewView").removeClass("child").removeClass("parent").addClass("view");
-		$("#artistView").addClass("child").removeClass("parent").removeClass("view");
-		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
-		$(".snap-content").get(0).scrollTop = 0;
-		window.history.back();
+		var path = $location.path();
+        window.location.href = "#" + path.substring(0, path.indexOf("/artist/"));
 	};
 
 	// sorting

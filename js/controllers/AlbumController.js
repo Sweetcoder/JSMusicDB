@@ -16,10 +16,8 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
     };
     
     $scope.closeView = function() {
-        $("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
-        $("#artistView").removeClass("child").removeClass("parent").addClass("view");
-        $("#albumView").addClass("child").removeClass("parent").removeClass("view");
-        window.history.back();
+        var path = $location.path();
+        window.location.href = "#" + path.substring(0, path.indexOf("/album/"));
     };
     // $scope.art = ImageService.getAlbumArt($scope);
     $scope.orderTracks = function(a) {
