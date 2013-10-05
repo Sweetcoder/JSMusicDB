@@ -18,9 +18,7 @@ $(function() {"use strict";
     var token = document.location.search;
     if (token) {
         token = token.split("=")[1];
-        var api_key = lastfm.api_key, api_sig = lastfm.signtoken(api_key, 'auth.getSession', token),
-
-        url = 'http://ws.audioscrobbler.com/2.0/', data = {
+        var api_key = lastfm.api_key, api_sig = lastfm.signtoken(api_key, 'auth.getSession', token), url = 'http://ws.audioscrobbler.com/2.0/', data = {
             method : 'auth.getSession',
             api_key : api_key,
             token : token,
