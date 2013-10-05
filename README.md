@@ -2,7 +2,7 @@ JSMusicDB
 =========
 
 JSMusicDB is a webstandards based music library/music player that can run on any website; using a direct connection to the source mp3 files or on a Synology NAS; in that case a php based proxy is used.
-Any type of scanning script can be used as long as the output is a JSON file with a specific layout. One of the scripts capable of delivering the correct format is https://github.com/lucienimmink/scanner.py
+Any type of scanning script can be used as long as the output is a JSON file with a specific layout. One of the scripts capable of delivering the correct format is [scanner.py](https://github.com/lucienimmink/scanner.py)
 
 ### Features
 - Artist (sortable by Alphabet or amount of albums) overview per letter
