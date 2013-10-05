@@ -12,6 +12,7 @@ Any type of scanning script can be used as long as the output is a JSON file wit
 - Optionally host and connect to a NAS (only synology support for now)
 - Scrobble tracks on last.fm / love tracks on last.fm
 - quickly navigate and switch between views
+- Device aware; all features are useable and optimized for desktops, tablets and phones!
 
 Requirements
 ------------
