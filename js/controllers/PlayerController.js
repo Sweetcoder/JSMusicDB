@@ -24,7 +24,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
         if ($rootScope.server !== '0') {
             src = playerpath.replace('$s', $rootScope.server) + sanitize(track.path) + '&sid=' + $rootScope.sid + '&server=' + encodeURIComponent($rootScope.url);
         } else {
-            src = 'file:///' + track.path;
+            src = track.path;
         }
         audiotag.src = src;
         audiotag.load();
