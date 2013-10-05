@@ -94,6 +94,7 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
             var index = $.inArray(track, $rootScope.playlist);
             return $rootScope.playlist[index + 1];
         } else {
+            /*
             var next = null;
             $.each($rootScope.playlistAlbums, function(i) {
                 var index = $.inArray(track, this.tracks);
@@ -108,6 +109,9 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
                 }
             });
             return next;
+            */
+            var index = $.inArray(track, $rootScope.playlist);
+            return $rootScope.playlist[index + 1];
         }
     };
     this.previousTrack = function(track, type) {
@@ -115,6 +119,7 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
             var index = $.inArray(track, $rootScope.playlist);
             return $rootScope.playlist[index - 1];
         } else {
+            /*
             var next = null;
             $.each($rootScope.playlistAlbums, function(i) {
                 var index = $.inArray(track, this.tracks);
@@ -129,6 +134,9 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
                 }
             });
             return next;
+            */
+           var index = $.inArray(track, $rootScope.playlist);
+            return $rootScope.playlist[index - 1];
         }
     };
     this.scrobble = function($scope) {
