@@ -586,7 +586,7 @@ audio {
 		display: inline;
 		width: 27px;
 	}
-	#mute-btn {
+	#mute-btn, #toggle-btn {
 		display: none;
 	}
 	#player .span9 > .span5 {
@@ -600,6 +600,9 @@ audio {
 	#player .span9 > .span4 {
 		width: 100%;
 		float: none;
+	}
+	.btn-group + .btn-group {
+		margin-left: 5px;
 	}
 }
 @media (min-width: 480px) {
