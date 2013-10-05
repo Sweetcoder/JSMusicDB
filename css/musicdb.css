@@ -491,12 +491,22 @@ audio {
 		top: 3px;
 	}
 	#player .span9 > .span5 {
-		margin-top: 25px;
+		margin-top: -4px;
+		width: 50%;
+		float: left;
+	}
+	#player .span9 > .span4 {
+		margin-top: -4px;
+		width: 50%;
+		float: left;
+	}
+	.btn-group + .btn-group {
+		margin-left: 0;
 	}
 	#player .thumbnail {
 		left: auto;
 		right: 24px;
-		width: 13.5%;
+		width: 9.5%;
 		bottom: 9px;
 	}
 	#player > .close {
@@ -529,6 +539,9 @@ audio {
 	}
 	#player.noshow {
 		height: 30px;
+	}
+	#player.noshow .thumbnail {
+		width: 0%;
 	}
 	#albumView .art {
 		width: 100%;
@@ -580,6 +593,14 @@ audio {
 		padding-left: 23%;
 		margin-top: 19px;
 	} 
+	#player .span9 > .span5 {
+		width: 100%;
+		float: none;
+	}
+	#player .span9 > .span4 {
+		width: 100%;
+		float: none;
+	}
 }
 @media (min-width: 480px) {
 	.card {
