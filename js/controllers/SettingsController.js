@@ -5,7 +5,7 @@ function($scope, $rootScope, $http) {"use strict";
     if (window._gaq) {
         _gaq.push(['_trackPageview', '/settings']);
     }
-
+	$scope.lastfmLink = 'http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=' + document.location.href.substring(0, document.location.href.indexOf("#"));
     var lastfmkey = localStorage.getItem("key");
     $rootScope.url = $scope.url;
     $rootScope.canPlay = false;

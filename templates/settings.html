@@ -13,8 +13,9 @@
 						<label class="control-label" for="nas">Server type</label>
 						<div class="controls">
 							<select ng-model="server">
-								<option value="0">No server, play locally</option>
+								<option value="0">Debug, no server</option>
 								<option value="1">Synology</option>
+								<option value="2">Node.JS</option>
 							</select>
 						</div>
 					</div>
@@ -59,7 +60,7 @@
 				</legend>
 				<div class="control-group">
 					<div class="controls">
-						<span ng-hide="lastfmkey"> <a href="http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=http://www.arielext.org/music/index.html">Connect to last.fm</a> </span>
+						<span ng-hide="lastfmkey"> <a ng-href={{lastfmLink}}>Connect to last.fm</a> </span>
 						<span ng-show="lastfmkey"> Connected to last.fm <a href="#" data-bind="click: doRemoveLastFM">disconnect</a> </span>
 					</div>
 				</div>
