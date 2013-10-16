@@ -90,7 +90,9 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 			$rootScope.activeLetter.active = true;
 			switchView.letter($rootScope.activeLetter);
 		}
-		$rootScope.contentPath = "/letter/" + $rootScope.activeLetter.letter;
+		if ($rootScope.activeLetter) {
+			$rootScope.contentPath = "/letter/" + $rootScope.activeLetter.letter;
+		}
 	};
 
 	function getFirstLetter(name) {"use strict";
