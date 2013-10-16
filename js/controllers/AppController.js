@@ -37,6 +37,7 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 	$rootScope.contentPath = "";
 	
 	modelService.fetchJSON(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http, function() {
+		
 		// sidebar
 		var snapper = new Snap({
 			element : document.getElementById('main')

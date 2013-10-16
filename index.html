@@ -51,7 +51,7 @@
 	        <div class="alert alert-error">
                     <strong>Your browser is not supported!</strong> Please update to a newer version of Internet Explorer; or download either Firefox or Chrome
                 </div>
-	    <![endif]-->    
+	    <![endif]-->
 		<div class="snap-drawers" style="display: none;">
 			<div class="snap-drawer snap-drawer-left">
 				<ul class="nav nav-list nav-stacked">
@@ -78,6 +78,9 @@
 			<img src="css/img/ajax-loader.gif" alt="" />
 		</div>
 		<div class="snap-content" id="main" ng-controller="AppController" style="display: none;">
+		    <div class="alert alert-warn" ng-show="nonParseable">
+                <strong>Warning!</strong> Please update your scanner software; this version of JSMusicDB is incompatible with your scanner version.
+            </div>
 			<div class="container">
 				<div id="content" ng-show="timestamp">
 					<div ng-controller="LetterController">

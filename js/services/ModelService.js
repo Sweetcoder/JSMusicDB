@@ -7,42 +7,54 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 			var start = new Date();
 			$rootScope.debug.push('JSON fetched in ' + (start - mainStart) + ' ms');
 			start = new Date();
+			$rootScope.nonParseable = false;
 			angular.forEach(data, function(value, key) {
-				if (value.totals) {
-					$scope.totalArtists = value.totals.artists;
-					$scope.totalAlbums = value.totals.albums;
-					$scope.totalTracks = value.totals.tracks;
-					$scope.totalPlaying = value.totals.playingTime;
-					$scope.timestamp = value.totals.timestamp * 1000;
-				} else if (value.Naam && !value.Artiest) {
-					// these are the nodes without an Artiest attribute but with a Naam attribute; these are the Artists meta nodes
-					if (!$rootScope.letterCache[getFirstLetter(value.Naam)]) {
-						var letter = new jsmusicdb.Letter(value);
-						$rootScope.letterCache[getFirstLetter(value.Naam)] = letter;
-					}
-					if (!$rootScope.artistCache[stripThe(value.Naam)]) {
-						var artist = new jsmusicdb.Artist(value);
-						$rootScope.artistCache[stripThe(value.Naam)] = artist;
-						$rootScope.letterCache[getFirstLetter(value.Naam)].artists.push(artist);
-					}
-				} else if (value.Naam && value.Artiest) {
-					// these are the nodes with an Artiest and a Name attribute; these are the Album meta nodes
-					if (!$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album]) {
-						var album = new jsmusicdb.Album(value);
-						$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album] = album;
-						$rootScope.artistCache[stripThe(album.Artiest)].albums.push(album);
-					}
-				} else {
-					// these are the Track nodes
-					var track = new jsmusicdb.Track(value);
-					// add track to album
-					if ($rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album]) {
-						$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album].tracks.push(track);
-						track.albumNode = $rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album];
-					} else {
-						// TODO: do we want to log this/report these?
-						// console.log("no album found for",stripThe(value.Artiest) + "-" + value.Album, $rootScope.albumCache);
-					}
+				switch (value.Type) {
+					case 'totals':
+						$scope.totalArtists = value.totals.artists;
+						$scope.totalAlbums = value.totals.albums;
+						$scope.totalTracks = value.totals.tracks;
+						$scope.totalPlaying = value.totals.playingTime;
+						$scope.timestamp = value.totals.timestamp * 1000;
+						break;
+					case 'artist':
+						if (value.Naam) {
+							if (!$rootScope.letterCache[getFirstLetter(value.Naam)]) {
+								var letter = new jsmusicdb.Letter(value);
+								$rootScope.letterCache[getFirstLetter(value.Naam)] = letter;
+							}
+							if (!$rootScope.artistCache[stripThe(value.Naam)]) {
+								var artist = new jsmusicdb.Artist(value);
+								$rootScope.artistCache[stripThe(value.Naam)] = artist;
+								$rootScope.letterCache[getFirstLetter(value.Naam)].artists.push(artist);
+							}
+						}
+						break;
+					case 'album':
+						if (value.Album && value.Artiest) {
+							if (!$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album]) {
+								var album = new jsmusicdb.Album(value);
+								$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album] = album;
+								$rootScope.artistCache[stripThe(album.Artiest)].albums.push(album);
+							}
+						}
+						break;
+					case 'track':
+						var track = new jsmusicdb.Track(value);
+						// add track to album
+						if ($rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album]) {
+							$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album].tracks.push(track);
+							track.albumNode = $rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album];
+						} else {
+							// TODO: do we want to log this/report these?
+							// console.log("no album found for",stripThe(value.Artiest) + "-" + value.Album, $rootScope.albumCache);
+						}
+						break;
+					default:
+						// unknown type or no type present
+						if (window.console) console.log(value.Type);
+						// tell the view the data is non-parseable
+						$rootScope.nonParseable = true;
 				}
 			});
 			$rootScope.debug.push('JSON parsed in ' + (new Date() - start) + ' ms');
