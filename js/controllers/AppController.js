@@ -36,6 +36,14 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 	$rootScope.parsed = false;
 	$rootScope.contentPath = "";
 	
+	// read settings
+	$http.get('settings.json').success(function(data) {
+		$rootScope.isPrivateServer = data.private;
+		$rootScope.backendConfig = data.backend;
+	}).error(function() {
+		$rootScope.noSettingsFound = true;
+	});
+	
 	modelService.fetchJSON(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http, function() {
 		
 		// sidebar

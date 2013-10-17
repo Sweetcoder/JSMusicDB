@@ -52,7 +52,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 						break;
 					default:
 						// unknown type or no type present
-						if (window.console) console.log(value.Type);
+						if (window.console) console.log(value, value.Type);
 						// tell the view the data is non-parseable
 						$rootScope.nonParseable = true;
 				}
