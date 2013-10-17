@@ -1,9 +1,7 @@
-/* ENTER YOUR OWN SETTINGS HERE
- {
-    "private": false,
+{
+    "private": true,
     "backend": {
         "serverType": "2",
         "serverURL": "http://172.17.5.62:2000"
     }
 }
- */
