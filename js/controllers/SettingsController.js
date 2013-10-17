@@ -107,14 +107,14 @@ function($scope, $rootScope, $http) {"use strict";
 		return $rootScope.parsed;
 	}, function(n, o) {
 		if (n) {
-			if ($rootScope.isPrivateServer) {
-				// auto login; without using a password; this is handy for playling local files, but not recommended if the server is connected to the internet
-				$scope.login();
-			}
 			if ($rootScope.backendConfig) {
 				// prefill based on backend config, stored config will overwrite this
 				$scope.url = $rootScope.backendConfig.serverURL;
 				$scope.server = $rootScope.backendConfig.serverType;
+			}
+			if ($rootScope.isPrivateServer) {
+				// auto login; without using a password; this is handy for playling local files, but not recommended if the server is connected to the internet
+				$scope.login();
 			}
 		}
 	});
