@@ -42,7 +42,10 @@ Requirements
 Backend
 -------
 Since JSMusicDB is backend independent it's possible to create your own backend software in any language you like. Just make sure that the JSON is in the correct format; see the backend projects for more info.
-
+- [Scanner.py](https://github.com/lucienimmink/scanner.py) A python based music scanner
+- [node-mp3scan](https://github.com/lucienimmink/mp3scan) node.js based music scanner
+- [node-mp3stream](https://github.com/lucienimmink/node-mp3stream) node.js based webserver with mp3 streaming capabilities
+All these backends are 100% compatible with JSMusicDB.
 
 Screenshot
 ----------
