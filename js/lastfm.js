@@ -26,7 +26,7 @@ $(function() {"use strict";
         };
 
         $.get(url, data, function(xml) {
-            key = $("key", xml).text();
+            var key = $("key", xml).text();
             localStorage.setItem("key", key);
             // reload
             window.location.href = 'index.html';
