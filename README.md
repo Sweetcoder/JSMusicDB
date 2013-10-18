@@ -13,11 +13,36 @@ Any type of scanning script can be used as long as the output is a JSON file wit
 - Scrobble tracks on last.fm / love tracks on last.fm
 - quickly navigate and switch between views
 - Device aware; all features are useable and optimized for desktops, tablets and phones!
+- Incremental updates; see music add when you add it to the filesystem; a compatible backend is required.
+
+Settings
+--------
+You can set a few settings now in JSMusicDB; in a file called settings.json in the root of the project.
+```javascript
+{
+    "private": false,
+    "incremental": true,
+    "backend": {
+        "serverType": "2",
+        "serverURL": "http://127.0.0.1:2000"
+    }
+}
+```
+- private: set this to false if you use JSMusicDB on an internet connected server; private servers will log in a user automaticly
+- incremental: use the incremental polling mechanism to auto update the collection
+- backend
+	- serverType: default servertype 0) no server, 1) synology server 2) node.js server
+	- serverURL: the full path of the server; including any ports
 
 Requirements
 ------------
 - Any type of hosting capable of delivering html/css and JS files
 - A PHP based hosting is the synology connector is used
+
+Backend
+-------
+Since JSMusicDB is backend independent it's possible to create your own backend software in any language you like. Just make sure that the JSON is in the correct format; see the backend projects for more info.
+
 
 Screenshot
 ----------
