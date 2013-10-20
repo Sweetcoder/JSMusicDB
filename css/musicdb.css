@@ -464,6 +464,10 @@ table th.dur {
 	border: 1px solid #ddd;
 	cursor: pointer;
 }
+#player .buffering {
+	float: right;
+	margin-top: -35px;
+}
 
 /* playlist */
 .playlist .group .art {

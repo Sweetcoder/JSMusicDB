@@ -2,7 +2,7 @@
     "private": false,
     "incremental": true,
     "backend": {
-        "serverType": "2",
-        "serverURL": "http://172.17.5.62:2000"
+        "serverType": "1",
+        "serverURL": "http://www.arielext.org:5000"
     }
 }
