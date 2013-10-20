@@ -589,6 +589,7 @@ audio {
 	.table tr button {
 		display: inline;
 		width: 27px;
+		padding: 0;
 	}
 	#mute-btn, #toggle-btn {
 		display: none;

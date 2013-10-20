@@ -52,7 +52,7 @@
 				</div>
 				<div class="control-group" ng-show="loggedIn">
 					<div class="controls">
-						Logged in as user {{username}} &nbsp;<a href="#" ng-click="logout()">Logout</a>
+						Logged in as user {{username}} &nbsp;<a href="#/settings" ng-click="logout()">Logout</a>
 					</div>
 				</div>
 				<legend>
@@ -61,7 +61,7 @@
 				<div class="control-group">
 					<div class="controls">
 						<span ng-hide="lastfmkey"> <a ng-href={{lastfmLink}}>Connect to last.fm</a> </span>
-						<span ng-show="lastfmkey"> Connected to last.fm <a href="#" data-bind="click: doRemoveLastFM">disconnect</a> </span>
+						<span ng-show="lastfmkey"> Connected to last.fm <a href="#/settings" data-bind="click: doRemoveLastFM">disconnect</a> </span>
 					</div>
 				</div>
 			</form>
