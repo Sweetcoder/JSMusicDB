@@ -12,7 +12,7 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
     this.album = function(album) {
         return album;
     };
-    this.addAlbum = function(album) {
+    this.addAlbum = function(album, playlist) {
         /*
          $rootScope.playlistAlbums = $rootScope.playlistAlbums || [];
          if ($.inArray(album, $rootScope.playlistAlbums) === -1) {
@@ -35,7 +35,10 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
          $rootScope.playlistAlbums = shuffle($rootScope.playlistAlbums);
          }
          }*/
-        $rootScope.playlist = $rootScope.playlist || [];
+        if (!playlist) {
+        	playlist = $rootScope.playlist; 
+        }
+        playlist = playlist || [];
         album.tracks = album.tracks.sort(function(a, b) {
             var aDiscMultiplier = 100, bDiscMultiplier = 100;
             if (!isNaN(a.Disc)) {
@@ -51,18 +54,21 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
             }
         });
         $.each(album.tracks, function() {
-            if ($.inArray(this, $rootScope.playlist) === -1) {
-                $rootScope.playlist.push(this);
+            if ($.inArray(this, playlist) === -1) {
+                playlist.push(this);
             }
         });
         if (that.isRandom) {
             that.random();
         }
     };
-    this.addTrack = function(track) {
-        $rootScope.playlist = $rootScope.playlist || [];
-        if ($.inArray(track, $rootScope.playlist) === -1) {
-            $rootScope.playlist.push(track);
+    this.addTrack = function(track, playlist) {
+        if (!playlist) {
+        	playlist = $rootScope.playlist; 
+        }
+        playlist = playlist || [];
+        if ($.inArray(track, playlist) === -1) {
+            playlist.push(track);
         }
         if (that.isRandom) {
             that.random();
@@ -89,10 +95,10 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
             $rootScope.playlist.splice(index, 1);
         }
     };
-    this.nextTrack = function(track, type) {
+    this.nextTrack = function(track, type, playlist) {
         if (type === 'track') {
-            var index = $.inArray(track, $rootScope.playlist);
-            return $rootScope.playlist[index + 1];
+            var index = $.inArray(track, playlist);
+            return playlist[index + 1];
         } else {
             /*
             var next = null;
@@ -110,14 +116,14 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
             });
             return next;
             */
-            var index = $.inArray(track, $rootScope.playlist);
-            return $rootScope.playlist[index + 1];
+            var index = $.inArray(track, playlist);
+            return playlist[index + 1];
         }
     };
-    this.previousTrack = function(track, type) {
+    this.previousTrack = function(track, type, playlist) {
         if (type === 'track') {
-            var index = $.inArray(track, $rootScope.playlist);
-            return $rootScope.playlist[index - 1];
+            var index = $.inArray(track, playlist);
+            return playlist[index - 1];
         } else {
             /*
             var next = null;
@@ -135,8 +141,8 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
             });
             return next;
             */
-           var index = $.inArray(track, $rootScope.playlist);
-            return $rootScope.playlist[index - 1];
+           var index = $.inArray(track, playlist);
+            return playlist[index - 1];
         }
     };
     this.scrobble = function($scope) {

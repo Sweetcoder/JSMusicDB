@@ -2,11 +2,16 @@ jsmusicdb.controller('TrackController', ['$scope', 'switchView', 'playerService'
     "use strict";
     $scope.playTrack = function (album, track, type) {
         if ($rootScope.canPlay) {
-            // playerService.addAlbum(album);
-            if (type !== 'album') {
-            	playerService.addTrack(track);
-            }
-            switchView.playTrack(track, type);
+        	var playlist = (type) ? $rootScope.playlist : $rootScope.playlistNowPlaying;
+        	if (type !== 'track') {
+        		playerService.addAlbum(album, playlist);	
+        	} else {
+        		playerService.addTrack(track, playlist);
+        	}
+            //if (type !== 'album') {
+            //	playerService.addTrack(track);
+            //}
+            switchView.playTrack(track, type, playlist);
         } else {
             $(".toggle > i").tooltip("show");
         }

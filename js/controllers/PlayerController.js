@@ -9,7 +9,13 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 	if (navigator.userAgent.indexOf('Mobi') !== -1) {
 		playerpath = 'proxy/$s/mobile.php?path=';
 	}
+	
 	$scope.isBuffering = false;
+	$rootScope.playlist = [];
+	$rootScope.playlistNowPlaying = [];
+	
+	$scope.playlist = $rootScope.playlist;
+	
 	var play = function(track) {
 		$scope.scrobbeld = false;
 		if ($scope.track) {
@@ -40,9 +46,10 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		// set now playling status
 		playerService.scrobbleNowPlaying($scope);
 	};
-	$scope.$on('playTrack', function(e, track, type) {
+	$scope.$on('playTrack', function(e, track, type, playlist) {
 		// switchView.setAsPlaylist(album);
 		$scope.type = type;
+		$scope.playlist = playlist;
 		play(track);
 	});
 	$scope.pos = function() {
@@ -50,7 +57,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		return (percentage) ? percentage + '%' : '0%';
 	};
 	$scope.next = function() {
-		var track = playerService.nextTrack($scope.track, $scope.type);
+		var track = playerService.nextTrack($scope.track, $scope.type, $scope.playlist);
 		if (track) {
 			play(track);
 		} else {
@@ -61,7 +68,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		}
 	};
 	$scope.previous = function() {
-		var track = playerService.previousTrack($scope.track, $scope.type);
+		var track = playerService.previousTrack($scope.track, $scope.type, $scope.playlist);
 		if (track) {
 			play(track);
 		} else {

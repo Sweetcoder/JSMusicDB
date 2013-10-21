@@ -5,7 +5,7 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
         $scope.artist = artist;
     });
     $scope.addToPlaylist = function(album) {
-        playerService.addAlbum(album);
+        playerService.addAlbum(album, $rootScope.playlist);
         $scope.albumstate = "minus";
     };
     $scope.albumstate = "plus";
