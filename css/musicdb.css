@@ -426,6 +426,8 @@ table th.dur {
 	margin: 1px 0;
 	border: 1px solid #ddd;
 	cursor: pointer;
+	overflow: hidden;
+	position: relative;
 }
 
 .progressBar .time {
@@ -434,6 +436,7 @@ table th.dur {
 	border: 1px solid #cccccc;
 	top: 2px;
 	background: #ffffff;
+	z-index: 2;
 }
 
 .progressBar .start {
@@ -441,6 +444,16 @@ table th.dur {
 }
 .progressBar .stop {
 	right: -55px;
+}
+.progressBar .progress .bar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+.progressBar .progress .buffer {
+	z-index: 0;
+	opacity: 0.1;
 }
 .lightbox-content .time {
 	background: transparent;

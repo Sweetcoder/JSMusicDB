@@ -5,6 +5,7 @@
 			<div class="progressBar span9" style="margin-left: 0;">
 				<span class="time start">{{position | timeFilter}}</span>
 				<div class="progress active" ng-click="updatePosition($event)">
+					<div class="bar buffer" ng-style="{width: bufferpos()}"></div>
 					<div class="bar" ng-style="{width: pos()}"></div>
 				</div>
 				<span class="time stop">{{len | timeFilter}}</span>
@@ -54,7 +55,6 @@
 						</button>
 					</div>
 				</div>
-				<p ng-show="isBuffering" class='buffering'><img src="css/img/buffering.gif" /></p>
 				<audio controls preload="auto">
 					<p>
 						Your browser does not support native audio playback

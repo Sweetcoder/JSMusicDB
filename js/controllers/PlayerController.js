@@ -56,6 +56,10 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		var percentage = ($scope.position / $scope.len) * 100;
 		return (percentage) ? percentage + '%' : '0%';
 	};
+	$scope.bufferpos = function () {
+		var percentage = ($scope.buffpos / $scope.len) * 100;
+		return (percentage) ? percentage + '%' : '0%';
+	};
 	$scope.next = function() {
 		var track = playerService.nextTrack($scope.track, $scope.type, $scope.playlist);
 		if (track) {
@@ -169,19 +173,14 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 			scrobble();
 		}
 		$scope.$apply();
-		var numRanges = this.buffered.length;
-
-		if (this.buffered.length == 1) {
-			// only one range
-			if (this.buffered.start(0) == 0 && this.buffered.end(0) == this.duration) {
-				$scope.isBuffering = false;
-			}
-		}
 	});
 	audiotag.addEventListener('ended', function() {
 		$scope.next();
 	});
 	audiotag.addEventListener('progress', function() {
-		$scope.isBuffering = true;
+		try {
+			$scope.buffpos = audiotag.buffered.end(0);
+			$scope.$apply();
+		} catch (e) {};
 	});
 }]);
