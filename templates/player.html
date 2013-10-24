@@ -1,6 +1,6 @@
 <div ng-controller="PlayerController" class="container" ng-click="show(); $event.stopPropagation()">
 	<div class="span11">
-		<img class="thumbnail span2" bn-lazy-src="{{track.Artiest}}|{{track.Album}}">
+		<a id='showAlbumArt' ng-click="albumart()"><img class="thumbnail span2" bn-lazy-src="{{track.Artiest}}|{{track.Album}}"></a>
 		<div class="span9 offset2">
 			<div class="progressBar span9" style="margin-left: 0;">
 				<span class="time start">{{position | timeFilter}}</span>
@@ -55,11 +55,6 @@
 						</button>
 					</div>
 				</div>
-				<audio controls preload="auto">
-					<p>
-						Your browser does not support native audio playback
-					</p>
-				</audio>
 			</div>
 		</div>
 	</div>

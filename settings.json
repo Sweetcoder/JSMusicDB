@@ -1,8 +1,8 @@
 {
-    "private": false,
-    "incremental": true,
+    "private": true,
+    "incremental": false,
     "backend": {
-        "serverType": "1",
-        "serverURL": "http://www.arielext.org:5000"
+        "serverType": "2",
+        "serverURL": "http://localhost:2000"
     }
 }

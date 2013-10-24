@@ -14,44 +14,44 @@
 		<meta name="application-name" content="JSMusicDB"/>
 		<link rel="shortcut icon" sizes="1024x1024" href="images/icon.png">
 		<link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-		
+
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="css/bootstrap-lightbox.min.css" rel="stylesheet">
-		
+
 		<!-- snap -->
 		<link href="css/snap.css" rel="stylesheet">
 
 		<link rel="stylesheet" href="css/musicdb.css" type="text/css" />
-		
+
 		<!--
 		<link type="text/css" rel="stylesheet" href="/min/b=music/css&amp;f=bootstrap.min.css,bootstrap-responsive.min.css,bootstrap-lightbox.min.css,snap.css,musicdb.css" />
 		-->
 
 		<script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-41619288-1']);
-            _gaq.push(['_trackPageview']);
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-41619288-1']);
+			_gaq.push(['_trackPageview']);
 
-            (function() {
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
-            })();
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
 
 		</script>
 	</head>
 
 	<body class="home blog front-page" ng-app="jsmusicdb">
-	    <!--[if lte IE 8]>
-	        <div class="alert alert-error">
-                    <strong>Your browser is not supported!</strong> Please update to a newer version of Internet Explorer; or download either Firefox or Chrome
-                </div>
-	    <![endif]-->
+		<!--[if lte IE 8]>
+		<div class="alert alert-error">
+		<strong>Your browser is not supported!</strong> Please update to a newer version of Internet Explorer; or download either Firefox or Chrome
+		</div>
+		<![endif]-->
 		<div class="snap-drawers" style="display: none;">
 			<div class="snap-drawer snap-drawer-left">
 				<ul class="nav nav-list nav-stacked">
@@ -78,9 +78,9 @@
 			<img src="css/img/ajax-loader.gif" alt="" />
 		</div>
 		<div class="snap-content" id="main" ng-controller="AppController" style="display: none;">
-		    <div class="alert alert-warn" ng-show="nonParseable">
-                <strong>Warning!</strong> Please update your scanner software; this version of JSMusicDB is incompatible with your scanner version.
-            </div>
+			<div class="alert alert-warn" ng-show="nonParseable">
+				<strong>Warning!</strong> Please update your scanner software; this version of JSMusicDB is incompatible with your scanner version.
+			</div>
 			<div class="container">
 				<div id="content" ng-show="timestamp">
 					<div ng-controller="LetterController">
@@ -108,49 +108,55 @@
 		</div>
 		<div id="player" ng-show="isPlaying">
 			<div ng-include src="'templates/player.html'"></div>
-			
+
 		</div>
-		<div id="albumart" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-			<div ng-include src="templates/albumart.html"></div>
+		<div id="albumart" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true">
+			<div ng-include src="'templates/albumart.html'"></div>
 		</div>
-		
+
 		<div ng-controller="SettingsController"></div>
-		
+
+		<audio controls preload="auto">
+			<p>
+				Your browser does not support native audio playback
+			</p>
+		</audio>
+
 		<script src="js/md5.js"></script>
 		<script src="js/jquery-2.0.3.min.js"></script>
 		<script src="js/jquery.transit.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/bootstrap-lightbox.min.js"></script>
-		
+
 		<script src="js/angular.min.js"></script>
 		<script src="js/angular-route.js"></script>
 		<script src="js/angular-sanitize.js"></script>
 		<script src="js/angular-animate.js"></script>
-		
+
 		<script src="js/snap.min.js"></script>
 		<script src="js/iscroll.js"></script>
 		<script src="js/lastfm.js"></script>
-		
+
 		<script src="js/controllers/AppController.js"></script>
-		
+
 		<script src="js/controllers/LetterController.js"></script>
 		<script src="js/controllers/ArtistOverviewController.js"></script>
 		<script src="js/controllers/ArtistController.js"></script>
 		<script src="js/controllers/AlbumController.js"></script>
 		<script src="js/controllers/TrackController.js"></script>
-		
+
 		<script src="js/controllers/PlaylistController.js"></script>
 		<script src="js/controllers/PlayerController.js"></script>
 
 		<script src="js/controllers/SettingsController.js"></script>
 		<script src="js/controllers/AboutController.js"></script>
 
-        <script src="js/services/ModelService.js"></script>
+		<script src="js/services/ModelService.js"></script>
 		<script src="js/services/ImageService.js"></script>
 		<script src="js/services/switchView.js"></script>
 		<script src="js/services/SortService.js"></script>
 		<script src="js/services/PlayerService.js"></script>
-		
+
 		<script src="js/directives/lazy-bg.js"></script>
 		<script src="js/directives/lazy-src.js"></script>
 

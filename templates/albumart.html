@@ -1,10 +1,11 @@
 <div class="lightbox-content" ng-controller="PlayerController">
-	<img ng-src="{{track.albumNode.art}}">
+	<img bn-lazy-src="{{track.Artiest}}|{{track.Album}}">
 	<div class="lightbox-caption">
 
 		<div class="progressBar">
 			<span class="time start">{{position | timeFilter}}</span>
-			<div class="progress progress-striped active" ng-click="updatePosition($event)">
+			<div class="progress active" ng-click="updatePosition($event)">
+				<div class="bar buffer" ng-style="{width: bufferpos()}"></div>
 				<div class="bar" ng-style="{width: pos()}"></div>
 			</div>
 			<span class="time stop">{{len | timeFilter}}</span>
@@ -23,11 +24,15 @@
 			</div>
 
 			<div class="btn-group">
-				<button class="btn" ng-click="toggleMute()">
+				<button class="btn" ng-click="toggleRandom()">
+					<i class="icon-{{isRandom}}"></i>
+				</button>
+
+				<button class="btn" ng-click="toggleMute()" id="mute-btn">
 					<i class="icon-volume-{{muteState}}"></i>
 				</button>
 
-				<button class="btn" ng-show="lastfmkey" ng-click="love(album, track)">
+				<button class="btn" ng-show="lastfmkey" ng-click="love(track.albumNode, track)">
 					<i class="icon-heart"></i>
 				</button>
 			</div>

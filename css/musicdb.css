@@ -495,17 +495,24 @@ table th.dur {
 audio {
 	display: none;
 }
+#albumart img {
+	max-width: auto;
+	width: 100%;
+}
 @media (max-width: 767px) {
 	.media {
 		width: 24%;
 	}
 	.progressBar .start {
 		left: 2px;
-		top: 3px;
+		top: -6px;
 	}
 	.progressBar .stop {
 		right: 2px;
-		top: 3px;
+		top: -6px;
+	}
+	#albumart .progressBar .time {
+		top: 30px;
 	}
 	#player .span9 > .span5 {
 		margin-top: -4px;
@@ -530,7 +537,10 @@ audio {
 		position: absolute;
 		right: 6px;
 		bottom: 2px;
-	} 
+	}
+	.progressBar .progress {
+		margin: 1px 60px 0;
+	}
 }
 
 @media (max-width: 480px) {
@@ -570,9 +580,6 @@ audio {
 	}
 	.navbar .brand {
 		width: 225px;	
-	}
-	.progressBar .progress:hover {
-		height: 3px;
 	}
 	#player {
 		height: 148px;

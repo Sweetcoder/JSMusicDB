@@ -164,6 +164,10 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 	$scope.show = function() {
 		$("#player").removeClass("noshow");
 	};
+	
+	$scope.albumart = function () {
+		 $('#albumart').lightbox({show: true, backdrop: true});
+	};
 
 	// audiotag events
 	audiotag.addEventListener('timeupdate', function() {
