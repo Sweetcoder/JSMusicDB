@@ -9,13 +9,13 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 	if (navigator.userAgent.indexOf('Mobi') !== -1) {
 		playerpath = 'proxy/$s/mobile.php?path=';
 	}
-	
+
 	$scope.isBuffering = false;
 	$rootScope.playlist = [];
 	$rootScope.playlistNowPlaying = [];
-	
+
 	$scope.playlist = $rootScope.playlist;
-	
+
 	var play = function(track) {
 		$scope.scrobbeld = false;
 		if ($scope.track) {
@@ -56,7 +56,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		var percentage = ($scope.position / $scope.len) * 100;
 		return (percentage) ? percentage + '%' : '0%';
 	};
-	$scope.bufferpos = function () {
+	$scope.bufferpos = function() {
 		var percentage = ($scope.buffpos / $scope.len) * 100;
 		return (percentage) ? percentage + '%' : '0%';
 	};
@@ -164,11 +164,18 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 	$scope.show = function() {
 		$("#player").removeClass("noshow");
 	};
-	
-	$scope.albumart = function () {
-		 $('#albumart').lightbox({show: true, backdrop: true});
-	};
 
+	$scope.albumart = function() {
+		$('#albumart').lightbox({
+			show : true,
+			backdrop : true
+		});
+	};
+	$scope.fullscreen = function() {
+		if (fullScreenApi.supportsFullScreen) {
+			fullScreenApi.requestFullScreen($("#albumart").get(0));
+		}
+	};
 	// audiotag events
 	audiotag.addEventListener('timeupdate', function() {
 		$scope.position = audiotag.currentTime;
@@ -185,6 +192,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		try {
 			$scope.buffpos = audiotag.buffered.end(0);
 			$scope.$apply();
-		} catch (e) {};
+		} catch (e) {
+		};
 	});
 }]);

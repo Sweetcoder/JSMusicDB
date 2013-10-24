@@ -499,6 +499,9 @@ audio {
 	max-width: auto;
 	width: 100%;
 }
+#albumart .lightbox-caption p {
+	display: none;
+}
 @media (max-width: 767px) {
 	.media {
 		width: 24%;
@@ -669,3 +672,49 @@ audio {
 	}
 }
 
+/* fullscreen mode */
+#albumart:fullscreen .lightbox-content {
+	margin-top: 20px;
+	width: 100% !important;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    padding: 0;
+}
+#albumart:-moz-full-screen .lightbox-content {
+	margin-top: 20px;
+	width: 100% !important;
+	border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    padding: 0;
+}
+#albumart:-webkit-full-screen .lightbox-content {
+	margin-top: 20px;
+	width: 100% !important;
+	border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    padding: 0;
+}
+#albumart:fullscreen .lightbox-caption p {
+	display: block;
+	font-weight: bold;
+	font-size: 24px;
+	text-shadow: 0px 0px 5px #000;
+}
+#albumart:-moz-full-screen .lightbox-caption p {
+	display: block;
+	font-weight: bold;
+	font-size: 24px;
+	text-shadow: 0px 0px 5px #000;
+}
+#albumart:-webkit-full-screen .lightbox-caption p {
+	display: block;
+	font-weight: bold;
+	font-size: 24px;
+	text-shadow: 0px 0px 5px #000;
+}
