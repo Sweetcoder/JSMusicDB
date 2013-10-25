@@ -38,7 +38,7 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 				window.document.title = 'JSMusicDB - letter: ' + $routeParams.letter;
 				switchView.routeLetter($routeParams.letter);
 
-				$scope.navIndex = -1;
+				$scope.navIndex = -4;
 				$scope.$on('keydown', function(msg, code) {
 					switch (code) {
 						case 38:

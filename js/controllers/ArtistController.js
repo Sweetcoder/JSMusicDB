@@ -45,7 +45,7 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 						return false;
 					}
 				});
-				$scope.navIndex = -1;
+				$scope.navIndex = -4;
 				$scope.$on('keydown', function(msg, code) {
 					switch (code) {
 						case 38:
