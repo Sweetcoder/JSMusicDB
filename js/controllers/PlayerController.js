@@ -34,6 +34,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		} else {
 			src = track.path;
 		}
+		audiotag.src = src;
 		audiotag.load();
 		audiotag.play();
 		/*
@@ -210,7 +211,8 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 				// space -> play/pause
 				if ($scope.track) {
 					$scope.playpause();
-					$scope.$apply();	
+					$scope.$apply();
+					$rootScope.$apply();
 				}
 				break;
 			// media keys are not supported in the browser unfortunately :(
