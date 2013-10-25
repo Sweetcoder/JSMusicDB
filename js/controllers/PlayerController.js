@@ -199,16 +199,22 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 	$scope.$on('keydown', function(msg, code) {
 		switch (code) {
 			case 27:
-				// esc
-				$scope.playstate = 'pause';
-				$rootScope.isPlaying = false;
-				$scope.track.isPlaying = false;
-				audiotag.pause();
-				audiotag.src = '';
-				$scope.$apply();
-				$rootScope.$apply();
+				// esc -> stop
+				if ($scope.track) {
+					$scope.stop();
+					$scope.$apply();
+					$rootScope.$apply();
+				}
 				break;
-			// add mediakeys
+			case 32:
+				// space -> play/pause
+				if ($scope.track) {
+					$scope.playpause();
+					$scope.$apply();	
+				}
+				break;
+			// media keys are not supported in the browser unfortunately :(
+			// TODO: find out if msce IR blaster keys are firering
 			default:
 				return;
 		}
