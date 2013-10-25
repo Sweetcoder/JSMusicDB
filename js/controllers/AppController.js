@@ -74,8 +74,18 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 			$(".snap-drawers").show();
 		});
 		$rootScope.parsed = true;
+
+		var ar = new Array(13, 33, 34, 35, 36, 37, 38, 39, 40);
+		$(document).on("keydown", function(e) {
+			if ($.inArray(e.which, ar) > -1) {
+				// prevent default actions for these keycodes (handled by navigation)
+				e.preventDefault();
+				return false;
+			}
+			return true;
+		});
 	});
-	
+
 	// add features based on settings
 	$rootScope.$watch(function() {
 		return $rootScope.settingsRead;

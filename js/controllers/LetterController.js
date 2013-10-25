@@ -1,5 +1,5 @@
-jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView',
-function($scope, $rootScope, switchView) {"use strict";
+jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', '$window',
+function($scope, $rootScope, switchView, $window) {"use strict";
 	$scope.Letters = $rootScope.letterCache;
 
 	// set the artistsInLetter var to reflect the artists in the current active letter
@@ -29,11 +29,18 @@ function($scope, $rootScope, switchView) {"use strict";
 				}
 				$scope.getLetter(newLetter);
 			} else {
-				setTimeout(function () {
+				setTimeout(function() {
 					digest(l);
 				}, 100);
 			}
-		}
+		};
 		digest(l);
+	});
+	$scope.$on('keydown', function(msg, code) {
+		if ((code >= 65 && code <= 90) || code === 49) {
+			// user pressed a letter
+			var letter = String.fromCharCode(code);
+			$window.location.href = '#/letter/' + letter;
+		}
 	});
 }]);

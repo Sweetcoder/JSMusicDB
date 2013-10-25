@@ -25,7 +25,6 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		$scope.track.isPlaying = true;
 		$rootScope.isPlaying = true;
 		$scope.playstate = 'pause';
-
 		// set audio source
 		var src = "";
 		if ($rootScope.server == '1') {
@@ -35,14 +34,15 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		} else {
 			src = track.path;
 		}
-		audiotag.src = src;
 		audiotag.load();
 		audiotag.play();
+		/*
 		// another try to fix the damned mobile playback
 		setTimeout(function() {
-			audiotag.pause();
-			audiotag.play();
+		audiotag.pause();
+		audiotag.play();
 		}, 10);
+		*/
 		// set now playling status
 		playerService.scrobbleNowPlaying($scope);
 	};
@@ -194,5 +194,23 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 			$scope.$apply();
 		} catch (e) {
 		};
+	});
+
+	$scope.$on('keydown', function(msg, code) {
+		switch (code) {
+			case 27:
+				// esc
+				$scope.playstate = 'pause';
+				$rootScope.isPlaying = false;
+				$scope.track.isPlaying = false;
+				audiotag.pause();
+				audiotag.src = '';
+				$scope.$apply();
+				$rootScope.$apply();
+				break;
+			// add mediakeys
+			default:
+				return;
+		}
 	});
 }]);

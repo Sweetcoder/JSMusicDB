@@ -364,7 +364,9 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http) {
 	                    cachedResult = "images/nocover.png";
 	                    element[0].src = cachedResult;
 	                }
-	                rootScope.cachedImages[scope.album.Artiest + '-' + scope.album.Album] = cachedResult;
+	                if (scope.album) {
+	                	rootScope.cachedImages[scope.album.Artiest + '-' + scope.album.Album] = cachedResult;
+	                }
 	            });
             }
         }

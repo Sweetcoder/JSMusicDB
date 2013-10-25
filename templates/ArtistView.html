@@ -29,7 +29,7 @@
     <h2>Collection</h2>
     <div class="well well2">
         <ul class="media-list">
-            <li class="media" ng-repeat="album in artist.albums  | orderBy: sortService.sortAlbums" ng-controller="AlbumController">
+            <li class="media" ng-repeat="album in artist.albums  | orderBy: sortService.sortAlbums" ng-controller="AlbumController" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">
                 <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{album.Artiest}}/album/{{album.Album}}">
                 <div class="card albumCard span3">
                     <div class="image-wrapper" bn-lazy-bg="{{artist.Naam}}|{{album.Album}}"></div>

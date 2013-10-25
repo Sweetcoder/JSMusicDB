@@ -38,7 +38,7 @@ form {
 }
 .snap-drawer-left li.highlight {
 	background: #DFF0D8;
-	border: 1px solid ##D6E9C6;
+	border: 1px solid #D6E9C6;
 	color: #468847;
 }
 .snap-drawer-left li.highlight a:after {
@@ -75,6 +75,9 @@ ol li {
 	display: inline-block;
 	position: relative;
 	overflow: visible;
+}
+.media.highlight {
+	box-shadow: 0 0 10px #0088CC; 
 }
 .media a {
 	text-decoration: none;
@@ -283,6 +286,11 @@ table th.trackno {
 }
 table th.dur {
 	width: 100px;
+}
+.table tr.highlight {
+	box-shadow: 0 0 10px #0088CC;
+	position: relative;
+	z-index: 1;
 }
 .table th, .table td {
 	vertical-align: top;

@@ -30,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="track in album.tracks| orderBy: orderTracks" ng-controller="TrackController">
+                <tr ng-repeat="track in album.tracks| orderBy: orderTracks" ng-controller="TrackController" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">
                     <td class="trackno" ng-click="playTrack(album, track)"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span><span ng-show="!track.isPlaying"> {{track.Nummer}} </span></td>
                     <td ng-click="playTrack(album, track)">{{track.Titel}}</td>
                     <td>{{track.Tijd}}
