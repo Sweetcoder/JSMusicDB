@@ -76,8 +76,8 @@ ol li {
 	position: relative;
 	overflow: visible;
 }
-.media.highlight {
-	box-shadow: 0 0 10px #0088CC; 
+.media.highlight .card {
+	 background: #a9dffa;
 }
 .media a {
 	text-decoration: none;
@@ -101,6 +101,9 @@ ol li {
 	position: relative;
 	vertical-align: top;
 	white-space: nowrap;
+	padding-top: 1px;
+	padding-left: 1px;
+	padding-right: 1px;
 }
 .card:hover {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -287,8 +290,8 @@ table th.trackno {
 table th.dur {
 	width: 100px;
 }
-.table tr.highlight {
-	box-shadow: 0 0 10px #0088CC;
+.table tr.highlight td {
+	background: #a9dffa !important;
 	position: relative;
 	z-index: 1;
 }
