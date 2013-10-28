@@ -36,12 +36,13 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 	$rootScope.debug = [];
 	$rootScope.parsed = false;
 	$rootScope.contentPath = "";
+	$rootScope.listenLetters = false;
 
 	// read settings
 	$http.get('settings.json').success(function(data) {
 		$rootScope.isPrivateServer = data.private;
 		$rootScope.backendConfig = data.backend;
-		$rootScope.icremental = data.incremental;
+		$rootScope.incremental = data.incremental;
 		$rootScope.settingsRead = true;
 	}).error(function() {
 		$rootScope.settingsRead = true;
@@ -74,16 +75,6 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 			$(".snap-drawers").show();
 		});
 		$rootScope.parsed = true;
-
-		var ar = new Array(13, 32, 33, 34, 35, 36, 37, 38, 39, 40);
-		$(document).on("keydown", function(e) {
-			if ($.inArray(e.which, ar) > -1) {
-				// prevent default actions for these keycodes (handled by navigation)
-				e.preventDefault();
-				return false;
-			}
-			return true;
-		});
 	});
 
 	// add features based on settings
@@ -91,7 +82,7 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		return $rootScope.settingsRead;
 	}, function(n, o) {
 		if (n) {
-			if ($rootScope.icremental) {
+			if ($rootScope.incremental) {
 				// allow incremental updating
 				modelService.fetchIncrements(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http);
 			}

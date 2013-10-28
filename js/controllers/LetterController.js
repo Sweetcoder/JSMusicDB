@@ -37,10 +37,13 @@ function($scope, $rootScope, switchView, $window) {"use strict";
 		digest(l);
 	});
 	$scope.$on('keydown', function(msg, code) {
-		if ((code >= 65 && code <= 90) || code === 49) {
-			// user pressed a letter
-			var letter = String.fromCharCode(code);
-			$window.location.href = '#/letter/' + letter;
+		if ($rootScope.listenLetters) {
+			if (((code >= $rootScope.keymapping.LETTERS.LOW && code <= $rootScope.keymapping.LETTERS.HIGH) || code === $rootScope.keymapping.LETTERS.SPECIAL)) {
+				// user pressed a letter
+				var letter = String.fromCharCode(code);
+				$window.location.href = '#/letter/' + letter;
+			}
 		}
+
 	});
 }]);

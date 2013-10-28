@@ -40,31 +40,33 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 
 				$scope.navIndex = -4;
 				$scope.$on('keydown', function(msg, code) {
-					switch (code) {
-						case 38:
-							// up
-							setNavIndex(-4);
-							break;
-						case 40:
-							// down
-							setNavIndex(+4);
-							break;
-						case 37:
-							// left; select next (or first) li in the media-list
-							setNavIndex(-1);
-							break;
-						case 39:
-							//right
-							setNavIndex(+1);
-							break;
-						case 13:
-							// enter
-							$(".media-list .highlight > a").click();
-							break;
-						default:
-							return;
+					if ($rootScope.listenLetters) {
+						switch (code) {
+							case $rootScope.keymapping.UP:
+								// up
+								setNavIndex(-4);
+								break;
+							case $rootScope.keymapping.DOWN:
+								// down
+								setNavIndex(+4);
+								break;
+							case $rootScope.keymapping.LEFT:
+								// left; select next (or first) li in the media-list
+								setNavIndex(-1);
+								break;
+							case $rootScope.keymapping.RIGHT:
+								//right
+								setNavIndex(+1);
+								break;
+							case $rootScope.keymapping.ENTER:
+								// enter
+								$(".media-list .highlight > a").click();
+								break;
+							default:
+								return;
+						}
+						return false;
 					}
-					return false;
 				});
 
 				var setNavIndex = function(inc) {

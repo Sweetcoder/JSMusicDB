@@ -59,22 +59,24 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 				});
 				$scope.navIndex = -1;
 				$scope.$on('keydown', function(msg, code) {
-					switch (code) {
-						case 38:
-							// up
-							setNavIndex(-1);
-							break;
-						case 40:
-							// down
-							setNavIndex(+1);
-							break;
-						case 13:
-							// enter
-							$("table tr.highlight > td:first").click();
-							msg.preventDefault();
-							break;
-						default:
-							return;
+					if ($rootScope.listenLetters) {
+						switch (code) {
+							case $rootScope.keymapping.UP:
+								// up
+								setNavIndex(-1);
+								break;
+							case $rootScope.keymapping.DOWN:
+								// down
+								setNavIndex(+1);
+								break;
+							case $rootScope.keymapping.ENTER:
+								// enter
+								$("table tr.highlight > td:first").click();
+								msg.preventDefault();
+								break;
+							default:
+								return;
+						}
 					}
 				});
 
