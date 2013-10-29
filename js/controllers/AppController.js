@@ -44,9 +44,14 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		$rootScope.backendConfig = data.backend;
 		$rootScope.incremental = data.incremental;
 		$rootScope.settingsRead = true;
+		$scope.keydebug = data.keydebug;
 	}).error(function() {
 		$rootScope.settingsRead = true;
 		$rootScope.noSettingsFound = true;
+	});
+	
+	$scope.$on("keydown", function(msg, code) {
+		$scope.keycode = code;
 	});
 
 	modelService.fetchJSON(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http, function() {

@@ -25,10 +25,6 @@
 
 		<link rel="stylesheet" href="css/musicdb.css" type="text/css" />
 
-		<!--
-		<link type="text/css" rel="stylesheet" href="/min/b=music/css&amp;f=bootstrap.min.css,bootstrap-responsive.min.css,bootstrap-lightbox.min.css,snap.css,musicdb.css" />
-		-->
-
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
 			_gaq.push(['_setAccount', 'UA-41619288-1']);
@@ -47,6 +43,7 @@
 	</head>
 
 	<body class="home blog front-page" ng-app="jsmusicdb" key-trap>
+	    
 		<!--[if lte IE 8]>
 		<div class="alert alert-error">
 		<strong>Your browser is not supported!</strong> Please update to a newer version of Internet Explorer; or download either Firefox or Chrome
@@ -78,6 +75,7 @@
 			<img src="css/img/ajax-loader.gif" alt="" />
 		</div>
 		<div class="snap-content" id="main" ng-controller="AppController" style="display: none;">
+		    <div id="overlay" ng-show="keydebug">{{keycode}}</div>
 			<div class="alert alert-warn" ng-show="nonParseable">
 				<strong>Warning!</strong> Please update your scanner software; this version of JSMusicDB is incompatible with your scanner version.
 			</div>
@@ -169,8 +167,5 @@
 		<script src="js/model/Artist.js"></script>
 		<script src="js/model/Album.js"></script>
 		<script src="js/model/Track.js"></script>
-		<!--
-		<script src="/min/b=music/js&f=md5.js,jquery-2.0.3.min.js,jquery.transit.js,bootstrap.min.js,bootstrap-lightbox.min.js,angular-1.0.7.min.js,snap.min.js,iscroll.js,lastfm.js,controllers/AppController.js,controllers/LetterController.js,controllers/ArtistOverviewController.js,controllers/ArtistController.js,controllers/AlbumController.js,controllers/TrackController.js,controllers/PlaylistController.js,controllers/PlayerController.js,controllers/SettingsController.js,services/ModelService.js,services/ImageService.js,services/switchView.js,services/PlayerService.js,filters/TimeFilter.js,model/Letter.js,model/Artist.js,model/Album.js,model/Track.js"></script>
-		-->
 	</body>
 </html>

@@ -729,3 +729,18 @@ audio {
 	font-size: 24px;
 	text-shadow: 0px 0px 5px #000;
 }
+
+#overlay {
+	padding: 10%;
+	border-radius: 20px;
+	background: rgba(0,0,0,0.5);
+	font-size: 35px;
+	font-weight: bold;
+	color: #ffffff;
+	position: fixed;
+	top: 20%;
+	left: 35%;
+	width: 10%;
+	text-align: center;
+	z-index: 5000;
+}
