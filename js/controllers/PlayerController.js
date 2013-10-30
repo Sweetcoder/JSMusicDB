@@ -227,9 +227,19 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 			case $rootScope.keymapping.PAUSE:
 				// pause
 				if ($scope.track) {
-					$scope.pause();
+					$scope.playpause();
+					$scope.$apply();
+					$rootScope.$apply();
 				}
 				break;
+			case $rootScope.keymapping.PLAY:
+				// play
+				if ($scope.track) {
+					$scope.playpause();
+					$scope.$apply();
+					$rootScope.$apply();
+				}
+				break;	
 			case $rootScope.keymapping.PREVIOUS:
 				// previous track
 				if ($scope.track) {
