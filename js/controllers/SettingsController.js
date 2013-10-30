@@ -102,38 +102,6 @@ function($scope, $rootScope, $http) {"use strict";
 		$scope.loggedIn = false;
 	};
 	$rootScope.listenLetters = false;
-	
-	var escapeArray = [];
-	$scope.setNavigation = function(option) {
-		// remove previous keybinding
-		$(document).off("keydown");
-		// add new keybinding
-		$(document).on("keydown", function(e) {
-			if ($.inArray(e.which, escapeArray) > -1) {
-				// prevent default actions for these keycodes (handled by navigation)
-				e.preventDefault();
-				return false;
-			}
-			return true;
-		});
-		if (option != 0) {
-			$http.get('js/mapping/' + option).success(function(data) {
-				$rootScope.keymapping = data;
-				$rootScope.listenLetters = true;
-				escapeArray = data.ESCAPE;
-			});
-		} else {
-			escapeArray = [];
-			$rootScope.listenLetters = false;
-		}
-		localStorage.removeItem("keymapping");
-		localStorage.setItem("keymapping", option);
-	};
-	// get stored setting
-	if (localStorage.getItem("keymapping")) {
-		$scope.navigation = localStorage.getItem("keymapping");
-		$scope.setNavigation($scope.navigation);
-	};
 
 	// only start prefilling when the models are fully loaded.
 	$rootScope.$watch(function() {

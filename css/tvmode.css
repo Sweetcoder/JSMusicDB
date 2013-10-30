@@ -1,0 +1,79 @@
+/* a simple override CSS file to enable 'TV' mode; a mode in which most elements are blown-up */
+
+/* navigation */
+.navbar .nav > li > a {
+	font-size: 22px;
+}
+/* cards */
+.media {
+	width: 48%;
+}
+.media:nth-child(2n+1) {
+	margin-right: 2%;
+}
+.card {
+	width: 100%;
+	height: 300px;
+}
+.card .image-wrapper {
+	height: 220px;
+}
+.card .title {
+	font-size: 32px;
+	line-height: 1.2;
+	font-weight: bold;
+}
+.card .subtitle {
+	font-size: 24px;
+	line-height: 1.2;
+}
+
+#artistOverviewView > div .btn-group {
+	display: none;
+}
+#artistOverviewView h2, #artistView h2 {
+	display: none;
+}
+#artistView > .btn-group {
+	display: none;
+}
+#albumView .actions, #albumPlaylist .actions, .media:hover .actions {
+	display: none;
+}
+/* breadcrumb */
+.navbar .brand {
+	font-size: 32px;
+	font-weight: bold;
+}
+#artistView .well {
+	font-size: 20px;
+	line-height: 1.4;
+}
+
+/* tracks */
+#albumView table {
+	font-size: 22px;
+}
+.table tr:hover button {
+	display: none;
+}
+
+/* player */
+#player {
+	height: 140px;
+}
+#player .thumbnail {
+	max-width: 120px;
+}
+#player .info-Title {
+	font-size: 32px;
+}
+#player .info {
+	font-size: 26px;
+}
+#player .span9 > .span4 {
+	clear: left;
+    float: none;
+    margin: 95px 0 0;
+    width: auto;
+}

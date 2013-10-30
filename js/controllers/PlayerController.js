@@ -95,6 +95,11 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 			audiotag.play();
 		}
 	};
+	$scope.pause = function () {
+		$scope.playstate = 'play';
+		$scope.track.isPlaying = false;
+		audiotag.pause();
+	};
 	$scope.stop = function() {
 		$scope.playstate = 'pause';
 		$rootScope.isPlaying = false;
@@ -172,6 +177,9 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 			backdrop : true
 		});
 	};
+	$scope.hideAlbumart = function() {
+		$(".modal-backdrop").click();
+	};
 	$scope.fullscreen = function() {
 		if (fullScreenApi.supportsFullScreen) {
 			fullScreenApi.requestFullScreen($("#albumart").get(0));
@@ -199,7 +207,8 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 
 	$scope.$on('keydown', function(msg, code) {
 		switch (code) {
-			case 27:
+			case $rootScope.keymapping.STOP:
+			case $rootScope.keymapping.ESC:
 				// esc -> stop
 				if ($scope.track) {
 					$scope.stop();
@@ -207,7 +216,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 					$rootScope.$apply();
 				}
 				break;
-			case 32:
+			case $rootScope.keymapping.SPACE:
 				// space -> play/pause
 				if ($scope.track) {
 					$scope.playpause();
@@ -215,8 +224,38 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 					$rootScope.$apply();
 				}
 				break;
-			// media keys are not supported in the browser unfortunately :(
-			// TODO: find out if msce IR blaster keys are firering
+			case $rootScope.keymapping.PAUSE:
+				// pause
+				if ($scope.track) {
+					$scope.pause();
+				}
+				break;
+			case $rootScope.keymapping.PREVIOUS:
+				// previous track
+				if ($scope.track) {
+					$scope.previous();
+				}
+				break;
+			case $rootScope.keymapping.NEXT:
+				// next track
+				if ($scope.track) {
+					$scope.next();
+				}
+				break;
+			case $rootScope.keymapping.OPEN:
+				// open albumart view
+				if (!$scope.albumartOpen) {
+					$scope.albumart();
+					$scope.albumartOpen = true;
+				} else {
+					$scope.hideAlbumart();
+					$scope.albumartOpen = false;
+				}
+				break;
+			case $rootScope.keymapping.FULLSCREEN:
+				// open fullscreen mode
+				$scope.fullscreen();
+				break;
 			default:
 				return;
 		}

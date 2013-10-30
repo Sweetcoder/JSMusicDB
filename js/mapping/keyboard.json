@@ -6,10 +6,15 @@
 	"UP": 38,
 	"RIGHT": 39,
 	"DOWN": 40,
-	"LETTERS": {
-		"SPECIAL": 49,
-		"LOW": 65,
-		"HIGH": 90
-	},
-	"ESCAPE": [13, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+	"STOP": 83,
+	"PAUSE": 80,
+	"NEXT": 70,
+	"PREVIOUS": 66,
+	"BACK": 8,
+	"VOLUP": 121,
+	"VOLDOWN": 120,
+	"VOLMUTE": 119,
+	"OPEN": 79,
+	"FULLSCREEN": 70, 
+	"ESCAPE": [13, 27, 32, 33, 34, 35, 36, 37, 38, 39, 40, 83, 80, 70, 66, 121, 120, 119]
 }

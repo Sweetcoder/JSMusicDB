@@ -1,0 +1,172 @@
+<!doctype html>
+<!--[if !IE]>      <html class="no-js non-ie" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>    <html class="no-js ie9" dir="ltr" lang="en-US"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" dir="ltr" lang="en-US">
+	<!--<![endif]-->
+	<head>
+		<title>JSMusicDB</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="application-name" content="JSMusicDB"/>
+		<link rel="shortcut icon" sizes="1024x1024" href="images/icon.png">
+		<link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="css/bootstrap-lightbox.min.css" rel="stylesheet">
+
+		<!-- snap -->
+		<link href="css/snap.css" rel="stylesheet">
+
+		<link rel="stylesheet" href="css/musicdb.css" type="text/css" />
+		<link rel="stylesheet" href="css/tvmode.css" type="text/css" />
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-41619288-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+
+		</script>
+	</head>
+
+	<body class="home blog front-page" ng-app="jsmusicdb" key-trap>
+	    
+		<!--[if lte IE 8]>
+		<div class="alert alert-error">
+		<strong>Your browser is not supported!</strong> Please update to a newer version of Internet Explorer; or download either Firefox or Chrome
+		</div>
+		<![endif]-->
+		<div class="snap-drawers" style="display: none;">
+			<div class="snap-drawer snap-drawer-left">
+				<ul class="nav nav-list nav-stacked">
+					<li class="nav-header">
+						JSMusicDB
+					</li>
+					<li>
+						<a ng-href="#{{contentPath}}">Overview</a>
+					</li>
+					<li>
+						<a href="#/playlist">Playlists</a>
+					</li>
+					<li ng-class="{false: 'highlight', true: ''}[canPlay]">
+						<a href="#/settings">Settings</a>
+					</li>
+					<li>
+						<a href="#/about">About</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row" id="loader" ng-show="!parsed">
+			<h2>Please wait, loading data</h2>
+			<img src="css/img/ajax-loader.gif" alt="" />
+		</div>
+		<div class="snap-content" id="main" ng-controller="AppController" style="display: none;">
+		    <div id="overlay" ng-show="keydebug">{{keycode}}</div>
+			<div class="alert alert-warn" ng-show="nonParseable">
+				<strong>Warning!</strong> Please update your scanner software; this version of JSMusicDB is incompatible with your scanner version.
+			</div>
+			<div class="container">
+				<div id="content" ng-show="timestamp">
+					<div ng-controller="LetterController">
+						<h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
+						<div class="navbar">
+							<div class="navbar-inner">
+								<ul class="nav">
+									<li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
+										<a ng-href="#/letter/{{firstletter}}" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">{{firstletter}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					<div ng-view class="wrapper"></div>
+				</div>
+				<div ng-show="!timestamp || timestamp == ''">
+					<h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
+					<div class="alert alert-error">
+						<strong>Please note!</strong> No files found, the scanner is either busy or hasn't run yet. Please come back shortly.
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="player" ng-show="isPlaying">
+			<div ng-include src="'templates/player.html'"></div>
+
+		</div>
+		<div id="albumart" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true" ng-include src="'templates/albumart.html'">
+		</div>
+
+		<div ng-controller="SettingsController"></div>
+
+		<audio controls preload="auto">
+			<p>
+				Your browser does not support native audio playback
+			</p>
+		</audio>
+
+		<script src="js/md5.js"></script>
+		<script src="js/jquery-2.0.3.min.js"></script>
+		<script src="js/jquery.transit.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-lightbox.min.js"></script>
+
+		<script src="js/angular.min.js"></script>
+		<script src="js/angular-route.js"></script>
+		<script src="js/angular-sanitize.js"></script>
+		<script src="js/angular-animate.js"></script>
+
+		<script src="js/snap.min.js"></script>
+		<script src="js/iscroll.js"></script>
+		<script src="js/lastfm.js"></script>
+		
+		<script src="js/fullscreen.js"></script>
+
+		<script src="js/controllers/AppController.js"></script>
+
+		<script src="js/controllers/LetterController.js"></script>
+		<script src="js/controllers/ArtistOverviewController.js"></script>
+		<script src="js/controllers/ArtistController.js"></script>
+		<script src="js/controllers/AlbumController.js"></script>
+		<script src="js/controllers/TrackController.js"></script>
+
+		<script src="js/controllers/PlaylistController.js"></script>
+		<script src="js/controllers/PlayerController.js"></script>
+
+		<script src="js/controllers/SettingsController.js"></script>
+		<script src="js/controllers/AboutController.js"></script>
+
+		<script src="js/services/ModelService.js"></script>
+		<script src="js/services/ImageService.js"></script>
+		<script src="js/services/switchView.js"></script>
+		<script src="js/services/SortService.js"></script>
+		<script src="js/services/PlayerService.js"></script>
+
+		<script src="js/directives/lazy-bg.js"></script>
+		<script src="js/directives/lazy-src.js"></script>
+		<script src="js/directives/keytrap.js"></script>
+		<script src="js/directives/nokeytrap.js"></script>
+
+		<script src="js/filters/TimeFilter.js"></script>
+
+		<script src="js/model/Letter.js"></script>
+		<script src="js/model/Artist.js"></script>
+		<script src="js/model/Album.js"></script>
+		<script src="js/model/Track.js"></script>
+	</body>
+</html>
