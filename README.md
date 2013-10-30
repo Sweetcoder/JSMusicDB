@@ -15,6 +15,7 @@ Any type of scanning script can be used as long as the output is a JSON file wit
 - Device aware; all features are useable and optimized for desktops, tablets and phones!
 - Incremental updates; see music add when you add it to the filesystem; a compatible backend is required.
 - Optional keyboard navigation with optional IR Blaster support. New IR's can be added easily by creating a keymapping file in js/mapping
+- Special TV mode with extra large fonts and fully remote controllable. Access this mode by calling tv.html instead of index.html
 
 Settings
 --------
