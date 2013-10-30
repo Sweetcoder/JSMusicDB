@@ -44,23 +44,27 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 						switch (code) {
 							case $rootScope.keymapping.UP:
 								// up
-								setNavIndex(-4);
+								setNavIndex(-4, code);
 								break;
 							case $rootScope.keymapping.DOWN:
 								// down
-								setNavIndex(+4);
+								setNavIndex(+4, code);
 								break;
 							case $rootScope.keymapping.LEFT:
 								// left; select next (or first) li in the media-list
-								setNavIndex(-1);
+								setNavIndex(-1, code);
 								break;
 							case $rootScope.keymapping.RIGHT:
 								//right
-								setNavIndex(+1);
+								setNavIndex(+1, code);
 								break;
 							case $rootScope.keymapping.ENTER:
 								// enter
-								$(".media-list .highlight > a").click();
+								if ($scope.inLetterNav) {
+									$rootScope.$broadcast("keyOutOfBoundsUp", code);
+								} else {
+									$(".media-list .highlight > a").click();
+								}
 								break;
 							default:
 								return;
@@ -68,21 +72,35 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 						return false;
 					}
 				});
+				$scope.inLetterNav = false;
+				$scope.$on('letterOutOfBoundsDown', function(msg, code) {
+					$scope.inLetterNav = false;
+					$scope.navIndex = -1;
+					setNavIndex(+1);
+				});
 
-				var setNavIndex = function(inc) {
+				var setNavIndex = function(inc, code) {
 					var now = $scope.navIndex, next = now + inc;
-					if (next < 0) {
-						next = 0;
-					}
-					if (next > ($scope.Artists.length - 1)) {
-						next = ($scope.Artists.length - 1);
-					}
-					$scope.navIndex = next;
-					$scope.$apply();
-					// scroll to active element
-					if ($(".media-list .highlight").length === 1) {
-						var top = $(".media-list .highlight").position().top - 80;
-						window.scrollTo(0, top);
+					if ($scope.inLetterNav) {
+						$rootScope.$broadcast("keyOutOfBoundsUp", code);
+					} else {
+						if (next < 0) {
+							$rootScope.$broadcast("keyOutOfBoundsUp", code);
+							next = -1;
+							$scope.inLetterNav = true;
+						}
+						if (next > ($scope.Artists.length - 1)) {
+							next = ($scope.Artists.length - 1);
+						}
+						if (!$scope.inLetterNav) {
+							$scope.navIndex = next;
+							$scope.$apply();
+							// scroll to active element
+							if ($(".media-list .highlight").length === 1) {
+								var top = $(".media-list .highlight").position().top - 80;
+								window.scrollTo(0, top);
+							}
+						}
 					}
 				};
 			}

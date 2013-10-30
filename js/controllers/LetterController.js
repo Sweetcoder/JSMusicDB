@@ -1,7 +1,7 @@
 jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', '$window',
 function($scope, $rootScope, switchView, $window) {"use strict";
 	$scope.Letters = $rootScope.letterCache;
-
+	$scope.navIndex = -1;
 	// set the artistsInLetter var to reflect the artists in the current active letter
 	$scope.getLetter = function(letter) {
 		if ($scope.activeLetter) {
@@ -44,6 +44,51 @@ function($scope, $rootScope, switchView, $window) {"use strict";
 				$window.location.href = '#/letter/' + letter;
 			}
 		}
-
 	});
+	$scope.$on("keyOutOfBoundsUp", function(msg, code) {
+		if ($rootScope.listenLetters) {
+			switch (code) {
+				case $rootScope.keymapping.LEFT:
+					// up
+					setNavIndex(-1, code);
+					break;
+				case $rootScope.keymapping.UP:
+					// up
+					setNavIndex(+1, code);
+					break;
+				case $rootScope.keymapping.RIGHT:
+					// down
+					setNavIndex(+1, code);
+					break;
+				case $rootScope.keymapping.DOWN:
+					$scope.navIndex = -1;
+					$rootScope.$broadcast("letterOutOfBoundsDown", code);
+					break;
+				case $rootScope.keymapping.ENTER:
+					// enter
+					$(".navbar ul .highlight").click();
+					msg.preventDefault();
+					break;
+				default:
+					return;
+			}
+		}
+	});
+	var setNavIndex = function(inc, code) {		
+		var now = $scope.navIndex, next = now + inc;
+		if (next < 0) {
+			$rootScope.$broadcast("letterOutOfBoundsUp", code);
+			next = 0;
+		}
+		if (next > ($scope.Letters.length - 1)) {
+			$rootScope.$broadcast("letterOutOfBoundsDown", code);
+			
+		}
+		$scope.navIndex = next;
+		if ($(".navbar ul .highlight").length === 1) {
+			var top = $(".navbar ul .highlight").position().top - 80;
+			window.scrollTo(0, top);	
+		}
+		$scope.$apply();
+	};
 }]);

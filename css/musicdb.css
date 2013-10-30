@@ -61,6 +61,14 @@ form {
 .navbar .nav > li > a {
 	padding: 10px;
 	text-transform: uppercase;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+.navbar .nav > li > a.highlight {
+	background: #a9dffa;
 }
 
 /* ordered list override */
@@ -91,6 +99,11 @@ ol li {
 }
 /* taken from google music (ninja style!)*/
 .card {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 	background: none repeat scroll 0 0 white;
 	border-radius: 2px 2px 2px 2px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -298,6 +311,11 @@ table th.dur {
 .table th, .table td {
 	vertical-align: top;
 	line-height: 33px;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 }
 .table tr button {
 	display: none;
@@ -730,6 +748,8 @@ audio {
 	text-shadow: 0px 0px 5px #000;
 }
 
+
+/* temp */
 #overlay {
 	padding: 10%;
 	border-radius: 20px;

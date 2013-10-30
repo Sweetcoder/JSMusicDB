@@ -87,7 +87,7 @@
 							<div class="navbar-inner">
 								<ul class="nav">
 									<li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
-										<a ng-class="{true: 'active', false: ''}[letter.active]" ng-href="#/letter/{{firstletter}}">{{firstletter}}</a>
+										<a ng-href="#/letter/{{firstletter}}" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">{{firstletter}}</a>
 									</li>
 								</ul>
 							</div>

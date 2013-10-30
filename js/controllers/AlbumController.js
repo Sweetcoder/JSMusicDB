@@ -63,37 +63,67 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 						switch (code) {
 							case $rootScope.keymapping.UP:
 								// up
-								setNavIndex(-1);
+								setNavIndex(-1, code);
 								break;
 							case $rootScope.keymapping.DOWN:
 								// down
-								setNavIndex(+1);
+								setNavIndex(+1, code);
 								break;
+							case $rootScope.keymapping.LEFT:
+								// left; select next (or first) li in the media-list
+								setNavIndex(-1, code);
+								break;
+							case $rootScope.keymapping.RIGHT:
+								//right
+								setNavIndex(+1, code);
+								break;
+							
 							case $rootScope.keymapping.ENTER:
 								// enter
-								$("table tr.highlight > td:first").click();
-								msg.preventDefault();
+								if ($scope.inLetterNav) {
+									$rootScope.$broadcast("keyOutOfBoundsUp", code);
+								} else {
+									$("table tr.highlight > td:first").click();
+									msg.preventDefault();
+								}
 								break;
 							default:
 								return;
 						}
 					}
 				});
+				$scope.inLetterNav = false;
+				$scope.$on('letterOutOfBoundsDown', function(msg, code) {
+					$scope.inLetterNav = false;
+					$scope.navIndex = -1;
+					setNavIndex(+1);
+				});
 
-				var setNavIndex = function(inc) {
+				var setNavIndex = function(inc, code) {
 					var now = $scope.navIndex, next = now + inc;
-					if (next < 0) {
-						next = 0;
-					}
-					if (next > ($scope.album.tracks.length - 1)) {
-						next = ($scope.album.tracks.length - 1);
-					}
-					$scope.navIndex = next;
-					$scope.$apply();
-					// scroll to active element
-					if ($("table tr.highlight").length === 1) {
-						var top = $("table tr.highlight").position().top - 80;
-						window.scrollTo(0, top);
+					if ($scope.inLetterNav) {
+						$rootScope.$broadcast("keyOutOfBoundsUp", code);
+						$scope.navIndex = -1;
+					} else {
+						if (next < 0) {
+							$rootScope.$broadcast("keyOutOfBoundsUp", code);
+							$scope.navIndex = next;
+							$scope.$apply();
+							$scope.inLetterNav = true;
+						}
+					
+						if (next > ($scope.album.tracks.length - 1)) {
+							next = ($scope.album.tracks.length - 1);
+						}
+						if (!$scope.inLetterNav) {
+							$scope.navIndex = next;
+							$scope.$apply();
+							// scroll to active element
+							if ($("table tr.highlight").length === 1) {
+								var top = $("table tr.highlight").position().top - 80;
+								window.scrollTo(0, top);
+							}
+						}
 					}
 				};
 			}
