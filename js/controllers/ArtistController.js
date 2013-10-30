@@ -93,7 +93,8 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 					} else {
 						if (next < 0) {
 							$rootScope.$broadcast("keyOutOfBoundsUp", code);
-							next = -1;
+							$scope.navIndex = next;
+							$scope.$apply();
 							$scope.inLetterNav = true;
 						}
 					
