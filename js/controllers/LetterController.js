@@ -36,15 +36,6 @@ function($scope, $rootScope, switchView, $window) {"use strict";
 		};
 		digest(l);
 	});
-	$scope.$on('keydown', function(msg, code) {
-		if ($rootScope.listenLetters) {
-			if (((code >= $rootScope.keymapping.LETTERS.LOW && code <= $rootScope.keymapping.LETTERS.HIGH) || code === $rootScope.keymapping.LETTERS.SPECIAL)) {
-				// user pressed a letter
-				var letter = String.fromCharCode(code);
-				$window.location.href = '#/letter/' + letter;
-			}
-		}
-	});
 	$scope.$on("keyOutOfBoundsUp", function(msg, code) {
 		if ($rootScope.listenLetters) {
 			switch (code) {
