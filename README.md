@@ -26,7 +26,8 @@ You can set a few settings now in JSMusicDB; in a file called settings.json in t
     "backend": {
         "serverType": "2",
         "serverURL": "http://127.0.0.1:2000"
-    }
+    },
+    "useKeyboard": true
 }
 ```
 - private: set this to false if you use JSMusicDB on an internet connected server; private servers will log in a user automaticly
@@ -34,6 +35,7 @@ You can set a few settings now in JSMusicDB; in a file called settings.json in t
 - backend
 	- serverType: default servertype 0) no server, 1) synology server 2) node.js server
 	- serverURL: the full path of the server; including any ports
+- useKeyboard: specify wether or not you want to use the keyboard as additional navigation method.
 
 Requirements
 ------------
