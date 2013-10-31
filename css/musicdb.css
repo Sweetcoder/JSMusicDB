@@ -418,11 +418,9 @@ table th.dur {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	font-family: arial, sans-serif;
 }
 #player .info {
 	white-space: nowrap;
-	font-family: arial, sans-serif;
 }
 #player .info-Artist {
 	margin: 0;

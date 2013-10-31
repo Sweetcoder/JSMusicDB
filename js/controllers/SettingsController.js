@@ -120,7 +120,9 @@ function($scope, $rootScope, $http) {"use strict";
 			$http.get('js/mapping/' + option).success(function(data) {
 				$rootScope.keymapping = data;
 				$rootScope.listenLetters = true;
-				escapeArray = data.ESCAPE;
+				for (var key in data) {
+					escapeArray.push(data[key]);
+				}
 			});
 		} else {
 			escapeArray = [];
