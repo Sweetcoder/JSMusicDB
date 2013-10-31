@@ -50,12 +50,19 @@ form {
 	min-height: 100%;
 }
 .toggle i {
-	margin: 13px 8px 0 0;
+	margin: 23px 8px 0 0;
 	display: inline-block;
 	cursor: pointer;
 }
 /* navbar override */
 .navbar .nav {
+	margin-right: 0;
+}
+.nav-list .nav-header {
+	font-size: 20px;
+	text-transform: none;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	border-bottom: 1px solid #999;
 	margin-right: 0;
 }
 .navbar .nav > li > a {
@@ -67,9 +74,19 @@ form {
 	-ms-transition: all 0.5s ease-out;
 	transition: all 0.5s ease-out;
 }
+.nav > li > a:hover,
+.nav > li > a:focus {
+	background: #E5E5E5;
+}
+.nav-list > li > a {
+	padding: 10px 15px;
+}
 .navbar .nav > li > a.highlight {
 	background: #a9dffa;
 }
+.snap-drawer-left > ul {
+	padding-right: 0;
+} 
 
 /* ordered list override */
 ol, ol li {
