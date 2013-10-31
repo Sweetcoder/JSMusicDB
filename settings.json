@@ -4,6 +4,5 @@
     "backend": {
         "serverType": "2",
         "serverURL": "http://localhost:2000"
-    },
-    "useKeyboard": true
+    }
 }

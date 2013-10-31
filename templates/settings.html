@@ -64,6 +64,19 @@
 						<span ng-show="lastfmkey"> Connected to last.fm <a href="#/settings" data-bind="click: doRemoveLastFM">disconnect</a> </span>
 					</div>
 				</div>
+				<legend>
+                    Navigation
+                </legend>
+                <div class="control-group">
+                    <label class="control-label" for="navigationSelect">Navigation type</label>
+                    <div class="controls">
+                        <select ng-model="navigation" id="navigationSelect" ng-change="setNavigation(navigation)">
+                            <option value="0">Mouse only</option>
+                            <option value="keyboard.json">Mouse and keyboard</option>
+                            <option value="msir.json">Mouse and Microsoft IR Blaster</option>
+                        </select>
+                    </div>
+                </div>
 			</form>
 		</div>
 	</div>

@@ -45,7 +45,6 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		$rootScope.incremental = data.incremental;
 		$rootScope.settingsRead = true;
 		$scope.keydebug = data.keydebug;
-		$scope.useKeyboard = data.useKeyboard;
 	}).error(function() {
 		$rootScope.settingsRead = true;
 		$rootScope.noSettingsFound = true;
@@ -91,22 +90,6 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 			if ($rootScope.incremental) {
 				// allow incremental updating
 				modelService.fetchIncrements(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http);
-			}
-			if ($scope.useKeyboard) {
-				// enable keymapping
-				$http.get('js/mapping/keyboard.json').success(function(data) {
-					$rootScope.keymapping = data;
-					$rootScope.listenLetters = true;
-					var escapeArray = data.ESCAPE;
-					$(document).on("keydown", function(e) {
-						if ($.inArray(e.which, escapeArray) > -1) {
-							// prevent default actions for these keycodes (handled by navigation)
-							e.preventDefault();
-							return false;
-						}
-						return true;
-					});
-				});
 			}
 		}
 	});
