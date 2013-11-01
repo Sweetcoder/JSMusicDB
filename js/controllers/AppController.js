@@ -93,10 +93,6 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		return $rootScope.settingsRead;
 	}, function(n, o) {
 		if (n) {
-			if ($rootScope.incremental) {
-				// allow incremental updating
-				modelService.fetchIncrements(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http);
-			}
 			if (!$rootScope.useWizard) {
 				var path = location.pathname;
 				if (path.indexOf("index.html") !== -1) {
@@ -107,6 +103,10 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 					musiclocation: path + 'music.json',
 					incrementlocation: path + 'increment.json'
 				};
+			}
+			if ($rootScope.incremental) {
+				// allow incremental updating
+				modelService.fetchIncrements(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http);
 			}
 		}
 	});
