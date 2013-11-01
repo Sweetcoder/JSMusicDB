@@ -779,3 +779,24 @@ audio {
 	text-align: center;
 	z-index: 5000;
 }
+
+/* touch vs no-touch */
+.touch .no-touch-enabled {
+	display: none; 
+}
+
+
+/* setup wizard */
+#setup-wizard {
+	background: #ffffff;
+	padding: 40px 50px;
+	border-radius: 10px;
+	border: 3px solid #333333;
+	width: 75%;
+	top: 10%;
+	left: 12.5%;
+	position: fixed;
+	z-index: 1000;
+	box-shadow: 0 0 3000px 300px rgba(0,0,0, 0.75);
+	box-sizing: border-box;
+}

@@ -5,7 +5,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 		(function checkIncrement() {
 			var scope = $scope,
 				start = new Date();
-			$http.get('increment.json').success(function(data) {
+			$http.get($rootScope.wizardData.url + $rootScope.wizardData.incrementlocation).success(function(data) {
 				if (data) {
 					var ts = data[data.length -1].ts;
 					if (scope.lastIncrementDate !== ts) {
@@ -24,7 +24,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 
 	this.fetchJSON = function(switchView, $rootScope, $location, $routeParams, ctl, $scope, $http, callback) {
 		var mainStart = new Date();
-		$http.get('music.json').success(function(data) {
+		$http.get($rootScope.wizardData.url + $rootScope.wizardData.musiclocation).success(function(data) {
 			var start = new Date();
 			$rootScope.debug.push('JSON fetched in ' + (start - mainStart) + ' ms');
 			start = new Date();

@@ -16,6 +16,8 @@ Any type of scanning script can be used as long as the output is a JSON file wit
 - Incremental updates; see music add when you add it to the filesystem; a compatible backend is required.
 - Optional keyboard navigation with optional IR Blaster support. New IR's can be added easily by creating a keymapping file in js/mapping
 - Special TV mode with extra large fonts and fully remote controllable. Access this mode by calling tv.html instead of index.html
+- Optional wizard to set-up defaults
+- With a CORS enabled backend (like [node-mp3stream](https://github.com/lucienimmink/node-mp3stream) it's possible to stream music from different servers using JSMusicDB and [node-mp3stream](https://github.com/lucienimmink/node-mp3stream))
 
 Settings
 --------
@@ -27,7 +29,8 @@ You can set a few settings now in JSMusicDB; in a file called settings.json in t
     "backend": {
         "serverType": "2",
         "serverURL": "http://127.0.0.1:2000"
-    }
+    },
+    "useWizard": false
 }
 ```
 - private: set this to false if you use JSMusicDB on an internet connected server; private servers will log in a user automaticly
@@ -35,6 +38,8 @@ You can set a few settings now in JSMusicDB; in a file called settings.json in t
 - backend
 	- serverType: default servertype 0) no server, 1) synology server 2) node.js server
 	- serverURL: the full path of the server; including any ports
+- useWizard: Optionally it's possible to set-up the default server settings by using a one-time wizard.
+
 
 Requirements
 ------------

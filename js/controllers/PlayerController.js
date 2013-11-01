@@ -206,68 +206,70 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 	});
 
 	$scope.$on('keydown', function(msg, code) {
-		switch (code) {
-			case $rootScope.keymapping.STOP:
-			case $rootScope.keymapping.ESC:
-				// esc -> stop
-				if ($scope.track) {
-					$scope.stop();
-					$scope.$apply();
-					$rootScope.$apply();
-				}
-				break;
-			case $rootScope.keymapping.SPACE:
-				// space -> play/pause
-				if ($scope.track) {
-					$scope.playpause();
-					$scope.$apply();
-					$rootScope.$apply();
-				}
-				break;
-			case $rootScope.keymapping.PAUSE:
-				// pause
-				if ($scope.track) {
-					$scope.playpause();
-					$scope.$apply();
-					$rootScope.$apply();
-				}
-				break;
-			case $rootScope.keymapping.PLAY:
-				// play
-				if ($scope.track) {
-					$scope.playpause();
-					$scope.$apply();
-					$rootScope.$apply();
-				}
-				break;	
-			case $rootScope.keymapping.PREVIOUS:
-				// previous track
-				if ($scope.track) {
-					$scope.previous();
-				}
-				break;
-			case $rootScope.keymapping.NEXT:
-				// next track
-				if ($scope.track) {
-					$scope.next();
-				}
-				break;
-			case $rootScope.keymapping.OPEN:
-				// open albumart view
-				if (!$scope.albumartOpen) {
-					$scope.albumart();
-					$scope.albumartOpen = true;
-				} else {
-					$scope.hideAlbumart();
-					$scope.albumartOpen = false;
-				}
-				break;
-			case $rootScope.keymapping.FULLSCREEN:
-				// open fullscreen mode
-				$scope.fullscreen();
-				break;
-			default:
-				return;
+		if ($rootScope.listenLetters) {
+			switch (code) {
+				case $rootScope.keymapping.STOP:
+				case $rootScope.keymapping.ESC:
+					// esc -> stop
+					if ($scope.track) {
+						$scope.stop();
+						$scope.$apply();
+						$rootScope.$apply();
+					}
+					break;
+				case $rootScope.keymapping.SPACE:
+					// space -> play/pause
+					if ($scope.track) {
+						$scope.playpause();
+						$scope.$apply();
+						$rootScope.$apply();
+					}
+					break;
+				case $rootScope.keymapping.PAUSE:
+					// pause
+					if ($scope.track) {
+						$scope.playpause();
+						$scope.$apply();
+						$rootScope.$apply();
+					}
+					break;
+				case $rootScope.keymapping.PLAY:
+					// play
+					if ($scope.track) {
+						$scope.playpause();
+						$scope.$apply();
+						$rootScope.$apply();
+					}
+					break;	
+				case $rootScope.keymapping.PREVIOUS:
+					// previous track
+					if ($scope.track) {
+						$scope.previous();
+					}
+					break;
+				case $rootScope.keymapping.NEXT:
+					// next track
+					if ($scope.track) {
+						$scope.next();
+					}
+					break;
+				case $rootScope.keymapping.OPEN:
+					// open albumart view
+					if (!$scope.albumartOpen) {
+						$scope.albumart();
+						$scope.albumartOpen = true;
+					} else {
+						$scope.hideAlbumart();
+						$scope.albumartOpen = false;
+					}
+					break;
+				case $rootScope.keymapping.FULLSCREEN:
+					// open fullscreen mode
+					$scope.fullscreen();
+					break;
+				default:
+					return;
+			}
 		}
 	});
 }]);

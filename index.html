@@ -40,6 +40,8 @@
 			})();
 
 		</script>
+		
+		<script src="js/modernizr.js"></script>
 	</head>
 
 	<body class="home blog front-page" ng-app="jsmusicdb" key-trap>
@@ -110,6 +112,8 @@
 		</div>
 		<div id="albumart" class="lightbox fade hide" tabindex="-1" role="dialog" aria-hidden="true" ng-include src="'templates/albumart.html'">
 		</div>
+		
+		<div ng-include src="'templates/setup-wizard.html'" ng-show="useWizard"></div>
 
 		<div ng-controller="SettingsController"></div>
 
@@ -143,12 +147,11 @@
 		<script src="js/controllers/ArtistController.js"></script>
 		<script src="js/controllers/AlbumController.js"></script>
 		<script src="js/controllers/TrackController.js"></script>
-
 		<script src="js/controllers/PlaylistController.js"></script>
 		<script src="js/controllers/PlayerController.js"></script>
-
 		<script src="js/controllers/SettingsController.js"></script>
 		<script src="js/controllers/AboutController.js"></script>
+		<script src="js/controllers/SetupController.js"></script>
 
 		<script src="js/services/ModelService.js"></script>
 		<script src="js/services/ImageService.js"></script>

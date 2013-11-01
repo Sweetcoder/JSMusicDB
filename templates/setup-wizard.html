@@ -1,0 +1,67 @@
+<div id="setup-wizard" ng-controller="SetupController" no-key-trap>
+    <div class="wrapper">
+        <h1>JSMusicDB - setup wizard</h1>
+        <div class="well">
+            <script id="wizard.html" type="text/ng-template">
+                <div class="wizard">
+                    <div ng-transclude></div>
+                    <div class="buttons">
+                        <a ng-click="showPreviousStep()" ng-show="hasPrevious()" href="#" class="prev btn">Previous</a>
+                        <a ng-click="showNextStep()" ng-show="hasNext()" href="#" class="next btn btn-primary">Next</a>
+                        <a ng-click="save()" ng-show="!hasNext()" href="#" class="save btn btn-primary">Save</a>
+                    </div>
+                </div>
+            </script>
+            <wizard>
+                <step title="Step 1: Server details">
+                    <p>
+                        Please specify the location of your server; the current URL is prefilled
+                    </p>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="url" id="nasUrl" placeholder="http://www.example.com:5000" ng-model="data.url">
+                        </div>
+                    </div>
+                </step>
+                <step title="Step 2: Music details">
+                    <p>
+                        Please specify the location of your music JSON; the default is music.json in the same directory as you have installed JSMusicDB
+                    </p>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="text" id="musiclocation" placeholder="music.json" ng-model="data.musiclocation">
+                        </div>
+                    </div>
+                    <h4>Incremental updates</h4>
+                    <p>
+                        Do you want to receive incremental updates? If so please specify the location of the incremental JSON; the default is increment.json in the same directory as you have installed JSMusicDB
+                    </p>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="text" id="incrementlocation" placeholder="increment.json" ng-model="data.incrementlocation">
+                        </div>
+                    </div>
+                </step>
+                <step title="Step 3: Navigation">
+                    <p>
+                        Do you want to use keyboard navigation? Or do you own a Microsoft IR blaster? please specify how you want to navigate through the application
+                    </p>
+                    <div class="control-group">
+                        <div class="controls">
+                            <select ng-model="data.navigation" id="navigationSelect">
+                                <option value="0">Mouse only</option>
+                                <option value="keyboard.json">Mouse and keyboard</option>
+                                <option value="msir.json">Mouse and Microsoft IR Blaster</option>
+                            </select>
+                        </div>
+                    </div>
+                </step>
+                <step>
+                    <p>
+                        enjoy JSMusicDB!
+                    </p>
+                </step>
+            </wizard>
+        </div>
+    </div>
+</div>

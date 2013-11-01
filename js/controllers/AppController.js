@@ -45,6 +45,7 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		$rootScope.incremental = data.incremental;
 		$rootScope.settingsRead = true;
 		$scope.keydebug = data.keydebug;
+		$rootScope.useWizard = data.useWizard;
 	}).error(function() {
 		$rootScope.settingsRead = true;
 		$rootScope.noSettingsFound = true;
@@ -54,34 +55,39 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 		$scope.keycode = code;
 	});
 
-	modelService.fetchJSON(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http, function() {
+	$rootScope.$watch(function() {
+		return $rootScope.wizardData;
+	}, function(n, o) {
+		if (n) {
+			modelService.fetchJSON(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http, function() {
 
-		// sidebar
-		var snapper = new Snap({
-			element : document.getElementById('main')
-		});
-		snapper.settings({
-			disable : 'right',
-			touchToDrag : false
-		});
+				// sidebar
+				var snapper = new Snap({
+					element : document.getElementById('main')
+				});
+				snapper.settings({
+					disable : 'right',
+					touchToDrag : false
+				});
 
-		$("#main").on("click", " .toggle", function() {
-			if (snapper.state().state == "left") {
-				snapper.close();
-			} else {
-				snapper.open('left');
-			}
-		});
-		$(".snap-drawers").on("click", "a", function(e) {
-			snapper.close();
-		});
-		$scope.debugText = $rootScope.debug.join('<br />');
-		$(".snap-content").fadeIn(function() {
-			$(".snap-drawers").show();
-		});
-		$rootScope.parsed = true;
+				$("#main").on("click", " .toggle", function() {
+					if (snapper.state().state == "left") {
+						snapper.close();
+					} else {
+						snapper.open('left');
+					}
+				});
+				$(".snap-drawers").on("click", "a", function(e) {
+					snapper.close();
+				});
+				$scope.debugText = $rootScope.debug.join('<br />');
+				$(".snap-content").fadeIn(function() {
+					$(".snap-drawers").show();
+				});
+				$rootScope.parsed = true;
+			});
+		}
 	});
-
 	// add features based on settings
 	$rootScope.$watch(function() {
 		return $rootScope.settingsRead;
@@ -90,6 +96,17 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 			if ($rootScope.incremental) {
 				// allow incremental updating
 				modelService.fetchIncrements(switchView, $rootScope, $location, $routeParams, 'app', $scope, $http);
+			}
+			if (!$rootScope.useWizard) {
+				var path = location.pathname;
+				if (path.indexOf("index.html") !== -1) {
+					path = path.substring(0, path.indexOf("index.html"));
+				}
+				$rootScope.wizardData = {
+					url: location.protocol + '//' + location.host,
+					musiclocation: path + 'music.json',
+					incrementlocation: path + 'increment.json'
+				};
 			}
 		}
 	});
