@@ -98,6 +98,9 @@ function($scope, $http, switchView, $rootScope, $location, $routeParams, modelSe
 				if (path.indexOf("index.html") !== -1) {
 					path = path.substring(0, path.indexOf("index.html"));
 				}
+				if (path.indexOf("tv.html") !== -1) {
+					path = path.substring(0, path.indexOf("tv.html"));
+				}
 				$rootScope.wizardData = {
 					url: location.protocol + '//' + location.host,
 					musiclocation: path + 'music.json',
