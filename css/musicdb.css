@@ -800,3 +800,6 @@ audio {
 	box-shadow: 0 0 3000px 300px rgba(0,0,0, 0.75);
 	box-sizing: border-box;
 }
+#loggedinState {
+	display: inline;
+}
