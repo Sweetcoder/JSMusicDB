@@ -6,9 +6,10 @@
                 <div class="wizard">
                     <div ng-transclude></div>
                     <div class="buttons">
-                        <a ng-click="showPreviousStep()" ng-show="hasPrevious()" href="#" class="prev btn">Previous</a>
-                        <a ng-click="showNextStep()" ng-show="hasNext()" href="#" class="next btn btn-primary">Next</a>
-                        <a ng-click="save()" ng-show="!hasNext()" href="#" class="save btn btn-primary">Save</a>
+                        <a ng-click="showPreviousStep()" ng-show="hasPrevious()" href="#" class="prev btn btn-large">Previous</a>
+                        <a ng-click="skip()" ng-show="!hasPrevious()" href="#" class="prev btn btn-primary btn-large">Skip</a>
+                        <a ng-click="showNextStep()" ng-show="hasNext()" href="#" class="next btn btn-primary btn-large">Next</a>
+                        <a ng-click="save()" ng-show="!hasNext()" href="#" class="save btn btn-primary btn-large">Save</a>
                     </div>
                 </div>
             </script>

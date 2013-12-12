@@ -13,4 +13,14 @@ jsmusicdb.Track = function(node) {
     that.Disc = Number(node.Disk);
     that.AlbumNode = null;
     that.isPlaying = false;
+    that.filename = function () {
+    	var name = that.path.split('/');
+    	return name[name.length-1];
+    };
+    that.inLocalDevice = false;
+    that.isVisible = true;
+    that.seconds = function () {
+    	var a = that.Tijd.split(":");
+    	return Number(a[0]) * 60 + Number(a[1]);
+    };
 }; 

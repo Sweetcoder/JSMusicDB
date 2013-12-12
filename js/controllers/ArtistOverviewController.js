@@ -2,14 +2,21 @@ jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView
 function($scope, $http, switchView, $location, $routeParams, $rootScope, sortService) {"use strict";
 
 	$scope.$on('letterChange', function(e, letter) {
+		console.log("letter changed to " + letter.letter + " artists:" + letter.artistsLocal.length);
+		// show artists based on source
+		if ($rootScope.source === 'local') {
+			$scope.Artists = letter.artistsLocal;
+		} else {
 		$scope.Artists = letter.artists;
+		}
+		window.scrollTo(0, 0);
+		$rootScope.upPath = $location.path().substring(0, $location.path().indexOf("/letter/"));
 	});
 
 	$scope.$on('routeArtistChange', function(e, artistName) {
 		$.each($scope.Artists, function() {
 			if (this.Naam === artistName) {
 				switchView.artist(this);
-				// TODO: generic function
 				$(".snap-content").get(0).scrollTop = 0;
 			}
 		});
@@ -17,10 +24,6 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 
 	$scope.getArtist = function(artist) {
 		switchView.artist(artist);
-		// TODO: generic function
-		$("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
-		$("#artistView").removeClass("child").removeClass("parent").addClass("view");
-		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
 		$(".snap-content").get(0).scrollTop = 0;
 	};
 
@@ -77,7 +80,7 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 				if (next < 0) {
 					$rootScope.$broadcast("keyOutOfBoundsUp", code);
 					$scope.navIndex = next;
-					$scope.$apply();
+					//$scope.$apply();
 					$scope.inLetterNav = true;
 				}
 				if (next > ($scope.Artists.length - 1)) {
@@ -85,7 +88,7 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 				}
 				if (!$scope.inLetterNav) {
 					$scope.navIndex = next;
-					$scope.$apply();
+					//$scope.$apply();
 					// scroll to active element
 					if ($(".media-list .highlight").length === 1) {
 						var top = $(".media-list .highlight").position().top - 80;
@@ -106,12 +109,23 @@ function($scope, $http, switchView, $location, $routeParams, $rootScope, sortSer
 					_gaq.push(['_trackPageview', '/letter/' + $routeParams.letter]);
 				}
 				window.document.title = 'JSMusicDB - letter: ' + $routeParams.letter;
+				$rootScope.pageTitle = $routeParams.letter + '<span class="artist">Mobile MusicDB</span>';
 				switchView.routeLetter($routeParams.letter);
 
 				setupKeyboardNav();
 
 			}
 			$rootScope.contentPath = $location.path();
+			// save state
+			localStorage.removeItem("state");
+			localStorage.setItem("state", JSON.stringify({
+				url : '/letter/' + $routeParams.letter
+			}));
+			$rootScope.rootView = false;
+		});
+		// exit on backbutton
+		$scope.$on("backbutton", function() {
+			document.location.href = "#";
 		});
 	} else {
 		window.document.title = 'JSMusicDB';

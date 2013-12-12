@@ -1,6 +1,6 @@
 jsmusicdb.controller('SetupController', ['$scope', '$rootScope', '$http',
 function($scope, $rootScope, $http) {"use strict";
-
+	$rootScope.parsed = true;
 	window.document.title = 'JSMusicDB - Setup';
 	if (window._gaq) {
 		_gaq.push(['_trackPageview', '/setup']);
@@ -19,6 +19,10 @@ function($scope, $rootScope, $http) {"use strict";
 	$scope.$on("save", function () {
 		localStorage.setItem("wizardData", JSON.stringify($scope.data));
 		$rootScope.wizardData = $scope.data;
+	});
+	$scope.$on("skip", function () {
+		localStorage.setItem("wizardData", "{}");
+		$rootScope.wizardData = {};
 	});
 	
 	if (localStorage.getItem("wizardData")) {
@@ -96,6 +100,10 @@ jsmusicdb.directive('wizard', function($rootScope) {
 			
 			$scope.save = function () {
 				$scope.$emit("save");
+				$("#setup-wizard").hide();
+			};
+			$scope.skip = function () {
+				$scope.$emit("skip");
 				$("#setup-wizard").hide();
 			};
 		}

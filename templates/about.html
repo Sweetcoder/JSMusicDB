@@ -1,5 +1,9 @@
-	<div class="well">
-		<table class="table table-bordered">
+
+		<table class="table table-bordered" id="setLogin">
+		    <tr>
+		        <td>Cached music file:</td>
+		        <td>{{cachedJSON}}</td>
+		    </tr>
 			<tr>
 				<td>Last updated:</td>
 				<td>{{timestamp | date:'medium'}}</td>
@@ -25,11 +29,15 @@
 				<td>{{incremental}}</td>
 			</tr>
 			<tr>
+                <td>Audio source(s):</td>
+                <td>{{source}}</td>
+            </tr>
+			<tr>
 				<td>Debug</td>
 				<td><span ng-bind-html="debugText">&nbsp;</span></td>
 			</tr>
 		</table>
-	</div>
+	
 	<div class="well">
 		<p>
 			JSMusicDB is a webstandards based music library/music player to be used in conjuction to the scanner.py script that can run on a NAS, like any synology NAS.

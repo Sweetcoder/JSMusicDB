@@ -1,28 +1,16 @@
 
-	<div class="well">
-	    <h2>Playlists</h2>
-	    <ul class="nav nav-tabs">
+	    <ul class="nav nav-tabs" id="playlistSelector">
 	        <li class="active"><a href="#trackPlaylist" data-toggle="tab">Default</a></li>
 	    </ul>
-	    <div class="tab-content">
+	    <div class="tab-content" id="setLogin">
     	    <div class="playlist tab-pane active" id="trackPlaylist">
     	        <table class="table table-striped table-bordered table-hover" ng-show="playlist.length > 0">
-                    <thead>
-                        <tr>
-                            <th class="trackno">&nbsp;</th>
-                            <th class="track">Artist</th>
-                            <th class="track">Album</th>
-                            <th class="track">Track</th>
-                            <th class="dur">Duration</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr ng-repeat="track in playlist" ng-controller="TrackController">
-                            <td class="trackno" ng-click="playTrack(track.albumNode, track, 'track')"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span></td>
+                            <td class="trackno" ng-click="playTrack(track.albumNode, track, 'track')"><span ng-show="track.isPlaying"> <i class="ion-play"></i> </span>&nbsp;</td>
                             <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Artiest}}</td>
-                            <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Album}}</td>
                             <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Titel}}</td>
-                            <td>{{track.Tijd}}
+                            <td class="dur">{{track.Tijd}}
                             	<button class="btn" ng-click="removeFromPlaylist(track)">
 					                <i class="icon-minus" title="Track added to playlist"></i>
 					            </button>	

@@ -23,4 +23,8 @@ jsmusicdb.controller('PlaylistController', ['$scope', 'playerService', function 
         }
         return totalNumber;
     };
+    $scope.$on("backbutton", function() {
+		console.log("Playlist: capture backbutton: " + $rootScope.contentPath);
+		document.location.href = "#" + $rootScope.contentPath;
+	});
 }]);

@@ -1,0 +1,60 @@
+<div id="OverviewView" ng-controller="OverviewController" class="view">
+    <div ng-if="showIntro">
+        <p>Start some tracks and your most recent played artists and albums will show up here.</p>
+        <p>By clicking the <i class="ion-grid"></i> you can choose the first letter of the artist.</p>
+        <p>More settings and info can be found behind the <i class="ion-navicon-round"></i></p>
+    </div>
+    <h2 ng-if="!showIntro">Top tracks</h2>
+    <table class="table table-bordered table-striped">
+    	<tr ng-repeat="track in Tracks track by $index">
+    		<td class="trackno"><span>{{track.data.played}}</span></td>
+    		<td>{{track.track.albumNode.artistNode.Naam}}</td>
+    		<td>{{track.track.Titel}}</td>
+    	</tr>
+    </table>
+    <h2 ng-if="!showIntro">Recent Artists</h2>
+    <ul class="media-list">
+        <li class="media" ng-repeat="artist in Artists track by $index" ng-controller="ArtistController">
+            <a ng-href="#{{artist.artistURL()}}">
+            <div class="card artistCard span3">
+
+                <div class="image-wrapper" bn-lazy-bg="{{artist.Naam}}"></div>
+                <div class="details">
+                    <div class="title fade-out">
+                        {{artist.Naam}}
+                    </div>
+                    <div class="subtitle fade-out">
+                        <ng-pluralize count="artist.albumsLocal.length" when="{'0': 'No albmus', '1': '1 album', 'other': '{} albums'}" ng-show="source==='local'"></ng-pluralize>
+                        <ng-pluralize count="artist.albums.length" when="{'0': 'No albmus', '1': '1 album', 'other': '{} albums'}" ng-show="source==='cloud'"></ng-pluralize>
+                    </div>
+                </div>
+            </div> </a>
+        </li>
+    </ul>
+    <h2 ng-if="!showIntro">Recent Albums</h2>
+    <ul class="media-list">
+        <li class="media" ng-repeat="album in Albums track by $index" ng-controller="AlbumController">
+            <a ng-href="#{{album.albumURL()}}">
+            <div class="card albumCard span3">
+                <div class="image-wrapper" bn-lazy-bg="{{album.Artiest}}|{{album.Album}}"></div>
+                <div class="details">
+                    <div class="title fade-out">
+                        {{album.Album}}
+                        <span ng-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span>
+                    </div>
+                    <div class="subtitle fade-out">
+                        <ng-pluralize count="album.tracks.length" when="{'0': 'No tracks', '1': '1 track', 'other': '{} tracks'}"></ng-pluralize>
+                    </div>
+                </div>
+            </div> </a>
+            <div class="actions">
+                <button class="btn" ng-click="addToPlaylist(album)" ng-show="albumstate == 'plus'">
+                    <i class="ion-{{albumstate}}"></i>
+                </button>
+                <button class="btn" ng-click="removeFromPlaylist(album)" ng-show="albumstate == 'minus'">
+                    <i class="ion-{{albumstate}}"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>

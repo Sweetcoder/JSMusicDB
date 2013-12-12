@@ -3,8 +3,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 
 	this.fetchIncrements = function(switchView, $rootScope, $location, $routeParams, ctl, $scope, $http) {
 		(function checkIncrement() {
-			var scope = $scope,
-				start = new Date();
+			var scope = $scope, start = new Date();
 			$http.get($rootScope.wizardData.url + $rootScope.wizardData.incrementlocation).success(function(data) {
 				if (data) {
 					var ts = data[data.length -1].ts;
@@ -22,21 +21,39 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 		})();
 	};
 
-	this.fetchJSON = function(switchView, $rootScope, $location, $routeParams, ctl, $scope, $http, callback) {
+	this.fetchJSON = function($rootScope, $http, callback) {
 		var mainStart = new Date();
 		$http.get($rootScope.wizardData.url + $rootScope.wizardData.musiclocation).success(function(data) {
 			var start = new Date();
 			$rootScope.debug.push('JSON fetched in ' + (start - mainStart) + ' ms');
-			start = new Date();
+			// save it to a local file
+			try {
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+				fileSystem.root.getDirectory("org.arielext.mobilemusicdb", {create: true}, function (dirEntry){
+					dirEntry.getFile("music.json", {create: true, exclusive: true}, function(fileEntry){
+						fileEntry.createWriter(function(writer){
+							writer.write(JSON.stringify(data));
+						});
+					});
+				});
+			});
+			} catch (e) {
+			}
+			callback(data);
+		});
+	};
+	this.parseJSON = function(data, switchView, $rootScope, $location, $routeParams, ctl, $scope, $http, callback, source) {
+		var start = new Date();
 			$rootScope.nonParseable = false;
+		if (data[0] !== "<") {
 			angular.forEach(data, function(value, key) {
-				that.parseData(value, key, $scope, $rootScope, false);
+				that.parseData(value, key, $scope, $rootScope, false, source);
 			});
 			$rootScope.debug.push('JSON parsed in ' + (new Date() - start) + ' ms');
 			that.fetched = true;
 			that.setupModels(switchView, $rootScope, $location, $routeParams, ctl);
+		}
 			callback();
-		});
 	};
 	this.setupModels = function(switchView, $rootScope, $location, $routeParams, ctl) {
 		// push all letters in a simple array
@@ -82,7 +99,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 		}
 	};
 
-	this.parseData = function(value, key, $scope, $rootScope, updateTotals) {
+	this.parseData = function(value, key, $scope, $rootScope, updateTotals, source) {
 		switch (value.Type) {
 			case 'totals':
 				$rootScope.totalArtists = value.totals.artists;
@@ -104,7 +121,10 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 						if (updateTotals) {
 							$rootScope.totalArtists++;	
 						}
+						artist.letterNode = $rootScope.letterCache[getFirstLetter(value.Naam)];
 					}
+				} else {
+					console.log("No 'Naam' field found, we had " + JSON.stringify(value));
 				}
 				break;
 			case 'album':
@@ -113,6 +133,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 						var album = new jsmusicdb.Album(value);
 						$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album] = album;
 						$rootScope.artistCache[stripThe(album.Artiest)].albums.push(album);
+						album.artistNode = $rootScope.artistCache[stripThe(album.Artiest)];
 						if (updateTotals) {
 							$rootScope.totalAlbums++;	
 						}
@@ -131,6 +152,22 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 							$rootScope.totalTracks++;
 							$rootScope.totalPlaying = $scope.totalPlaying + 2500;
 						}	
+						if (source === "local") {
+							// on device
+							track.inLocalDevice = true;
+							if (!$rootScope.letterCacheLocal[track.albumNode.artistNode.letterNode.letter]) {
+								$rootScope.letterCacheLocal[track.albumNode.artistNode.letterNode.letter] = track.albumNode.artistNode.letterNode;
+							}
+							if (!$rootScope.artistCacheLocal[stripThe(track.albumNode.artistNode.Naam)]) {
+								$rootScope.artistCacheLocal[stripThe(track.albumNode.artistNode.Naam)] = track.albumNode.artistNode;
+								track.albumNode.artistNode.letterNode.artistsLocal.push(track.albumNode.artistNode);
+							}
+							if (!$rootScope.albumCacheLocal[stripThe(track.albumNode.Artiest) + "-" + track.albumNode.Album]) {
+								$rootScope.albumCacheLocal[stripThe(track.albumNode.Artiest) + "-" + track.albumNode.Album] = track.albumNode;
+								track.albumNode.artistNode.albumsLocal.push(track.albumNode);
+								track.albumNode.inLocalDevice = true;
+							}
+						}
 					}
 				} else {
 					// TODO: do we want to log this/report these?
@@ -143,7 +180,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 			default:
 				// unknown type or no type present
 				if (window.console)
-					console.log(value, value.Type);
+					console.log("Unknown type: " + value.Type);
 				// tell the view the data is non-parseable
 				$rootScope.nonParseable = true;
 		}

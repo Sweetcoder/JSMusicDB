@@ -15,5 +15,8 @@ jsmusicdb.Letter = function(node) {
     var that = this;
     that.letter = getFirstLetter(node.Naam);
     that.artists = [];
+    that.artistsLocal = [];
     that.active = false;
+    that.inLocalDevice = false;
+    that.isVisible = true;
 };

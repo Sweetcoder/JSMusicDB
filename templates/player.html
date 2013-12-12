@@ -1,8 +1,8 @@
-<div ng-controller="PlayerController" class="container" ng-click="show(); $event.stopPropagation()">
+<div ng-controller="PlayerController" class="container" ng-swipe-right="maximize()" ng-swipe-left="show()" ng-mousedown="$event.preventDefault()">
 	<div class="span11">
-		<a id='showAlbumArt' ng-click="albumart()"><img class="thumbnail span2" bn-lazy-src="{{track.Artiest}}|{{track.Album}}"></a>
-		<div class="span9 offset2">
-			<div class="progressBar span9" style="margin-left: 0;">
+        <img class="thumbnail span2" bn-lazy-src="{{track.Artiest}}|{{track.Album}}" src="images/nocover.png">
+        <div class="span11">
+            <div class="progressBar span11" style="margin-left: 0;">
 				<span class="time start">{{position | timeFilter}}</span>
 				<div class="progress active" ng-click="updatePosition($event)">
 					<div class="bar buffer" ng-style="{width: bufferpos()}"></div>
@@ -10,50 +10,50 @@
 				</div>
 				<span class="time stop">{{len | timeFilter}}</span>
 			</div>
-			<div class="span5" style="margin-left: 0;">
+            <div class="span5" style="margin-left: 0;" ng-click="maximize()">
 				<h3 class="info-Title">{{track.Titel}}</h3>
 				<div class="info">
 					<span class="info-Artist">{{track.Artiest}}</span> - <span class="info-Album">{{track.Album}}</span>
 				</div>
 			</div>
-			<div class="span4">
+			<div class="span11" style="margin: -6px 0 0 0;">
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<button class="btn" ng-click="previous()">
-							<i class="icon-step-backward"></i>
+                        <button class="small" ng-click="previous()">
+                            <i class="ion-skip-backward"></i>
 						</button>
-						<button class="btn" ng-click="playpause()">
-							<i class="icon-{{playstate}}"></i>
+                        <button class="playstate" ng-click="playpause()">
+                            <i class="ion-{{playstate}}"></i>
 						</button>
-						<button class="btn" ng-click="stop()">
-							<i class="icon-stop"></i>
+                        <button class="" ng-click="stop()">
+                            <i class="ion-stop"></i>
 						</button>
-						<button class="btn" ng-click="next()">
-							<i class="icon-step-forward"></i>
+                        <button class="small" ng-click="next()">
+                            <i class="ion-skip-forward"></i>
 						</button>
 					</div>
 					<div class="btn-group">
 
-						<button class="btn" ng-click="toggleRandom()">
-							<i class="icon-{{isRandom}}"></i>
+                    <button class="small" ng-click="toggleRandom()">
+                        <i class="ion-{{isRandom}}"></i>
 						</button>
 
-						<button class="btn" ng-click="toggleMute()" id="mute-btn">
-							<i class="icon-volume-{{muteState}}"></i>
+						<button class="small" ng-click="toggleMute()" id="mute-btn">
+							<i class="ion-volume-{{muteState}}"></i>
 						</button>
 
-						<button class="btn" ng-show="lastfmkey" ng-click="love(track.albumNode, track)">
-							<i class="icon-heart"></i>
+						<button class="small" ng-show="lastfmkey" ng-click="love(track.albumNode, track)">
+							<i class="ion-heart"></i>
 						</button>
 
-						<button class="btn" ng-click="toggleView()" id="toggle-btn">
-							<i class="icon-{{playlistView}}"></i>
+						<button class="small" ng-click="toggleView()" id="toggle-btn">
+							<i class="ion-{{playlistView}}"></i>
 						</button>
 						
-						<button class="btn" ng-click="hide(); $event.stopPropagation()">
-							<i class="icon-chevron-down"></i>
+                    <button class=" toggleMaximize" ng-click="show(); $event.stopPropagation()">
+                        <i class="ion-chevron-down"></i>
 						</button>
-					</div>
+
 				</div>
 			</div>
 		</div>

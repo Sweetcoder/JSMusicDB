@@ -3,6 +3,8 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 	$scope.$on('albumChange', function(e, album, artist, update) {
 		$scope.album = album;
 		$scope.artist = artist;
+		$rootScope.upPath = $location.path().substring(0, $location.path().indexOf("/album/"));
+		window.scrollTo(0, 0);
 	});
 	$scope.addToPlaylist = function(album) {
 		playerService.addAlbum(album, $rootScope.playlist);
@@ -17,7 +19,7 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 
 	$scope.closeView = function() {
 		var path = $location.path();
-		window.location.href = "#" + path.substring(0, path.indexOf("/album/"));
+		document.location.href = "#" + path.substring(0, path.indexOf("/album/"));
 	};
 	// $scope.art = ImageService.getAlbumArt($scope);
 	$scope.orderTracks = function(a) {
@@ -51,6 +53,12 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 									_gaq.push(['_trackPageview', '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist + '/album/' + $routeParams.album]);
 								}
 								window.document.title = 'JSMusicDB - ' + $routeParams.artist + " - " + $routeParams.album;
+								$rootScope.pageTitle = $routeParams.album + "<span class='artist'>" + $routeParams.artist + "</span>";
+								localStorage.removeItem("state");
+								localStorage.setItem("state", JSON.stringify({
+									url : '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist + '/album/' + $routeParams.album
+								}));
+								$rootScope.rootView = false;
 								switchView.album(this, artist, true);
 								return false;
 							}
@@ -108,7 +116,7 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 						if (next < 0) {
 							$rootScope.$broadcast("keyOutOfBoundsUp", code);
 							$scope.navIndex = next;
-							$scope.$apply();
+							//$scope.$apply();
 							$scope.inLetterNav = true;
 						}
 					
@@ -117,7 +125,7 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 						}
 						if (!$scope.inLetterNav) {
 							$scope.navIndex = next;
-							$scope.$apply();
+							//$scope.$apply();
 							// scroll to active element
 							if ($("table tr.highlight").length === 1) {
 								var top = $("table tr.highlight").position().top - 80;
@@ -128,6 +136,10 @@ function($scope, $http, ImageService, playerService, $location, $routeParams, $r
 				};
 			}
 			$rootScope.contentPath = $location.path();
+		});
+		$scope.$on("backbutton", function() {
+			console.log("AlC: capture backbutton");
+			$scope.closeView();
 		});
 	}
 }]);

@@ -1,6 +1,17 @@
 jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', '$window',
 function($scope, $rootScope, switchView, $window) {"use strict";
+	$rootScope.$watch(function () {
+		return $rootScope.source;
+	}, function (n, o) {
+		if (n === 'local') {
+			$scope.Letters = $rootScope.letterCacheLocal;
+		} else {
 	$scope.Letters = $rootScope.letterCache;
+		}
+		if ($scope.activeLetter) {
+			$scope.activeLetter.active = false;
+		}
+	});
 	$scope.navIndex = -1;
 	// set the artistsInLetter var to reflect the artists in the current active letter
 	$scope.getLetter = function(letter) {
@@ -11,10 +22,7 @@ function($scope, $rootScope, switchView, $window) {"use strict";
 		$scope.activeLetter.active = true;
 		$rootScope.activeLetter = letter;
 		switchView.letter(letter);
-		$("#artistOverviewView").removeClass("child").removeClass("parent").addClass("view");
-		$("#artistView").addClass("child").removeClass("parent").removeClass("view");
-		$("#albumView").addClass("child").removeClass("parent").removeClass("view");
-		$(".snap-content").get(0).scrollTop = 0;
+		
 	};
 
 	$scope.$on('routeLetterChange', function(e, l) {
@@ -80,6 +88,6 @@ function($scope, $rootScope, switchView, $window) {"use strict";
 			var top = $(".navbar ul .highlight").position().top - 80;
 			window.scrollTo(0, top);	
 		}
-		$scope.$apply();
+		//$scope.$apply();
 	};
 }]);

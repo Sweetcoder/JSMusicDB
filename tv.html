@@ -23,6 +23,8 @@
 		<!-- snap -->
 		<link href="css/snap.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="css/ionicons.css" type="text/css" />
+        
 		<link rel="stylesheet" href="css/musicdb.css" type="text/css" />
 		<link rel="stylesheet" href="css/tvmode.css" type="text/css" />
 
@@ -43,7 +45,7 @@
 		<script src="js/modernizr.js"></script>
 	</head>
 
-	<body class="home blog front-page" ng-app="jsmusicdb" key-trap>
+	<body class="home blog front-page" ng-controller="AppController" ng-class="{false: '', true: 'isPlaying'}[isPlaying == true]" key-trap>
 	    
 		<!--[if lte IE 8]>
 		<div class="alert alert-error">
@@ -75,6 +77,12 @@
 			<h2>Please wait, loading data</h2>
 			<img src="css/img/ajax-loader.gif" alt="" />
 		</div>
+		<header>
+            <div class="container ng-cloak">
+                <h1 class="toggle" ng-if="rootView"><a href="#"><i class="ion-navicon-round" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i><img src="images/icon.png" width="45"/><span ng-bind-html="pageTitle"></span></a></h1>
+                <h1 ng-if="!rootView"><a ng-href="#{{upPath}}" class="up"><i class="ion-chevron-left" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i> <img src="images/icon.png" width="45"/><span ng-bind-html="pageTitle"></span></a></h1>
+            </div>
+        </header>
 		<div class="snap-content" id="main" ng-controller="AppController" style="display: none;">
 		    <div id="overlay" ng-show="keydebug">{{keycode}}</div>
 			<div class="alert alert-warn" ng-show="nonParseable">
@@ -83,7 +91,6 @@
 			<div class="container">
 				<div id="content" ng-show="timestamp">
 					<div ng-controller="LetterController">
-						<h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
 						<div class="navbar">
 							<div class="navbar-inner">
 								<ul class="nav">
@@ -120,53 +127,57 @@
 			</p>
 		</audio>
 
-		<script src="js/md5.js"></script>
-		<script src="js/jquery-2.0.3.min.js"></script>
-		<script src="js/jquery.transit.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/bootstrap-lightbox.min.js"></script>
+		<script type="text/javascript" src="js/fastclick.js"></script>
 
-		<script src="js/angular.min.js"></script>
-		<script src="js/angular-route.js"></script>
-		<script src="js/angular-sanitize.js"></script>
-		<script src="js/angular-animate.js"></script>
+        <script src="js/md5.js"></script>
+        <script src="js/jquery-2.0.3.min.js"></script>
+        <script src="js/jquery.transit.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-lightbox.min.js"></script>
 
-		<script src="js/snap.min.js"></script>
-		<script src="js/iscroll.js"></script>
-		<script src="js/lastfm.js"></script>
-		
-		<script src="js/fullscreen.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.js"></script>
+        <script src="js/angular-sanitize.js"></script>
+        <script src="js/angular-animate.js"></script>
+        <script src="js/angular-touch.js"></script>
 
-		<script src="js/controllers/AppController.js"></script>
+        <script src="js/snap.min.js"></script>
+        <script src="js/iscroll.js"></script>
+        <script src="js/lastfm.js"></script>
 
-		<script src="js/controllers/LetterController.js"></script>
-		<script src="js/controllers/ArtistOverviewController.js"></script>
-		<script src="js/controllers/ArtistController.js"></script>
-		<script src="js/controllers/AlbumController.js"></script>
-		<script src="js/controllers/TrackController.js"></script>
+        <script src="js/fullscreen.js"></script>
 
-		<script src="js/controllers/PlaylistController.js"></script>
-		<script src="js/controllers/PlayerController.js"></script>
+        <script src="js/controllers/AppController.js"></script>
 
-		<script src="js/controllers/SettingsController.js"></script>
-		<script src="js/controllers/AboutController.js"></script>
+        <script src="js/services/ModelService.js"></script>
+        <script src="js/services/ImageService.js"></script>
+        <script src="js/services/switchView.js"></script>
+        <script src="js/services/SortService.js"></script>
+        <script src="js/services/PlayerService.js"></script>
+        <script src="js/controllers/LetterController.js"></script>
+        <script src="js/controllers/OverviewController.js"></script>
+        <script src="js/controllers/ArtistOverviewController.js"></script>
+        <script src="js/controllers/ArtistController.js"></script>
+        <script src="js/controllers/AlbumController.js"></script>
+        <script src="js/controllers/TrackController.js"></script>
+        <script src="js/controllers/PlaylistController.js"></script>
+        <script src="js/controllers/PlayerController.js"></script>
+        <script src="js/controllers/SettingsController.js"></script>
+        <script src="js/controllers/AboutController.js"></script>
+        <script src="js/controllers/SetupController.js"></script>
 
-		<script src="js/services/ModelService.js"></script>
-		<script src="js/services/ImageService.js"></script>
-		<script src="js/services/switchView.js"></script>
-		<script src="js/services/SortService.js"></script>
-		<script src="js/services/PlayerService.js"></script>
 
-		<script src="js/directives/lazy-bg.js"></script>
-		<script src="js/directives/lazy-src.js"></script>
-		<script src="js/directives/keytrap.js"></script>
-		<script src="js/directives/nokeytrap.js"></script>
+        <script src="js/directives/lazy-bg.js"></script>
+        <script src="js/directives/lazy-src.js"></script>
+        <script src="js/directives/keytrap.js"></script>
+        <script src="js/directives/nokeytrap.js"></script>
 
-		<script src="js/filters/TimeFilter.js"></script>
+        <script src="js/filters/TimeFilter.js"></script>
 
-		<script src="js/model/Letter.js"></script>
-		<script src="js/model/Artist.js"></script>
-		<script src="js/model/Album.js"></script>
-		<script src="js/model/Track.js"></script>
+        <script src="js/model/Letter.js"></script>
+        <script src="js/model/Artist.js"></script>
+        <script src="js/model/Album.js"></script>
+        <script src="js/model/Track.js"></script>
+        <script type="text/javascript" src="js/cordova/bootstrap.js"></script>
 	</body>
 </html>

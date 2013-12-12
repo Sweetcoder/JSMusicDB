@@ -12,6 +12,12 @@ function($scope, $rootScope, $http) {"use strict";
 
 	$scope.isLoading = false;
 
+	$scope.$on("backbutton", function() {
+		if ($("#setLogin").is(":visible")) {
+			$rootScope.settingsBroadcast = true;
+			document.location.href = "#" + $rootScope.contentPath;
+		}
+	});
 	$scope.login = function() {
 		$scope.isLoading = true;
 		$scope.loginError = false;
@@ -139,6 +145,15 @@ function($scope, $rootScope, $http) {"use strict";
 			$scope.navigation = localStorage.getItem("keymapping");
 			$scope.setNavigation($scope.navigation);
 		};
+	}
+	$scope.changeSource = function(option) {
+		$rootScope.source = option;
+		localStorage.removeItem("source");
+		localStorage.setItem("source", option);
+		$rootScope.rescan();
+	};
+	if (localStorage.getItem("source")) {
+		$rootScope.source = localStorage.getItem("source");
 	}
 	// only start prefilling when the models are fully loaded.
 	$rootScope.$watch(function() {

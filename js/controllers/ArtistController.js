@@ -5,18 +5,22 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 		if (update) {
 			ImageService.getInfo($scope);
 		}
+		if ($rootScope.source === 'local') {
+			$scope.albums = artist.albumsLocal;
+		} else {
+			$scope.albums = artist.albums;
+		}
+		window.scrollTo(0, 0);
+		$rootScope.upPath = $location.path().substring(0, $location.path().indexOf("/artist/"));
 	});
 
 	$scope.getAlbum = function(album) {
 		switchView.album(album, $scope.Artist);
-		$("#artistOverviewView").removeClass("child").addClass("parent").removeClass("view");
-		$("#artistView").removeClass("child").addClass("parent").removeClass("view");
-		$("#albumView").removeClass("child").removeClass("parent").addClass("view");
 		$(".snap-content").get(0).scrollTop = 0;
 	};
 	$scope.closeView = function() {
 		var path = $location.path();
-		window.location.href = "#" + path.substring(0, path.indexOf("/artist/"));
+		document.location.href = "#" + path.substring(0, path.indexOf("/artist/"));
 	};
 
 	// sorting
@@ -41,6 +45,12 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 							_gaq.push(['_trackPageview', '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist]);
 						}
 						window.document.title = 'JSMusicDB - ' + $routeParams.artist;
+						$rootScope.pageTitle = $routeParams.artist + '<span class="artist">' + $routeParams.letter + '</span>';
+						localStorage.removeItem("state");
+						localStorage.setItem("state", JSON.stringify({
+							url : '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist
+						}));
+						$rootScope.rootView = false;
 						switchView.artist(this, true);
 						return false;
 					}
@@ -94,7 +104,7 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 						if (next < 0) {
 							$rootScope.$broadcast("keyOutOfBoundsUp", code);
 							$scope.navIndex = next;
-							$scope.$apply();
+							//$scope.$apply();
 							$scope.inLetterNav = true;
 						}
 					
@@ -103,7 +113,7 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 						}
 						if (!$scope.inLetterNav) {
 							$scope.navIndex = next;
-							$scope.$apply();
+							//$scope.$apply();
 							// scroll to active element
 							if ($(".media-list .highlight").length === 1) {
 								var top = $(".media-list .highlight").position().top - 80;
@@ -114,6 +124,10 @@ function($scope, $http, ImageService, switchView, $location, $routeParams, $root
 				};
 			}
 			$rootScope.contentPath = $location.path();
+		});
+		$scope.$on("backbutton", function() {
+			console.log("ArC: capture backbutton");
+			$scope.closeView();
 		});
 	}
 }]);

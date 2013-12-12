@@ -1,0 +1,595 @@
+/* header */
+header {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 62px;
+	background: #333333;
+	z-index: 1000;
+}
+header.container {
+	overflow: visible;
+}
+header h1 {
+	color: #ffffff;
+	display: inline-block;
+	font-size: 22px;
+	width: 90%;
+	margin-top: 0px;
+	line-height: 1.2;
+	margin-left: -4.5%;
+	margin-bottom: 0;
+	height: 62px;
+}
+header h1 > a {
+	color: #ffffff;
+	display: block;
+	line-height: 1.2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-top: 0px;
+	text-decoration: none;
+	padding-top: 8px;
+	height: 54px;
+	-webkit-transition: all 0.15s ease-out;
+	-moz-transition: all 0.15s ease-out;
+	-o-transition: all 0.15s ease-out;
+	-ms-transition: all 0.15s ease-out;
+	transition: all 0.15s ease-out;
+}
+header h1 > a:active {
+	background: #38C0F4;
+}
+.media a .card {
+	-webkit-transition: all 0.15s ease-out;
+	-moz-transition: all 0.15s ease-out;
+	-o-transition: all 0.15s ease-out;
+	-ms-transition: all 0.15s ease-out;
+	transition: all 0.15s ease-out;
+}
+.media a:active .card {
+	background: #38C0F4;
+}
+header h1 > a:hover, header h1 > a:active, header h1 > a:focus {
+	color: #ffffff;
+	text-decoration: none;
+	outline: none;
+}
+header h1 > a .artist {
+	color: #AAAAAA;
+	font-size: 14px;
+	display: block;
+	margin-top: -2px;
+	line-height: 1.2;
+}
+header h1 i, header h1.toggle i {
+	margin: 12px 5px 0 0px;
+	float: left;
+	width: 17px;
+	text-align: left;
+	
+	-webkit-transition: all 0.15s ease-out;
+	-moz-transition: all 0.15s ease-out;
+	-o-transition: all 0.15s ease-out;
+	-ms-transition: all 0.15s ease-out;
+	transition: all 0.15s ease-out;
+	
+	-webkit-transform: translate3d(8px, 0, 0);
+	-moz-transform: translate3d(8px, 0, 0);
+	-ms-transform: translate3d(8px, 0, 0);
+	transform: translate3d(8px, 0, 0);
+}
+header h1.toggle i {
+	-webkit-transform: translate3d(-2px, 0, 0);
+	-moz-transform: translate3d(-2px, 0, 0);
+	-ms-transform: translate3d(-2px, 0, 0);
+	transform: translate3d(-2px, 0, 0);
+}
+.snapjs-left header h1 i, .snapjs-left header h1.toggle i {
+	-webkit-transform: translate3d(-8px, 0, 0);
+	-moz-transform: translate3d(-8px, 0, 0);
+	-ms-transform: translate3d(-8px, 0, 0);
+	transform: translate3d(-8px, 0, 0);
+}
+header h1 img {
+	display: block;
+	float: left;
+	margin: 0 5px 0 0;
+} 
+header .dropdown {
+	display: inline-block;
+	float: right;
+	margin: 20px 0 0 0;
+}
+header .dropdown button {
+	border: 0;
+	background: none;
+	color: #ffffff;
+	font-size: 22px;
+}
+header .dropdown-menu {
+	float: none;
+	left: 10px;
+	position: fixed;
+	right: 10px;
+	top: 45px;
+}
+header .dropdown-menu li {
+	display: inline-block;
+}
+header .dropdown-menu li a {
+	padding: 10px 0;
+	text-align: center;
+	white-space: nowrap;
+	width: 40px;
+}
+header .dropdown-menu li.active a {
+	background: #E5E5E5;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125) inset;
+	color: #555555;
+	text-decoration: none;
+}
+header button {
+	margin-top: -6px;
+}
+.snap-content {
+	min-height: 89.5%;
+	-webkit-transform: translate3d(0, 0, 0) !important;
+	-moz-transform: translate3d(0, 0, 0) !important;
+	-ms-transform: translate3d(0, 0, 0) !important;
+	transform: translate3d(0, 0, 0) !important;
+}
+.wrapper {
+	margin-bottom: 0;
+}
+.snap-drawer-left {
+	position: fixed;
+	-webkit-transform: translate3d(-265px, 0, 0) !important;
+	-moz-transform: translate3d(-265px, 0, 0) !important;
+	-ms-transform: translate3d(-265px, 0, 0) !important;
+	transform: translate3d(-265px, 0, 0) !important;
+	-webkit-transition: all 0.15s ease-out;
+	-moz-transition: all 0.15s ease-out;
+	-o-transition: all 0.15s ease-out;
+	-ms-transition: all 0.15s ease-out;
+	transition: all 0.15s ease-out;
+	z-index: 10;
+}
+
+/* snap open */
+.snapjs-left .snap-content {
+	-webkit-transform: translate3d(0, 0, 0) !important;
+	-moz-transform: translate3d(0, 0, 0) !important;
+	-ms-transform: translate3d(0, 0, 0) !important;
+	transform: translate3d(0, 0, 0) !important;
+	
+}
+.snapjs-left .snap-content:after {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: #000;
+	opacity: 0.5;
+	z-index: 10;
+	content: '&nbsp;';
+	
+	-webkit-transition: all 0.15s ease-out;
+	-moz-transition: all 0.15s ease-out;
+	-o-transition: all 0.15s ease-out;
+	-ms-transition: all 0.15s ease-out;
+	transition: all 0.15s ease-out;
+}
+.snapjs-left .snap-drawer-left {
+	-webkit-transform: translate3d(0, 0, 0) !important;
+	-moz-transform: translate3d(0, 0, 0) !important;
+	-ms-transform: translate3d(0, 0, 0) !important;
+	transform: translate3d(0, 0, 0) !important;
+}
+
+.snap-drawer-left > ul {
+	padding: 0;
+}
+.snap-drawer-left > ul li {
+	padding: 0 15px;
+	border-bottom: 1px solid #eeeeee;
+	
+}
+.snap-drawer-left > ul li a {
+	color: #333333;
+	margin:0 -15px;
+}
+.snap-drawer-left > ul li i {
+	display: inline-block;
+	margin:0 5px 0 0;
+}
+.snap-drawer-left > ul li a:hover, .snap-drawer-left > ul li a:focus {
+	background: #38C0F4;
+}
+/* main */
+#main, .snap-drawer-left {
+	padding-top: 67px;
+}
+#main .container {
+	padding: 0 2%;
+}
+/* media-list */
+.media-list {
+
+}
+.media-list .media {
+	margin: 0 0 5px;
+}
+.media-list .media .card {
+	border: 1px solid #e3e3e3;
+	padding: 7px;
+	background: #ffffff;
+	margin: 0;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	width: 100%;
+	overflow: hidden;
+}
+.media-list .media .card .image-wrapper {
+	display: block;
+	float: left;
+	width: 72px;
+	height: 72px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+	opacity: 1;
+}
+.media-list .media .card .details {
+	display: block;
+	float: left;
+	margin: 17px 0 0 15px;
+	width: 71%;
+}
+.media-list .media .actions {
+	bottom: auto;
+	display: block;
+	right: -3px;
+	top: -3px;
+}
+
+/* album details */
+#albumView .albumDetails {
+	overflow: hidden;
+}
+#albumView .albumDetails .art {
+	width: 29.5%;
+	float: left;
+	margin: 10px 0 0 3px;
+	border-radius: 3px;
+	border: 1px solid #999;
+	box-shadow: none;
+}
+#albumView .albumDetails .actions {
+	display: block;
+	left: -3px;
+	top: -3px;
+}
+#albumView .albumDetails .details {
+	width: 66%;
+	margin: 10px 0 0 3%;
+	float: left;
+}
+#albumView .albumDetails .details table {
+	margin: 0;
+	font-size: 13px;
+}
+#albumView .albumDetails .details table td {
+	line-height: 1.1;
+	padding: 4px;
+	height: 13px;
+}
+
+/* track listing */
+#albumView table th, table tr th, #albumView table td, table tr td {
+	border-left: 0;
+	line-height: 1;
+	padding: 15px 7px;
+	height: auto;
+	background: #ffffff;
+	outline: none;
+}
+#albumView table td.trackno, #albumView table td.dur, #OverviewView table td.trackno {
+	color: #3A87AD;
+}
+#albumView table td.trackno,
+#OverviewView table td.trackno {
+	width: 25px;
+	padding-bottom: 0;
+}
+#albumView table td.trackno span,
+#OverviewView table td.trackno span {
+	display: block;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	overflow: hidden;
+}
+#albumView table td.dur {
+	width: 83px;
+}
+#albumView table td button {
+	display: inline-block;
+    margin-top: -2px;
+    position: absolute;
+    right: 10px;
+}
+
+/* mini player */
+#player {
+	background: #333333;
+	height: 96px;
+}
+#player .thumbnail {
+	display: none;
+}
+#player .progressBar .time {
+	display: none;
+}
+#player .progressBar .progress {
+	margin: 0 -15px;
+	border: 0;
+	border-radius: 0;
+}
+#player .span11 > .span5 {
+	margin: 0;
+	padding: 0;
+}
+#player .span11 > .span4 {
+	margin-top: -11px;
+}
+#player .span11 .toggleMaximize {
+	display: none;
+}
+#player .info-Title {
+	margin: 5px 0 0;
+	line-height: 1.2;
+	color: #FFFFFF;
+	font-size: 22px;
+	width: 330px;
+}
+#player .info {
+	color: #aaaaaa;
+	font-size: 10px;
+	width: 330px;
+	margin-top: -5px;
+}
+#player button {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none;
+	color: #E1E1E1;
+	font-size: 30px;
+	margin-right: 10px;
+	text-align: center;
+	width: 32px;
+}
+#player button.small {
+	font-size: 18px;
+}
+#player .btn-group {
+	margin-right: 30px;
+}
+.isPlaying .wrapper {
+	margin-bottom: 96px;
+}
+#player .progress {
+	background-image: -moz-linear-gradient(top, #666, #333);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#333));
+	background-image: -webkit-linear-gradient(top, #666, #333);
+	background-image: -o-linear-gradient(top, #666, #333);
+	background-image: linear-gradient(to bottom, #666, #333);
+}
+/* maximized player */
+#player.maximized {
+	top: 62px;
+	background: #f5f5f5;
+}
+#player.maximized .thumbnail {
+	display: block;
+	width: 100%;
+	float: none;
+}
+#player.maximized  .progressBar .time {
+	display: block;
+}
+#player.maximized  .progressBar .progress {
+	margin: 0 55px;
+}
+#player.maximized .info-Title {
+	margin: 15px 0 0;
+	line-height: 1.2;
+	color: #000000;
+	font-size: 32px;
+	width: auto;
+}
+#player.maximized .info {
+	color: #666666;
+	font-size: 20px;
+	width: auto;
+	line-height: 1.2;
+}
+#player.maximized .span11 {
+	float: none;
+	margin-left: 0;
+	width: 100%;
+}
+#player.maximized .span11 > .span11 > .span11 {
+	margin-top: 15px;
+}
+#player.maximized .span11 .toggleMaximize {
+	display: inline;
+}
+#player.maximized button {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none;
+	color: #333333;
+	font-size: 30px;
+	margin-right: 10px;
+	text-align: center;
+	width: 32px;
+}
+#player.maximized .progress {
+	background-image: -moz-linear-gradient(top, #f5f5f5, #f9f9f9);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f9f9f9));
+	background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+	background-image: -o-linear-gradient(top, #f5f5f5, #f9f9f9);
+	background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+}
+/* playlist */
+#playlistSelector {
+	display: none;
+}
+#trackPlaylist table th, #trackPlaylist table td {
+	border-left: 0;
+	line-height: 1;
+	padding: 15px 7px;
+	height: auto;
+	background: #ffffff;
+	font-size: 12px;
+}
+#trackPlaylist table td.trackno, #trackPlaylist table td.dur {
+	color: #3A87AD;
+}
+#trackPlaylist table td.trackno {
+	width: 10px;
+	padding-bottom: 0;
+}
+#trackPlaylist table td.trackno span {
+	display: block;
+	width: 10px;
+	height: 10px;
+	text-align: center;
+	overflow: hidden;
+}
+#trackPlaylist table td.dur {
+	width: 60px;
+}
+#trackPlaylist table td button {
+	right: 5px;
+	margin-top: -16px;
+	position: absolute;
+	display: block;
+}
+
+/* overrides for landscape */
+@media (min-width: 481px) {
+	#albumView .albumDetails .art {
+		margin: 10px 0;
+	}
+	#albumView table {
+		width: 100%;
+	}
+	#albumView table td button {
+		margin-top: -8px;
+	}
+	#player .span11 > .span5 {
+		width: 95%;
+	}
+	#player .span11 > .span4 .playstate {
+		bottom: 21px;
+		right: -603px;
+	}
+	#player.maximized .thumbnail {
+		width: 47%;
+		float: left;
+	}
+	#player.maximized .span11 {
+		margin-left: 0;
+		float: none;
+	}
+	#player.maximized .span11 > .span11 {
+		margin-left: 3%;
+		margin-top: 15px;
+		width: 50%;
+		float: left;
+	}
+	#player.maximized .span11 > .span11 .span11 {
+		float: none;
+		width: 100%;
+		margin: 0;
+	}
+	#player.maximized .span11 > .span5 {
+		width: 100%;
+		float: none;
+	}
+	#player.maximized .span11 > .span4 {
+		width: 100%;
+		float: none;
+		margin-top: 20px;
+	}
+	#player.maximized .btn {
+		padding: 9px 12px;
+	}
+	#trackPlaylist table td.dur {
+		width: 75px;
+	}
+	#trackPlaylist table td button {
+		margin-top: -21px;
+	}
+}
+
+/* tablet UI */
+@media (min-width: 640px) {
+	.media-list .media {
+		margin: 0 2% 1% 0;
+    	width: 23%;
+	}
+	.media-list .media .card .image-wrapper {
+		float: none;
+		width: 100%;
+		height: 120px;
+	}
+	.media-list .media .card .details {
+		float: none;
+		width: 100%;
+		margin: 10px 0 0;
+	}
+	#albumView .albumDetails .art {
+		width: 14.5%;
+		border-radius: 3px;
+		border: 1px solid #999;
+		box-shadow: none;
+	}
+	#albumView .albumDetails .details {
+		width: 82%;
+		margin-bottom: 2%;
+	}
+	#albumView table td.trackno {
+		width: 35px;
+	}
+	#albumView table td.dur {
+		width: 95px;
+	}
+	#albumView .albumDetails .details table td {
+		height: auto;
+		padding: 7px 7px 7px 14px;
+	}
+	.table tr button {
+		margin-top: -6px;
+		position: absolute;
+		right: 10px;
+	}
+	#player .info-Title {
+		width: 100%;
+	}
+	#player .info {
+		width: 100%;
+	}
+}
+
+/* desktop */
+@media (min-width: 1025px) {
+	#player .progressBar {
+		left: 0;
+	    position: absolute;
+	    width: 100%;
+	}
+	#player .span11 > .span11 .span5 {
+		padding-top: 13px;
+	}
+}

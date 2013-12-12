@@ -34,6 +34,8 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		} else {
 			src = track.path;
 		}
+		$rootScope.addRecent(track);
+
 		audiotag.src = src;
 		audiotag.load();
 		audiotag.play();
@@ -113,13 +115,13 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 			audiotag.currentTime = time;
 		}
 	};
-	$scope.muteState = 'up';
+	$scope.muteState = 'high';
 	$scope.toggleMute = function() {
-		if ($scope.muteState === 'up') {
-			$scope.muteState = 'off';
+		if ($scope.muteState === 'high') {
+			$scope.muteState = 'mute';
 			audiotag.volume = 0;
 		} else {
-			$scope.muteState = 'up';
+			$scope.muteState = 'high';
 			audiotag.volume = 1;
 		}
 	};
@@ -141,34 +143,37 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		playerService.scrobble($scope);
 		$scope.scrobbeld = true;
 	};
-	$scope.playlistView = 'list';
+	$scope.playlistView = 'navicon';
 	$scope.toggleView = function() {
-		if ($scope.playlistView === 'list') {
+		if ($scope.playlistView === 'navicon') {
 			$location.path('/playlist');
-			$scope.playlistView = 'th';
+			$scope.playlistView = 'grid';
 		} else {
 			$location.path($rootScope.contentPath);
-			$scope.playlistView = 'list';
+			$scope.playlistView = 'navicon';
 		}
 	};
 
-	$scope.isRandom = 'random';
+	$scope.isRandom = 'shuffle';
 	$scope.toggleRandom = function() {
-		if ($scope.isRandom === 'random') {
+		if ($scope.isRandom === 'shuffle') {
 			playerService.isRandom = true;
 			playerService.random();
-			$scope.isRandom = 'arrow-right';
+			$scope.isRandom = 'arrow-right-a';
 		} else {
 			playerService.isRandom = false;
 			playerService.random();
-			$scope.isRandom = 'random';
+			$scope.isRandom = 'shuffle';
 		}
 	};
 	$scope.hide = function() {
 		$("#player").addClass("noshow");
 	};
+	$scope.maximize = function() {
+		$("#player").addClass("maximized");
+	};
 	$scope.show = function() {
-		$("#player").removeClass("noshow");
+		$("#player").removeClass("noshow").removeClass("maximized");
 	};
 
 	$scope.albumart = function() {

@@ -17,4 +17,22 @@ jsmusicdb.Album = function(node) {
 		format : 'json',
 		autoCorrect : true
 	};
+	that.inLocalDevice = false;
+	that.isVisible = true;
+	that.albumURL = function () {
+		return "/letter/" + getFirstLetter(node.Artiest) + "/artist/" + node.Artiest + "/album/" + node.Album;
+	};
+	function getFirstLetter(name) {"use strict";
+		name = stripThe(name);
+		var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'], firstLetter = name.charAt(0);
+		if ($.inArray(firstLetter, specialChars) > -1) {
+			firstLetter = "1";
+		}
+		return "" + firstLetter;
+	}
+	function stripThe(name) {"use strict";
+		name = $.trim(name.toUpperCase());
+		name = (name.indexOf("THE ") === 0) ? name.substring(4) : name;
+		return name;
+	}
 };
