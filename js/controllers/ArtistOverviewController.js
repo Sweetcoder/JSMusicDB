@@ -3,7 +3,6 @@ jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView
         "use strict";
 
         $scope.$on('letterChange', function (e, letter) {
-            console.log("letter changed to " + letter.letter + " artists:" + letter.artistsLocal.length);
             // show artists based on source
             if ($rootScope.source === 'local') {
                 $scope.Artists = letter.artistsLocal;
@@ -110,7 +109,7 @@ jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView
                         _gaq.push(['_trackPageview', '/letter/' + $routeParams.letter]);
                     }
                     window.document.title = 'JSMusicDB - letter: ' + $routeParams.letter;
-                    $rootScope.pageTitle = $routeParams.letter + '<span class="artist">Mobile MusicDB</span>';
+                    $rootScope.pageTitle = $routeParams.letter;
                     switchView.routeLetter($routeParams.letter);
 
                     setupKeyboardNav();

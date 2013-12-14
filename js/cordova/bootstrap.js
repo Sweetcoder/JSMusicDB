@@ -38,7 +38,6 @@ document.addEventListener('deviceready', function() {
 			}
 		}
 		if (!hasFolder) {
-			console.log("go init, no cache folder cordova");
 			initAngular();
 		}
 	};
@@ -59,7 +58,6 @@ document.addEventListener('deviceready', function() {
 		}
 		if (!hasCache) {
 			// no cahced music file
-			console.log("no cached music.json file");
 			initAngular();
 		}
 	}
@@ -69,7 +67,6 @@ document.addEventListener('deviceready', function() {
 		reader.onloadend = function(evt) {
 			var json = JSON.parse(evt.target.result);
 			window.jsonCache = json;
-			console.log("Got a cached music.json file");
 			initAngular();
 		};
 		reader.readAsText(file);
@@ -82,7 +79,6 @@ document.addEventListener('deviceready', function() {
 	function initAngular() {
 		if (!bootstrapped) {
 			bootstrapped = true;
-			console.log('init angular');
 			angular.bootstrap(document, ['jsmusicdb']);
 		}
 	}
@@ -90,11 +86,8 @@ document.addEventListener('deviceready', function() {
 
 // debug
 $(function() {
-	//console.log("DEBUG: trigger cordova");
-	//var event = new Event('deviceready');
-	//document.dispatchEvent(event);
 	if (!window.cordova) {
-		console.log("no cordova");
+		
 		angular.bootstrap(document, ['jsmusicdb']);
 	}
 });

@@ -4,7 +4,7 @@
         <p>By clicking the <i class="ion-grid"></i> you can choose the first letter of the artist.</p>
         <p>More settings and info can be found behind the <i class="ion-navicon-round"></i></p>
     </div>
-    <h2 ng-if="!showIntro">Top tracks</h2>
+    <h2 ng-if="!showIntro" ng-hide="!timestamp || timestamp == ''">Top tracks</h2>
     <table class="table table-bordered table-striped">
     	<tr ng-repeat="track in Tracks track by $index">
     		<td class="trackno"><span>{{track.data.played}}</span></td>
@@ -12,7 +12,7 @@
     		<td>{{track.track.Titel}}</td>
     	</tr>
     </table>
-    <h2 ng-if="!showIntro">Recent Artists</h2>
+    <h2 ng-if="!showIntro" ng-hide="!timestamp || timestamp == ''">Recent Artists</h2>
     <ul class="media-list">
         <li class="media" ng-repeat="artist in Artists track by $index" ng-controller="ArtistController">
             <a ng-href="#{{artist.artistURL()}}">
@@ -31,7 +31,7 @@
             </div> </a>
         </li>
     </ul>
-    <h2 ng-if="!showIntro">Recent Albums</h2>
+    <h2 ng-if="!showIntro" ng-hide="!timestamp || timestamp == ''">Recent Albums</h2>
     <ul class="media-list">
         <li class="media" ng-repeat="album in Albums track by $index" ng-controller="AlbumController">
             <a ng-href="#{{album.albumURL()}}">

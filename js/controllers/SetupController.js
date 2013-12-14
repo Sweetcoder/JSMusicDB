@@ -1,7 +1,6 @@
 jsmusicdb.controller('SetupController', ['$scope', '$rootScope', '$http',
     function ($scope, $rootScope, $http) {
         "use strict";
-        $rootScope.parsed = true;
         window.document.title = 'JSMusicDB - Setup';
         if (window._gaq) {
             _gaq.push(['_trackPageview', '/setup']);

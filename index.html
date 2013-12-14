@@ -83,14 +83,13 @@
                     <button class="dropdown-toggle" data-toggle="dropdown">
                         <i class="ion-grid"></i>
                     </button>
-                    <ul class="dropdown-menu" role="menu" ng-controller="LetterController">
+                    <ul class="dropdown-menu" role="menu" ng-controller="LetterController"  ng-hide="!timestamp || timestamp == ''">
                         <li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
                             <a ng-href="#/letter/{{firstletter}}" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">{{firstletter}}</a>
                         </li>
                     </ul>
                 </div>
-                <h1 class="toggle" ng-if="rootView"><a href="#"><i class="ion-navicon-round" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i><img src="images/icon.png" width="45"/><span ng-bind-html="pageTitle"></span></a></h1>
-                <h1 ng-if="!rootView"><a ng-href="#{{upPath}}" class="up"><i class="ion-chevron-left" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i> <img src="images/icon.png" width="45"/><span ng-bind-html="pageTitle"></span></a></h1>
+                <h1 class="toggle"><a href="#"><i class="ion-navicon-round" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i><img src="images/icon.png" width="45"/><span ng-bind-html="pageTitle"></span></a></h1>
             </div>
         </header>
 		<div class="snap-content" id="main" style="display: none;">
@@ -105,7 +104,6 @@
 					<div ng-view class="wrapper"></div>
 				</div>
 				<div ng-show="!timestamp || timestamp == ''">
-					<h1 class="toggle"><i class="icon-align-justify" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i>JSMusicDB</h1>
 					<div class="alert alert-error">
 						<strong>Please note!</strong> No files found, the scanner is either busy or hasn't run yet. Please come back shortly.
 					</div>

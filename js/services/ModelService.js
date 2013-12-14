@@ -6,7 +6,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 			var scope = $scope, start = new Date();
 			$http.get($rootScope.wizardData.url + $rootScope.wizardData.incrementlocation).success(function(data) {
 				if (data) {
-					var ts = data[data.length -1].ts;
+					var ts = data[data.length - 1].ts;
 					if (scope.lastIncrementDate !== ts) {
 						console.log("parse new data");
 						angular.forEach(data, function(value, key) {
@@ -27,24 +27,26 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 			var start = new Date();
 			$rootScope.debug.push('JSON fetched in ' + (start - mainStart) + ' ms');
 			// save it to a local file
-			try {
-			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-				fileSystem.root.getDirectory("org.arielext.mobilemusicdb", {create: true}, function (dirEntry){
-					dirEntry.getFile("music.json", {create: true, exclusive: true}, function(fileEntry){
-						fileEntry.createWriter(function(writer){
-							writer.write(JSON.stringify(data));
-						});
-					});
-				});
-			});
-			} catch (e) {
-			}
+			/*
+			 try {
+			 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+			 fileSystem.root.getDirectory("org.arielext.mobilemusicdb", {create: true}, function (dirEntry){
+			 dirEntry.getFile("music.json", {create: true, exclusive: true}, function(fileEntry){
+			 fileEntry.createWriter(function(writer){
+			 writer.write(JSON.stringify(data));
+			 });
+			 });
+			 });
+			 });
+			 } catch (e) {
+			 }
+			 */
 			callback(data);
 		});
 	};
 	this.parseJSON = function(data, switchView, $rootScope, $location, $routeParams, ctl, $scope, $http, callback, source) {
 		var start = new Date();
-			$rootScope.nonParseable = false;
+		$rootScope.nonParseable = false;
 		if (data[0] !== "<") {
 			angular.forEach(data, function(value, key) {
 				that.parseData(value, key, $scope, $rootScope, false, source);
@@ -53,7 +55,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 			that.fetched = true;
 			that.setupModels(switchView, $rootScope, $location, $routeParams, ctl);
 		}
-			callback();
+		callback();
 	};
 	this.setupModels = function(switchView, $rootScope, $location, $routeParams, ctl) {
 		// push all letters in a simple array
@@ -119,7 +121,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 						$rootScope.artistCache[stripThe(value.Naam)] = artist;
 						$rootScope.letterCache[getFirstLetter(value.Naam)].artists.push(artist);
 						if (updateTotals) {
-							$rootScope.totalArtists++;	
+							$rootScope.totalArtists++;
 						}
 						artist.letterNode = $rootScope.letterCache[getFirstLetter(value.Naam)];
 					}
@@ -135,7 +137,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 						$rootScope.artistCache[stripThe(album.Artiest)].albums.push(album);
 						album.artistNode = $rootScope.artistCache[stripThe(album.Artiest)];
 						if (updateTotals) {
-							$rootScope.totalAlbums++;	
+							$rootScope.totalAlbums++;
 						}
 					}
 				}
@@ -151,7 +153,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 						if (updateTotals) {
 							$rootScope.totalTracks++;
 							$rootScope.totalPlaying = $scope.totalPlaying + 2500;
-						}	
+						}
 						if (source === "local") {
 							// on device
 							track.inLocalDevice = true;
@@ -173,7 +175,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 					// TODO: do we want to log this/report these?
 					// console.log("no album found for",stripThe(value.Artiest) + "-" + value.Album, $rootScope.albumCache);
 				}
-				
+
 				break;
 			case 'ts':
 				break;
