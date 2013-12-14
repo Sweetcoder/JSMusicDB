@@ -1,8 +1,11 @@
-
+.idea
 .metadata
 .settings
+.git
+.project
+.pydevproject
+
 music.json
 /music.json
 testmusic
-settings.json
 settings.json
