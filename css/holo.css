@@ -589,7 +589,45 @@ header button {
 	    position: absolute;
 	    width: 100%;
 	}
-	#player .span11 > .span11 .span5 {
-		padding-top: 13px;
-	}
+
+    #player .span11 {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    #player .span11 > .span11 .span5 {
+        padding-top: 13px;
+    }
+
+    #player.maximized {
+        top: 118px;
+    }
+
+    #player.maximized .progressBar {
+        margin-top: 15px;
+        width: 50%;
+        position: relative;
+    }
+
+    header {
+        height: 118px;
+    }
+
+    header .dropdown-toggle {
+        display: none;
+    }
+
+    header .dropdown-menu {
+        display: block;
+        top: 55px;
+    }
+
+    header h1 {
+        position: absolute;
+        margin-left: 0;
+    }
+
+    #main, .snap-drawer-left {
+        padding-top: 122px;
+    }
 }
