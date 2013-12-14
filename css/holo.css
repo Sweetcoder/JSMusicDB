@@ -69,13 +69,11 @@ header h1 i, header h1.toggle i {
 	float: left;
 	width: 17px;
 	text-align: left;
-	
 	-webkit-transition: all 0.15s ease-out;
 	-moz-transition: all 0.15s ease-out;
 	-o-transition: all 0.15s ease-out;
 	-ms-transition: all 0.15s ease-out;
 	transition: all 0.15s ease-out;
-	
 	-webkit-transform: translate3d(8px, 0, 0);
 	-moz-transform: translate3d(8px, 0, 0);
 	-ms-transform: translate3d(8px, 0, 0);
@@ -97,7 +95,7 @@ header h1 img {
 	display: block;
 	float: left;
 	margin: 0 5px 0 0;
-} 
+}
 header .dropdown {
 	display: inline-block;
 	float: right;
@@ -164,7 +162,6 @@ header button {
 	-moz-transform: translate3d(0, 0, 0) !important;
 	-ms-transform: translate3d(0, 0, 0) !important;
 	transform: translate3d(0, 0, 0) !important;
-	
 }
 .snapjs-left .snap-content:after {
 	position: fixed;
@@ -176,7 +173,6 @@ header button {
 	opacity: 0.5;
 	z-index: 10;
 	content: '&nbsp;';
-	
 	-webkit-transition: all 0.15s ease-out;
 	-moz-transition: all 0.15s ease-out;
 	-o-transition: all 0.15s ease-out;
@@ -196,15 +192,14 @@ header button {
 .snap-drawer-left > ul li {
 	padding: 0 15px;
 	border-bottom: 1px solid #eeeeee;
-	
 }
 .snap-drawer-left > ul li a {
 	color: #333333;
-	margin:0 -15px;
+	margin: 0 -15px;
 }
 .snap-drawer-left > ul li i {
 	display: inline-block;
-	margin:0 5px 0 0;
+	margin: 0 5px 0 0;
 }
 .snap-drawer-left > ul li a:hover, .snap-drawer-left > ul li a:focus {
 	background: #38C0F4;
@@ -297,13 +292,11 @@ header button {
 #albumView table td.trackno, #albumView table td.dur, #OverviewView table td.trackno {
 	color: #3A87AD;
 }
-#albumView table td.trackno,
-#OverviewView table td.trackno {
+#albumView table td.trackno, #OverviewView table td.trackno {
 	width: 25px;
 	padding-bottom: 0;
 }
-#albumView table td.trackno span,
-#OverviewView table td.trackno span {
+#albumView table td.trackno span, #OverviewView table td.trackno span {
 	display: block;
 	width: 25px;
 	height: 25px;
@@ -315,9 +308,9 @@ header button {
 }
 #albumView table td button {
 	display: inline-block;
-    margin-top: -2px;
-    position: absolute;
-    right: 10px;
+	margin-top: -2px;
+	position: absolute;
+	right: 10px;
 }
 
 /* mini player */
@@ -335,6 +328,12 @@ header button {
 	margin: 0 -15px;
 	border: 0;
 	border-radius: 0;
+}
+#player .span11 .span11 {
+	width: 83%;
+}
+#player .span11 .progressBar {
+	width: 100%;
 }
 #player .span11 > .span5 {
 	margin: 0;
@@ -383,6 +382,10 @@ header button {
 	background-image: -webkit-linear-gradient(top, #666, #333);
 	background-image: -o-linear-gradient(top, #666, #333);
 	background-image: linear-gradient(to bottom, #666, #333);
+}
+#player #analyser_render {
+	float: right;
+	width: 17%;
 }
 /* maximized player */
 #player.maximized {
@@ -439,6 +442,14 @@ header button {
 	background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
 	background-image: -o-linear-gradient(top, #f5f5f5, #f9f9f9);
 	background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+}
+#player.maximized #analyser_render {
+	display: block;
+	float: left;
+	margin-left: 3%;
+	width : 50%;
+	margin-top: 15px;
+	position: static;
 }
 /* playlist */
 #playlistSelector {
@@ -537,7 +548,7 @@ header button {
 @media (min-width: 640px) {
 	.media-list .media {
 		margin: 0 2% 1% 0;
-    	width: 23%;
+		width: 23%;
 	}
 	.media-list .media .card .image-wrapper {
 		float: none;
@@ -586,48 +597,49 @@ header button {
 @media (min-width: 1025px) {
 	#player .progressBar {
 		left: 0;
-	    position: absolute;
-	    width: 100%;
+		position: absolute;
+		width: 100%;
 	}
 
-    #player .span11 {
-        margin-left: 0;
-        width: 100%;
-    }
+	#player .span11 {
+		margin-left: 0;
+		width: 100%;
+	}
 
-    #player .span11 > .span11 .span5 {
-        padding-top: 13px;
-    }
+	#player .span11 > .span11 .span5 {
+		padding-top: 13px;
+	}
 
-    #player.maximized {
-        top: 118px;
-    }
+	#player.maximized {
+		top: 118px;
+	}
 
-    #player.maximized .progressBar {
-        margin-top: 15px;
-        width: 50%;
-        position: relative;
-    }
+	#player.maximized .progressBar {
+		margin-top: 15px;
+		width: 50%;
+		position: relative;
+	}
 
-    header {
-        height: 118px;
-    }
+	header {
+		height: 118px;
+	}
 
-    header .dropdown-toggle {
-        display: none;
-    }
+	header .dropdown-toggle {
+		display: none;
+	}
 
-    header .dropdown-menu {
-        display: block;
-        top: 55px;
-    }
+	header .dropdown-menu {
+		display: block;
+		top: 55px;
+		text-align: center;
+	}
 
-    header h1 {
-        position: absolute;
-        margin-left: 0;
-    }
+	header h1 {
+		position: absolute;
+		margin-left: 0;
+	}
 
-    #main, .snap-drawer-left {
-        padding-top: 122px;
-    }
+	#main, .snap-drawer-left {
+		padding-top: 122px;
+	}
 }
