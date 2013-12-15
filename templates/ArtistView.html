@@ -14,14 +14,14 @@
     <h2>Collection</h2>
     
         <ul class="media-list">
-            <li class="media" ng-repeat="album in albums  | orderBy: sortService.sortAlbums" ng-controller="AlbumController" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">
-                <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{album.Artiest}}/album/{{album.Album}}">
+            <li class="media" ng-repeat="album in albums  | orderBy: sortService.sortAlbums" ng-controller="AlbumController" bo-class="{false: '', true: 'highlight'}[$index == navIndex]" bindonce>
+                <a bo-href="'#/letter/' + activeLetter.letter + '/artist/' + album.Artiest + '/album/' + album.Album">
                 <div class="card albumCard span3">
                     <div class="image-wrapper" bn-lazy-bg="{{artist.Naam}}|{{album.Album}}"></div>
                     <div class="details">
                         <div class="title fade-out">
-                            {{album.Album}}
-                            <span ng-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span>
+                            <span bo-text="album.Album"></span>
+                            <span bo-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span>
                         </div>
                         <div class="subtitle fade-out">
                             <ng-pluralize count="album.tracks.length" when="{'0': 'No tracks', '1': '1 track', 'other': '{} tracks'}"></ng-pluralize>

@@ -13,15 +13,13 @@
         </div>
         <h2>Artists</h2>
         <ul class="media-list">
-            <li class="media" ng-repeat="artist in Artists | orderBy: sortService.sortArtists" ng-controller="ArtistController" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">
-                <a ng-href="#/letter/{{activeLetter.letter}}/artist/{{artist.Naam}}">
+            <li class="media" ng-repeat="artist in Artists | orderBy: sortService.sortArtists" ng-controller="ArtistController" bo-class="{false: '', true: 'highlight'}[$index == navIndex]" bindonce>
+                <a bo-href="'#/letter/' + activeLetter.letter + '/artist/' + artist.Naam">
                 <div class="card artistCard span3">
 
                     <div class="image-wrapper" bn-lazy-bg="{{artist.Naam}}"></div>
                     <div class="details">
-                        <div class="title fade-out">
-                            {{artist.Naam}}
-                        </div>
+                        <div class="title fade-out" bo-text="artist.Naam"></div>
                         <div class="subtitle fade-out">
                             <ng-pluralize count="artist.albums.length" when="{'0': 'No albmus', '1': '1 album', 'other': '{} albums'}"></ng-pluralize>
                         </div>

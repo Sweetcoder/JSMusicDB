@@ -84,8 +84,8 @@
                         <i class="ion-grid"></i>
                     </button>
                     <ul class="dropdown-menu" role="menu" ng-controller="LetterController"  ng-hide="!timestamp || timestamp == ''">
-                        <li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]">
-                            <a ng-href="#/letter/{{firstletter}}" ng-class="{false: '', true: 'highlight'}[$index == navIndex]">{{firstletter}}</a>
+                        <li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]" bindonce>
+                            <a bo-href="'#/letter/'+firstletter" bo-class="{false: '', true: 'highlight'}[$index == navIndex]">{{firstletter}}</a>
                         </li>
                     </ul>
                 </div>
@@ -170,6 +170,7 @@
 		<script src="js/directives/lazy-src.js"></script>
 		<script src="js/directives/keytrap.js"></script>
 		<script src="js/directives/nokeytrap.js"></script>
+		<script src="js/directives/bindonce.js"></script>
 
 		<script src="js/filters/TimeFilter.js"></script>
 

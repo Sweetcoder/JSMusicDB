@@ -621,7 +621,7 @@ header button {
 	}
 
 	header {
-		height: 118px;
+		height: 84px;
 	}
 
 	header .dropdown-toggle {
@@ -632,6 +632,9 @@ header button {
 		display: block;
 		top: 55px;
 		text-align: center;
+	}
+	header .dropdown-menu li a {
+		width: 38px;
 	}
 
 	header h1 {
