@@ -25,7 +25,7 @@ jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', 
             switchView.letter(letter);
 
         };
-
+        // TODO: use watch; see other controllers.
         $scope.$on('routeLetterChange', function (e, l) {
             var digest = function (l) {
                 if ($rootScope.letters.length !== 0) {

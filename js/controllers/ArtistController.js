@@ -12,12 +12,12 @@ jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'sw
                 $scope.albums = artist.albums;
             }
             window.scrollTo(0, 0);
-            $rootScope.upPath = $location.path().substring(0, $location.path().indexOf("/artist/"));
+            // $rootScope.upPath = $location.path().substring(0, $location.path().indexOf("/artist/"));
         });
 
         $scope.getAlbum = function (album) {
             switchView.album(album, $scope.Artist);
-            $(".snap-content").get(0).scrollTop = 0;
+            // $(".snap-content").get(0).scrollTop = 0;
         };
         $scope.closeView = function () {
             var path = $location.path();
@@ -40,8 +40,8 @@ jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'sw
                     $rootScope.activeLetter = $rootScope.letterCache[$routeParams.letter];
                     $rootScope.activeLetter.active = true;
                     var activeLetter = $rootScope.activeLetter;
-                    $.each(activeLetter.artists, function () {
-                        if (this.Naam === $routeParams.artist) {
+                    angular.forEach(activeLetter.artists, function (value) {
+                        if (value.Naam === $routeParams.artist) {
                             if (window._gaq) {
                                 _gaq.push(['_trackPageview', '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist]);
                             }
@@ -52,7 +52,7 @@ jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'sw
                                 url: '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist
                             }));
                             $rootScope.rootView = false;
-                            switchView.artist(this, true);
+                            switchView.artist(value, true);
                             return false;
                         }
                     });

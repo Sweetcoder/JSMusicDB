@@ -17,14 +17,14 @@ jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView
             $.each($scope.Artists, function () {
                 if (this.Naam === artistName) {
                     switchView.artist(this);
-                    $(".snap-content").get(0).scrollTop = 0;
+                    window.scrollTo(0, 0);
                 }
             });
         });
 
         $scope.getArtist = function (artist) {
             switchView.artist(artist);
-            $(".snap-content").get(0).scrollTop = 0;
+            window.scrollTo(0, 0);
         };
 
         // sorting

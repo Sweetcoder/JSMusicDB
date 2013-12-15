@@ -1,28 +1,34 @@
-jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'playerService', '$location', '$routeParams', '$rootScope', 'switchView', 'sortService',
-    function ($scope, $http, ImageService, playerService, $location, $routeParams, $rootScope, switchView, sortService) {
+jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'playerService', '$location', '$routeParams', '$rootScope', 'switchView', 'sortService', '$log',
+    function ($scope, $http, ImageService, playerService, $location, $routeParams, $rootScope, switchView, sortService, $log) {
         "use strict";
+
+        // change album
         $scope.$on('albumChange', function (e, album, artist, update) {
             $scope.album = album;
             $scope.artist = artist;
-            $rootScope.upPath = $location.path().substring(0, $location.path().indexOf("/album/"));
             window.scrollTo(0, 0);
         });
+        $scope.albumstate = "plus";
+
+        // add album to playlist
         $scope.addToPlaylist = function (album) {
             playerService.addAlbum(album, $rootScope.playlist);
             $scope.albumstate = "minus";
         };
-        $scope.albumstate = "plus";
 
+        // remove album from playlist
         $scope.removeFromPlaylist = function (album) {
             playerService.removeAlbum(album);
             $scope.albumstate = "plus";
         };
 
+        // close this view (one up)
         $scope.closeView = function () {
             var path = $location.path();
             document.location.href = "#" + path.substring(0, path.indexOf("/album/"));
         };
-        // $scope.art = ImageService.getAlbumArt($scope);
+
+        // sort tracks in this view
         $scope.orderTracks = function (a) {
             var totalNumber = 0;
             if (a.Disc) {
@@ -34,6 +40,7 @@ jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'pla
             return totalNumber;
         };
 
+        // route information
         if ($routeParams.album) {
             $rootScope.$watch(function () {
                 return $rootScope.parsed;
@@ -46,11 +53,11 @@ jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'pla
                     if ($rootScope.activeLetter) {
                         $rootScope.activeLetter.active = true;
                         var activeLetter = $rootScope.activeLetter;
-                        $.each(activeLetter.artists, function () {
-                            if ($.trim(this.Naam).toLowerCase() === $routeParams.artist.toLowerCase()) {
-                                var artist = this;
-                                $.each(this.albums, function () {
-                                    if ($.trim(this.Album) === $routeParams.album) {
+                        angular.forEach(activeLetter.artists, function (value) {
+                            if ($.trim(value.Naam).toLowerCase() === $routeParams.artist.toLowerCase()) {
+                                var artist = value;
+                                angular.forEach(artist.albums, function (value) {
+                                    if ($.trim(value.Album) === $routeParams.album) {
                                         if (window._gaq) {
                                             _gaq.push(['_trackPageview', '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist + '/album/' + $routeParams.album]);
                                         }
@@ -60,8 +67,7 @@ jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'pla
                                         localStorage.setItem("state", JSON.stringify({
                                             url: '/letter/' + $routeParams.letter + '/artist/' + $routeParams.artist + '/album/' + $routeParams.album
                                         }));
-                                        $rootScope.rootView = false;
-                                        switchView.album(this, artist, true);
+                                        switchView.album(value, artist, true);
                                         return false;
                                     }
                                 });
@@ -141,7 +147,7 @@ jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'pla
                 $rootScope.contentPath = $location.path();
             });
             $scope.$on("backbutton", function () {
-                console.log("AlC: capture backbutton");
+                $log.info("AlC: capture backbutton");
                 $scope.closeView();
             });
         }
