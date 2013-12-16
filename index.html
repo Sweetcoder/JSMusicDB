@@ -83,11 +83,13 @@
                     <button class="dropdown-toggle" data-toggle="dropdown">
                         <i class="ion-grid"></i>
                     </button>
-                    <ul class="dropdown-menu" role="menu" ng-controller="LetterController"  ng-hide="!timestamp || timestamp == ''">
-                        <li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]" bindonce>
-                            <a bo-href="'#/letter/'+firstletter" bo-class="{false: '', true: 'highlight'}[$index == navIndex]">{{firstletter}}</a>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu" role="menu" ng-hide="!timestamp || timestamp == ''">
+                        <ul class="dropdown-menu container" ng-controller="LetterController" >
+                            <li ng-repeat="(firstletter, letter) in Letters" ng-class="{true: 'active', false: ''}[letter.active]" bindonce>
+                                <a bo-href="'#/letter/'+firstletter" bo-class="{false: '', true: 'highlight'}[$index == navIndex]">{{firstletter}}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <h1 class="toggle"><a href="#"><i class="ion-navicon-round" data-toggle="tooltip" data-placement="bottom" title="Log in to play music"></i><img src="images/icon.png" width="45"/><span ng-bind-html="pageTitle"></span></a></h1>
             </div>

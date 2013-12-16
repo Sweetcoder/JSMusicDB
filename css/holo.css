@@ -132,6 +132,13 @@ header .dropdown-menu li.active a {
 header button {
 	margin-top: -6px;
 }
+header .dropdown-menu .dropdown-menu {
+	display: block;
+	position: static;
+	border: 0;
+	box-shadow: none;
+	margin: 0 auto;
+}
 .snap-content {
 	min-height: 89.5%;
 	-webkit-transform: translate3d(0, 0, 0) !important;
@@ -631,7 +638,8 @@ header button {
 	header .dropdown-menu {
 		display: block;
 		top: 55px;
-		text-align: center;
+		left: -10px;
+		right: -10px;
 	}
 	header .dropdown-menu li a {
 		width: 38px;
