@@ -42,6 +42,12 @@ header h1 > a {
 header h1 > a:active {
 	background: #38C0F4;
 }
+header h1.play_false img{
+	opacity: 0.5;
+}
+header h1.play_true img{
+	opacity: 1;
+}
 .media a .card {
 	-webkit-transition: all 0.15s ease-out;
 	-moz-transition: all 0.15s ease-out;
@@ -642,7 +648,7 @@ header .dropdown-menu .dropdown-menu {
 		right: -10px;
 	}
 	header .dropdown-menu li a {
-		width: 38px;
+		width: 36px;
 	}
 
 	header h1 {

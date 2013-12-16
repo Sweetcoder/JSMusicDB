@@ -47,12 +47,14 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', '$http',
                                 localStorage.removeItem("store");
                                 localStorage.setItem("store", JSON.stringify(stored));
                             }
+                            $rootScope.canPlay = true;
                         } else {
                             localStorage.removeItem("store");
                             $scope.loginError = true;
+                            $rootScope.canPlay = false;
                         }
                         $scope.isLoading = false;
-                        $rootScope.canPlay = true;
+                        
                     });
             } else if ($scope.server == '2') {
                 // node.js

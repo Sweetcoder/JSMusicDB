@@ -22,6 +22,8 @@ $headers = get_headers($url, 1);
 $content_length = $headers["Content-Length"];
 $context = stream_context_create($opts);
 
+file_put_contents('php://stderr', print_r('opening ' . $url, TRUE));
+
 // open a handle for the response of the streaming script
 $file = fopen($url, "r", false, $context);
 

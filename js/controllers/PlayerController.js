@@ -39,13 +39,6 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 		audiotag.src = src;
 		audiotag.load();
 		audiotag.play();
-		/*
-		// another try to fix the damned mobile playback
-		setTimeout(function() {
-		audiotag.pause();
-		audiotag.play();
-		}, 10);
-		*/
 		// set now playling status
 		playerService.scrobbleNowPlaying($scope);
 	};
@@ -221,7 +214,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 
 	// Disable for firefox for now untill it is fixed in the release channel see https://bugzilla.mozilla.org/show_bug.cgi?id=934100
 	if (/chrome/.test(navigator.userAgent.toLowerCase())) {
-		window.addEventListener("load", function() {
+		//window.addEventListener("load", function() {
 			if (!window.AudioContext) {
 				if (!window.webkitAudioContext) {
 					alert('no audiocontext found');
@@ -241,7 +234,7 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {"use 
 	
 			frameLooper();
 	
-		});
+		//});
 	}
 
 	audiotag.addEventListener('timeupdate', function() {
