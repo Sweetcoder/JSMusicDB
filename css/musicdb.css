@@ -5,6 +5,7 @@
 html, body {
 	font-family: 'Titillium Web', sans-serif;
 	overflow: visible;
+	-webkit-text-stroke: 0.2px;
 }
 body {
 	background: #e5e5e5;

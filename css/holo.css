@@ -147,7 +147,9 @@ header .dropdown-menu .dropdown-menu {
 	margin: 0 auto;
 }
 .snap-content {
-	min-height: 89.5%;
+	min-height: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-transform: translate3d(0, 0, 0) !important;
 	-moz-transform: translate3d(0, 0, 0) !important;
 	-ms-transform: translate3d(0, 0, 0) !important;

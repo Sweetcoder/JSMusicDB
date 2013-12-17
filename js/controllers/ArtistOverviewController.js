@@ -1,5 +1,5 @@
-jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView', '$location', '$routeParams', '$rootScope', 'sortService',
-    function ($scope, $http, switchView, $location, $routeParams, $rootScope, sortService) {
+jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView', '$location', '$routeParams', '$rootScope', 'sortService', '$log',
+    function ($scope, $http, switchView, $location, $routeParams, $rootScope, sortService, $log) {
         "use strict";
 
         $scope.$on('letterChange', function (e, letter) {
@@ -105,6 +105,12 @@ jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView
                 return $rootScope.parsed;
             }, function (n, o) {
                 if (n) {
+                	if ($rootScope.activeLetter) {
+                        $rootScope.activeLetter.active = false;
+                    }
+                    $rootScope.activeLetter = $rootScope.letterCache[$routeParams.letter];
+                    $rootScope.activeLetter.active = true;
+                    switchView.letter($rootScope.activeLetter);
                     if (window._gaq) {
                         _gaq.push(['_trackPageview', '/letter/' + $routeParams.letter]);
                     }

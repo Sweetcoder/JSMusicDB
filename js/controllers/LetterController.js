@@ -1,5 +1,5 @@
-jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', '$window',
-    function ($scope, $rootScope, switchView, $window) {
+jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', '$window', '$log',
+    function ($scope, $rootScope, switchView, $window, $log) {
         "use strict";
         $rootScope.$watch(function () {
             return $rootScope.source;
@@ -14,37 +14,7 @@ jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', 
             }
         });
         $scope.navIndex = -1;
-        // set the artistsInLetter var to reflect the artists in the current active letter
-        $scope.getLetter = function (letter) {
-            if ($scope.activeLetter) {
-                $scope.activeLetter.active = false;
-            }
-            $scope.activeLetter = letter;
-            $scope.activeLetter.active = true;
-            $rootScope.activeLetter = letter;
-            switchView.letter(letter);
-
-        };
-        // TODO: use watch; see other controllers.
-        $scope.$on('routeLetterChange', function (e, l) {
-            var digest = function (l) {
-                if ($rootScope.letters.length !== 0) {
-                    var newLetter = $scope.Letters[l];
-                    if (!newLetter) {
-                        $.each($scope.Letters, function () {
-                            newLetter = this;
-                            return false;
-                        });
-                    }
-                    $scope.getLetter(newLetter);
-                } else {
-                    setTimeout(function () {
-                        digest(l);
-                    }, 100);
-                }
-            };
-            digest(l);
-        });
+                
         $scope.$on("keyOutOfBoundsUp", function (msg, code) {
             if ($rootScope.listenLetters) {
                 switch (code) {
