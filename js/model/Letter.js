@@ -1,5 +1,5 @@
 jsmusicdb.Letter = function(node) {
-    "use strict";
+    'use strict';
 
     function getFirstLetter(name) {
     	if (name.toUpperCase().indexOf("THE ") === 0) {

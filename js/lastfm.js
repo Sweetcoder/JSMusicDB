@@ -14,7 +14,7 @@ var lastfm = {
     secret : '4d183e73f7578dee78557665e9be3acc'
 };
 
-$(function() {"use strict";
+$(function() {'use strict';
     var token = document.location.search;
     if (token) {
         token = token.split("=")[1];

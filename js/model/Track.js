@@ -1,5 +1,5 @@
 jsmusicdb.Track = function(node) {
-    "use strict";
+    'use strict';
     var that = this;
     that.File = node.Naam;
     that.Artiest = node.Artiest;

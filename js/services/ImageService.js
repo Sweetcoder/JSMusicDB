@@ -1,4 +1,4 @@
-jsmusicdb.factory('ImageService', function($http) {"use strict";
+jsmusicdb.factory('ImageService', function($http) {'use strict';
     var image = null;
     return {
         getInfo : function($scope) {

@@ -1,6 +1,6 @@
 jsmusicdb.controller('AlbumController', ['$scope', '$http', 'ImageService', 'playerService', '$location', '$routeParams', '$rootScope', 'switchView', 'sortService', '$log',
     function ($scope, $http, ImageService, playerService, $location, $routeParams, $rootScope, switchView, sortService, $log) {
-        "use strict";
+        'use strict';
 
         // change album
         $scope.$on('albumChange', function (e, album, artist, update) {

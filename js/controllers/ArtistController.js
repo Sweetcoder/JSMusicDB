@@ -1,6 +1,6 @@
 jsmusicdb.controller('ArtistController', ['$scope', '$http', 'ImageService', 'switchView', '$location', '$routeParams', '$rootScope', 'modelService', 'sortService',
     function ($scope, $http, ImageService, switchView, $location, $routeParams, $rootScope, modelService, sortService) {
-        "use strict";
+        'use strict';
         $scope.$on('artistChange', function (e, artist, update) {
             $scope.artist = artist;
             if (update) {

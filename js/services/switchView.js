@@ -3,6 +3,7 @@
  */
 
 angular.module('jsmusicdb.switchView', []).factory('switchView', function ($rootScope) {
+	'use strict';
 	return {
 		letter: function (l) {
 			$rootScope.$broadcast('letterChange', l);

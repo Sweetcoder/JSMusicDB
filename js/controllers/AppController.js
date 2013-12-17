@@ -26,7 +26,7 @@ var jsmusicdb = angular.module('jsmusicdb', ['jsmusicdb.modelService', 'jsmusicd
 /* caching */
 jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView', '$rootScope', '$location', '$routeParams', 'modelService',
     function ($scope, $http, switchView, $rootScope, $location, $routeParams, modelService) {
-        "use strict";
+        'use strict';
         /* declare globals */
         $rootScope.letterCache = {};
         $rootScope.artistCache = {};
@@ -227,7 +227,7 @@ jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView', '$rootSc
             localStorage.setItem("recent", JSON.stringify(recent));
         };
         function stripThe(name) {
-            "use strict";
+            'use strict';
             name = $.trim(name.toUpperCase());
             name = (name.indexOf("THE ") === 0) ? name.substring(4) : name;
             return name;

@@ -6,7 +6,7 @@ window.jsonCache = null;
 window.localJSON = null;
 
 document.addEventListener('deviceready', function() {
-	"use strict";
+	'use strict';
 	var bootstrapped = false;
 	// cordova is ready, do cordova specific stuff
 	

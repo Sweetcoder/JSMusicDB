@@ -1,5 +1,5 @@
 jsmusicdb.Artist = function(node) {
-    "use strict";
+    'use strict';
 	var that = this;
 	that.Naam = node.Naam;
 	that.Omvang = node.MB;
@@ -21,7 +21,7 @@ jsmusicdb.Artist = function(node) {
 		return "/letter/" + getFirstLetter(node.Naam) + "/artist/" + node.Naam; 
 	};
 	
-	function getFirstLetter(name) {"use strict";
+	function getFirstLetter(name) {'use strict';
 		name = stripThe(name);
 		var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'], firstLetter = name.charAt(0);
 		if ($.inArray(firstLetter, specialChars) > -1) {
@@ -30,7 +30,7 @@ jsmusicdb.Artist = function(node) {
 		return "" + firstLetter;
 	}
 	
-	function stripThe(name) {"use strict";
+	function stripThe(name) {'use strict';
 		name = $.trim(name.toUpperCase());
 		name = (name.indexOf("THE ") === 0) ? name.substring(4) : name;
 		return name;

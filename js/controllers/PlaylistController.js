@@ -1,5 +1,5 @@
 jsmusicdb.controller('PlaylistController', ['$scope', 'playerService', function ($scope, playerService) {
-    "use strict";
+    'use strict';
 
     window.document.title = 'JSMusicDB - Playlist';
     if (window._gaq) {

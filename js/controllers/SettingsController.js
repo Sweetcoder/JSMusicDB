@@ -1,6 +1,6 @@
 jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', '$http',
     function ($scope, $rootScope, $http) {
-        "use strict";
+        'use strict';
 
         window.document.title = 'JSMusicDB - Settings';
         if (window._gaq) {

@@ -2,7 +2,8 @@
  * Service module to hold information about the player
  */
 
-angular.module('jsmusicdb.playerService', []).service('playerService', function($rootScope, $http) {"use strict";
+angular.module('jsmusicdb.playerService', []).service('playerService', function($rootScope, $http) {
+	'use strict';
     var that = this;
     that.busy = false;
     that.isRandom = false;
@@ -13,28 +14,6 @@ angular.module('jsmusicdb.playerService', []).service('playerService', function(
         return album;
     };
     this.addAlbum = function(album, playlist) {
-        /*
-         $rootScope.playlistAlbums = $rootScope.playlistAlbums || [];
-         if ($.inArray(album, $rootScope.playlistAlbums) === -1) {
-         album.tracks = album.tracks.sort(function(a, b) {
-         var aDiscMultiplier = 100, bDiscMultiplier = 100;
-         if (!isNaN(a.Disc)) {
-         aDiscMultiplier = a.Disc * 100;
-         }
-         if (!isNaN(b.Disc)) {
-         bDiscMultiplier = b.Disc * 100;
-         }
-         if (Number(Number(a.Nummer) + aDiscMultiplier) < Number(Number(b.Nummer) + bDiscMultiplier)) {
-         return -1;
-         } else {
-         return 1;
-         }
-         });
-         $rootScope.playlistAlbums = $rootScope.playlistAlbums.concat(album);
-         if (that.isRandom) {
-         $rootScope.playlistAlbums = shuffle($rootScope.playlistAlbums);
-         }
-         }*/
         if (!playlist) {
         	playlist = $rootScope.playlist; 
         }

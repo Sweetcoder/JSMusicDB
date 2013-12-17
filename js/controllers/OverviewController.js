@@ -1,6 +1,6 @@
 jsmusicdb.controller('OverviewController', ['$scope', '$http', 'switchView', '$location', '$routeParams', '$rootScope', 'sortService',
     function ($scope, $http, switchView, $location, $routeParams, $rootScope, sortService) {
-        "use strict";
+        'use strict';
         $scope.sortService = sortService;
         $rootScope.rootView = true;
 

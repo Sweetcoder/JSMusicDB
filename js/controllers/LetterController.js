@@ -1,6 +1,6 @@
 jsmusicdb.controller('LetterController', ['$scope', '$rootScope', 'switchView', '$window', '$log',
     function ($scope, $rootScope, switchView, $window, $log) {
-        "use strict";
+        'use strict';
         $rootScope.$watch(function () {
             return $rootScope.source;
         }, function (n, o) {

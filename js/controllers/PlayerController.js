@@ -1,5 +1,5 @@
 jsmusicdb.controller('PlayerController', ['$scope', '$http', 'switchView', '$rootScope', 'playerService', '$location',
-function($scope, $http, switchView, $rootScope, playerService, $location) {"use strict";
+function($scope, $http, switchView, $rootScope, playerService, $location) {'use strict';
 	var playerpath = 'proxy/$s/stream.php?path=', audiotag = $('audio').get(0), watching = [$scope.album, $scope.track], sanitize = function(name) {
 		name = name.replace(/\+/g, '%2B');
 		name = name.replace(/\&/g, '%26');

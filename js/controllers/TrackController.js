@@ -1,5 +1,5 @@
 jsmusicdb.controller('TrackController', ['$scope', 'switchView', 'playerService', '$rootScope', function ($scope, switchView, playerService, $rootScope) {
-    "use strict";
+    'use strict';
     $scope.playTrack = function (album, track, type, $event) {
         if ($rootScope.canPlay || track.inLocalDevice) {
             var playlist = (type) ? $rootScope.playlist : $rootScope.playlistNowPlaying;

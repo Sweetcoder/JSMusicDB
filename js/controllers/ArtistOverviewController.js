@@ -1,6 +1,6 @@
 jsmusicdb.controller('ArtistOverviewController', ['$scope', '$http', 'switchView', '$location', '$routeParams', '$rootScope', 'sortService', '$log',
     function ($scope, $http, switchView, $location, $routeParams, $rootScope, sortService, $log) {
-        "use strict";
+        'use strict';
 
         $scope.$on('letterChange', function (e, letter) {
             // show artists based on source
