@@ -38,8 +38,8 @@
         <table class="table table-striped table-bordered table-hover">
             <tbody>
                 <tr ng-repeat="track in album.tracks| orderBy: orderTracks" ng-controller="TrackController" ng-class="{false: '', true: 'highlight'}[$index == navIndex]" bindonce>
-                    <td class="trackno" ng-click="playTrack(album, track, $event)"><span ng-show="track.isPlaying"> <i class="ion-play"></i> </span><span ng-show="!track.isPlaying"> {{track.Nummer}} </span></td>
-                    <td ng-click="playTrack(album, track, null, $event)">{{track.Titel}}</td>
+                    <td class="trackno" ng-click="playTrack(album, track, $event)"><span ng-show="track.isPlaying"> <i class="ion-play"></i> </span><span ng-show="!track.isPlaying"> <span bo-text="track.Nummer"></span> </span></td>
+                    <td ng-click="playTrack(album, track, null, $event)" bo-text="track.Titel"></td>
                     <td class="dur"><span bo-text="track.Tijd"></span>
                     	<button class="btn" ng-click="addToPlaylist(track)" ng-show="trackstate == 'plus'">
 			                <i class="ion-{{trackstate}}" title="Track added to playlist"></i>

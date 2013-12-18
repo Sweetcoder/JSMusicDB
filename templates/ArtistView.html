@@ -21,7 +21,7 @@
                     <div class="details">
                         <div class="title fade-out">
                             <span bo-text="album.Album"></span>
-                            <span bo-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span>
+                            <span bo-show="album.Jaar">&nbsp;(<span bo-text="album.Jaar"></span>)</span>
                         </div>
                         <div class="subtitle fade-out">
                             <ng-pluralize count="album.tracks.length" when="{'0': 'No tracks', '1': '1 track', 'other': '{} tracks'}"></ng-pluralize>
