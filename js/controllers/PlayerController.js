@@ -15,6 +15,21 @@ function($scope, $http, switchView, $rootScope, playerService, $location) {'use 
 	$rootScope.playlistNowPlaying = [];
 
 	$scope.playlist = $rootScope.playlist;
+	
+	window.jsmusicdb.player = this;
+	
+	var busy = false;
+	this.updateState = function (state) {
+		if (!busy) {
+			busy = true;
+			console.log("arielext.org; received a state update from Java: '" + state + "'");
+			$scope[state]();
+			setTimeout(function () {
+				// don't allow changing the state multiple times < 100ms
+				busy = false;
+			}, 100);
+		}
+	};
 
 	var play = function(track) {
 		$scope.scrobbeld = false;
