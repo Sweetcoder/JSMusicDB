@@ -1,59 +1,31 @@
-
-	    <ul class="nav nav-tabs" id="playlistSelector">
-	        <li class="active"><a href="#trackPlaylist" data-toggle="tab">Default</a></li>
-	    </ul>
-	    <div class="tab-content" id="setLogin">
-    	    <div class="playlist tab-pane active" id="trackPlaylist">
-    	        <table class="table table-striped table-bordered table-hover" ng-show="playlist.length > 0">
-                    <tbody>
-                        <tr ng-repeat="track in playlist" ng-controller="TrackController">
-                            <td class="trackno" ng-click="playTrack(track.albumNode, track, 'track')"><span ng-show="track.isPlaying"> <i class="ion-play"></i> </span>&nbsp;</td>
-                            <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Artiest}}</td>
-                            <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Titel}}</td>
-                            <td class="dur">{{track.Tijd}}
-                            	<button class="btn" ng-click="removeFromPlaylist(track)">
-					                <i class="icon-minus" title="Track added to playlist"></i>
-					            </button>	
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="alert alert-info" ng-show="!playlist || playlist.length == 0">
-                    <strong>Please note!</strong> Add/play some tracks first and come back
-                </div>
-    	    </div>
-    		<div class="playlist tab-pane" id="albumPlaylist">
-    			<div class="group" ng-repeat="album in playlistAlbums" ng-controller="AlbumController">
-    				<img bn-lazy-src="{{album.Artiest}}|{{album.Album}}" class="art" align="left">
-    				<div class="actions">
-	    				<button class="btn" ng-click="removeFromPlaylist(album)">
-			                <i class="icon-minus"></i>
-			            </button>
-			        </div>
-			        <h3>{{album.Artiest}} - {{album.Album}} <span ng-show="album.Jaar"> &nbsp;({{album.Jaar}}) </span></h3>
-    				<table class="table table-striped table-bordered table-hover">
-    					<thead>
-    						<tr>
-    							<th class="trackno">&nbsp;</th>
-    							<th class="trackno">#</th>
-    							<th class="track">Track</th>
-    							<th class="dur">Duration</th>
-    						</tr>
-    					</thead>
-    					<tbody>
-    						<tr ng-repeat="track in album.tracks| orderBy: orderTracks" ng-controller="TrackController" ng-click="playTrack(album, track, 'album')">
-    							<td class="trackno"><span ng-show="track.isPlaying"> <img src="img/ani_equalizer_black.gif" alt=""> </span></td>
-    							<td class="trackno">{{track.Nummer}}</td>
-    							<td>{{track.Titel}}</td>
-    							<td>{{track.Tijd}}</td>
-    						</tr>
-    
-    					</tbody>
-    				</table>
-    			</div>
-    			<div class="alert alert-info" ng-show="!playlistAlbums || playlistAlbums.length == 0">
-                    <strong>Please note!</strong> Add some albums first and come back
-                </div>
-    		</div>
-    	</div>
-	</div>
+<div ng-controller="PlaylistController" id="playlist">
+    <div class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Select a playlist</a>
+        <ul class="dropdown-menu" id="playlistSelector" role="menu">
+            <li>
+                <a ng-click="setPlaylist('track')" data-toggle="tab">Default</a>
+            </li>
+            <li ng-repeat="playlist in playlists" bindonce class="smallTab">
+                <a ng-click="setPlaylist(playlist)" data-toggle="tab" bo-text="playlist.title" ng-attr-title="{{playlist.title}}"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="setLogin">        
+        <div class="playlist tab-pane active" id="trackPlaylist">
+            <h2 ng-show="selectedPlaylist">{{selectedPlaylist.title}}</h2>
+            <table class="table table-striped table-bordered table-hover" ng-show="playlistTracks.length > 0">
+                <tbody>
+                    <tr ng-repeat="track in playlistTracks" ng-controller="TrackController">
+                        <td class="trackno" ng-click="playTrack(track.albumNode, track, 'track')"><span ng-show="track.isPlaying"> <i class="ion-play"></i> </span>&nbsp;</td>
+                        <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Artiest}}</td>
+                        <td ng-click="playTrack(track.albumNode, track, 'track')">{{track.Titel}}</td>
+                        <td class="dur">{{track.Tijd}}
+                        <button class="btn" ng-click="removeFromPlaylist(track)">
+                            <i class="icon-minus" title="Track added to playlist"></i>
+                        </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

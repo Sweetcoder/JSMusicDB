@@ -9,6 +9,7 @@ jsmusicdb.controller('SettingsController', ['$scope', '$rootScope', '$http',
         $scope.lastfmLink = 'http://www.last.fm/api/auth/?api_key=956c1818ded606576d6941de5ff793a5&cb=' + document.location.href.substring(0, document.location.href.indexOf("#"));
         var lastfmkey = localStorage.getItem("key");
         $rootScope.url = $scope.url;
+        $rootScope.server = $scope.server;
         $rootScope.canPlay = false;
 
         $scope.isLoading = false;

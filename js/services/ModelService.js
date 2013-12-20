@@ -135,6 +135,7 @@ angular.module('jsmusicdb.modelService', []).service('modelService', function($r
 						$rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album].tracks.push(track);
 						track.albumNode = $rootScope.albumCache[stripThe(value.Artiest) + "-" + value.Album];
 						$rootScope.trackCache[stripThe(value.Artiest) + "-" + value.Album + "-" + value.Titel] = track;
+						$rootScope.pathCache[track.path] = track;
 						if (updateTotals) {
 							$rootScope.totalTracks++;
 							$rootScope.totalPlaying = $scope.totalPlaying + 2500;

@@ -468,9 +468,6 @@ header .dropdown-menu .dropdown-menu {
 	position: static;
 }
 /* playlist */
-#playlistSelector {
-	display: none;
-}
 #trackPlaylist table th, #trackPlaylist table td {
 	border-left: 0;
 	line-height: 1;
@@ -663,3 +660,7 @@ header .dropdown-menu .dropdown-menu {
 		padding-top: 122px;
 	}
 }
+
+
+
+/*** playlist */

@@ -293,9 +293,6 @@ ol li {
 }
 
 /* animations */
-.container {
-	overflow: hidden;
-}
 #content {
 	position: relative;
 }

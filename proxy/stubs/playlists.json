@@ -1,0 +1,411 @@
+{
+   "items" : [
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_personal_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_personal/playlist/test",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 0,
+         "title" : "test"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/867",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 1,
+         "title" : "- 2000-05-30 Wembley Arena - London, England - Side A"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/873",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 2,
+         "title" : "- 29-06-00 Spectrum, Olso, Norway (Disc-1)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/872",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 3,
+         "title" : "- 6-2000 SE+CC, Arena Glasgow Scotland (CD 2) - Pearl Jam -"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/875",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 4,
+         "title" : "- Atlanta Georgia Aug. 7 2000"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/879",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 5,
+         "title" : "- August_21_2000 Columbus, Ohio (Disc-1)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/880",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 6,
+         "title" : "- August_21_2000 Columbus, Ohio (Disc-2)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/869",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 7,
+         "title" : "- Dublin, Ireland (Live 01-06-2000)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/870",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 8,
+         "title" : "- Dublin, Ireland (Live 01-06-2000) Disc 2"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/861",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 9,
+         "title" : "- Pea"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/884",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 10,
+         "title" : "- Pearl Jam - Au"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/886",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 11,
+         "title" : "- Pearl Jam - Bo"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/878",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 12,
+         "title" : "- Pearl Jam - Tampa Fl"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/877",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 13,
+         "title" : "- Pearl Jam - Tampa Flo"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/889",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 14,
+         "title" : "...Like Clockwork"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/858",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 15,
+         "title" : "00 - Nemesea - The Quiet Resistance - 2011"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/854",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 16,
+         "title" : "00-devin_townsend_project-ki-promo-2009-qtxmp3"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/888",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 17,
+         "title" : "00-protest_the_hero-fortress-2008"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/853",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 18,
+         "title" : "00. Amaranthe - Amaranthe 2011"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/887",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 19,
+         "title" : "00. Poisonblack - Drive 2011"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/883",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 20,
+         "title" : "2000 - 08-25-2000 Jones Beach New York Disc 1"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/865",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 21,
+         "title" : "2000 - 2000-05-29, London (Disc 1)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/859",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 22,
+         "title" : "2000 - 23-5-00 EstÃ¡dio Do Restelo, Lisbon, Portugal (side A)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/860",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 23,
+         "title" : "2000 - 23-5-00 EstÃ¡dio Do Restelo, Lisbon, Portugal (Side B)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/881",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 24,
+         "title" : "2000 - 24-08-00 Jones Beach New York (Disc-1)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/882",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 25,
+         "title" : "2000 - 24-08-00 Jones Beach New York (Disc-2)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/874",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 26,
+         "title" : "2000 - 29-06-00 Spectrum, Olso, Norway (Disc-2)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/866",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 27,
+         "title" : "2000 - 29_5_00 Wembley Arena, London, England (Disc-2)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/868",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 28,
+         "title" : "2000 - 30_5_00 Wembley Arena, London, England (Disc-2)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/871",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 29,
+         "title" : "2000 - 6-2000 SE+CC, Arena Glasgow Scotland (CD 1) - Pearl Jam -"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/862",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 30,
+         "title" : "2000 - Pea"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/864",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 31,
+         "title" : "2000 - Pearl Jam - May-2"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/863",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 32,
+         "title" : "2000 - Velodromo de Anoeta, San Sebastian, Spain"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/876",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 33,
+         "title" : "2001 - 29 - Atlanta (Disc 2)"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/885",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 34,
+         "title" : "2001 - Pearl Jam -"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/855",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 35,
+         "title" : "Fear Factory - Mechanize"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/894",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 36,
+         "title" : "Keith Caputo - A Fondness For Hometown Scars"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/857",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 37,
+         "title" : "Kensington - 00 - Borders"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/856",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 38,
+         "title" : "Kensington - Vultures"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/895",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 39,
+         "title" : "Playlist"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/896",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 40,
+         "title" : "Playlist"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/892",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 41,
+         "title" : "Playlist"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/893",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 42,
+         "title" : "Playlist"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/890",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 43,
+         "title" : "Shadow Gallery - Digital Ghosts"
+      },
+      {
+         "albumArtURL" : "3rdparty/AudioStation/images/thumb_128_shared_playlist.png",
+         "is_container" : true,
+         "is_track" : false,
+         "item_id" : "musiclib_music_shared/playlist/891",
+         "item_pid" : "musiclib_music_playlist",
+         "sequence" : 44,
+         "title" : "Soulsavers - The Light The Dead See"
+      }
+   ],
+   "success" : true,
+   "total" : 45
+}

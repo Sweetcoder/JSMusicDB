@@ -32,6 +32,7 @@ jsmusicdb.controller('AppController', ['$scope', '$http', 'switchView', '$rootSc
         $rootScope.artistCache = {};
         $rootScope.albumCache = {};
         $rootScope.trackCache = {};
+        $rootScope.pathCache = {};
         $rootScope.letterCacheLocal = {};
         $rootScope.artistCacheLocal = {};
         $rootScope.albumCacheLocal = {};
