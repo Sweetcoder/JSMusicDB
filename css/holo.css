@@ -468,6 +468,13 @@ header .dropdown-menu .dropdown-menu {
 	position: static;
 }
 /* playlist */
+#trackPlaylist .actions {
+	float: left;
+	margin-right: 10px;
+}
+#trackPlaylist .actions i {
+	font-size: 28px;
+}
 #trackPlaylist table th, #trackPlaylist table td {
 	border-left: 0;
 	line-height: 1;

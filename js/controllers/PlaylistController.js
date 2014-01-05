@@ -29,6 +29,72 @@ function($scope, playerService, $log, $http, $rootScope) {'use strict';
 		document.location.href = "#" + $rootScope.contentPath;
 	});
 
+	$scope.deletePlaylist = function(playlist) {
+		if (playlist !== "track") {
+			// this is server based playlist
+			if ($rootScope.server === '1') {
+				$http.get('proxy/1/deletePlaylist.php?server=' + $rootScope.url + '&sid=' + $rootScope.sid + '&playlist=' + playlist.item_id).success(function(data) {
+					if (data.success) {
+						$scope.selectedPlaylist = null;
+
+					}
+					// refresh playlists
+					$scope.getPlaylists();
+				});
+			}
+		}
+	};
+
+	$scope.addPlaylist = function() {
+		var newList = $scope.data.playlistName;
+		if (playlist !== "track") {
+			// this is server based playlist
+			if ($rootScope.server === '1') {
+				$http.get('proxy/1/addPlaylist.php?server=' + $rootScope.url + '&sid=' + $rootScope.sid + '&playlist=' + $scope.data.playlistName).success(function(data) {
+					if (data.success) {
+						$scope.data.playlistName = '';
+					}
+					// refresh playlists
+					$scope.getPlaylists(function() {
+						angular.forEach($scope.playlists, function(value) {
+							if (value.title === newList) {
+								$scope.selectedPlaylist = value;
+							}
+						});
+					});
+				});
+			}
+		}
+	};
+
+	$scope.renamePlaylist = function(playlist) {
+		/*
+		 action:saveplsname
+		 id:musiclib_music_shared/playlist/902
+		 name:12345
+		 library:shared
+		 */
+		var newName = $scope.data.alterPlaylistName;
+		if (playlist !== "track") {
+			// this is server based playlist
+			if ($rootScope.server === '1') {
+				$http.get('proxy/1/renamePlaylist.php?server=' + $rootScope.url + '&sid=' + $rootScope.sid + '&playlist=' + playlist.item_id + '&name=' + newName).success(function(data) {
+					if (data.success) {
+						// refresh playlists
+						$scope.getPlaylists(function() {
+							angular.forEach($scope.playlists, function(value) {
+								if (value.title === newName) {
+									$scope.selectedPlaylist = value;
+								}
+							});
+						});
+						$scope.data.alterPlaylistName = null;
+					}
+				});
+			}
+		}
+	};
+
 	$scope.setPlaylist = function(playlist) {
 		var tmpList = [];
 		if (playlist !== "track") {
@@ -77,28 +143,35 @@ function($scope, playerService, $log, $http, $rootScope) {'use strict';
 
 	/** extended playlist support **/
 
-	var tmpList = [];
-	$rootScope.$watch(function() {
-		return $rootScope.canPlay;
-	}, function(n, o) {
-		if (n) {
-			if ($rootScope.server === '1') {
-				$http.get("proxy/1/playlists.php?server=" + $rootScope.url + "&sid=" + $rootScope.sid).success(function(data) {
-					angular.forEach(data, function(value, key) {
-						if (key === "items") {
-							angular.forEach(value, function(value) {
-								var playlist = new jsmusicdb.Playlist(value);
-								tmpList.push(playlist);
-							});
+	$scope.getPlaylists = function(callback) {
+		var tmpList = [];
+		$rootScope.$watch(function() {
+			return $rootScope.canPlay;
+		}, function(n, o) {
+			if (n) {
+				if ($rootScope.server === '1') {
+					$http.get("proxy/1/playlists.php?server=" + $rootScope.url + "&sid=" + $rootScope.sid).success(function(data) {
+						angular.forEach(data, function(value, key) {
+							if (key === "items") {
+								angular.forEach(value, function(value) {
+									var playlist = new jsmusicdb.Playlist(value);
+									tmpList.push(playlist);
+								});
+							}
+						});
+						$scope.playlists = tmpList;
+						if (callback) {
+							callback();
 						}
 					});
-					$scope.playlists = tmpList;
-				});
+				}
 			}
-		}
-	});
-	
-	$("#playlist .dropdown .dropdown-toggle").on("click", function () {
+		});
+	};
+
+	$scope.getPlaylists();
+
+	$("#playlist .dropdown .dropdown-toggle").on("click", function() {
 		$("#playlistSelector .active").removeClass("active");
 	});
 

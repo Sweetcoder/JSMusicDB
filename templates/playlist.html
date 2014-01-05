@@ -10,9 +10,28 @@
             </li>
         </ul>
     </div>
-    <div class="tab-content" id="setLogin">        
-        <div class="playlist tab-pane active" id="trackPlaylist">
-            <h2 ng-show="selectedPlaylist">{{selectedPlaylist.title}}</h2>
+    <div class="tab-content" id="setLogin">
+    	
+    	<div class="">
+    		<input type="text" ng-model="data.playlistName" placeholder="New playlist name">
+    		<button class="btn" ng-click="addPlaylist()">
+    			<i class="ion-plus"></i>
+    		</button>
+    	</div>
+    	      
+        <div class="playlist tab-pane active" id="trackPlaylist" ng-show="selectedPlaylist">
+        	<div class="actions">
+                <button class="btn" ng-click="deletePlaylist(selectedPlaylist)">
+	                <i class="ion-trash-a"></i>
+	            </button>
+            </div>
+            <h2>
+            	{{selectedPlaylist.title}}
+            	<input type="text" ng-model="data.alterPlaylistName">
+            	<button class="btn" ng-click="renamePlaylist(selectedPlaylist)" placeholder="New name for this playlist">
+            		<i class="ion-upload"></i>
+            	</button>
+            </h2>            
             <table class="table table-striped table-bordered table-hover" ng-show="playlistTracks.length > 0">
                 <tbody>
                     <tr ng-repeat="track in playlistTracks" ng-controller="TrackController">
@@ -27,5 +46,6 @@
                 </tbody>
             </table>
         </div>
+        
     </div>
 </div>
